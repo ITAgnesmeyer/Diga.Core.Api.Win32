@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.128
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.Core.Api.Win32", "Diga.Core.Api.Win32\Diga.Core.Api.Win32.csproj", "{F73B6628-BEE6-495B-B8A3-025C46670E1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.Core.Api.Win32.Std", "Diga.Core.Api.Win32.Std\Diga.Core.Api.Win32.Std.csproj", "{18F7108E-E780-458E-866C-E99EA2919CB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F73B6628-BEE6-495B-B8A3-025C46670E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73B6628-BEE6-495B-B8A3-025C46670E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73B6628-BEE6-495B-B8A3-025C46670E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73B6628-BEE6-495B-B8A3-025C46670E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18F7108E-E780-458E-866C-E99EA2919CB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F7108E-E780-458E-866C-E99EA2919CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F7108E-E780-458E-866C-E99EA2919CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F7108E-E780-458E-866C-E99EA2919CB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE034743-605B-40EA-A8FE-55E6C38DE544}
+	EndGlobalSection
+EndGlobal
