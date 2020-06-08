@@ -5,7 +5,7 @@
 
 namespace Diga.Core.Api.Win32
 {
-    /// <inheritdoc />
+    
     [StructLayout(LayoutKind.Sequential)]
     public struct InitCommonControlsEx
     {

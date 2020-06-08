@@ -3,7 +3,7 @@
 namespace Diga.Core.Api.Win32
 {
     [Flags]
-    public enum Gwl :int
+    public enum GWL :int
     {
         GWL_WNDPROC =    (-4),
         GWL_HINSTANCE =  (-6),

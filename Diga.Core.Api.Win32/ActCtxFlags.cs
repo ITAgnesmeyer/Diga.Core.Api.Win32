@@ -3,9 +3,9 @@
 
 namespace Diga.Core.Api.Win32
 {
-    public static class ActCtx_FLags
+    public static class ActCtxFlags
     {
-    
+
         public const uint ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID = 0x001;
         public const uint ACTCTX_FLAG_LANGID_VALID = 0x002;
         public const uint ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID = 0x004;

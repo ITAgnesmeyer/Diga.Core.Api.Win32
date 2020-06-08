@@ -8,6 +8,6 @@ namespace Diga.Core.Api.Win32
     {
         public IntPtr hwndFrom;
         public uint idFrom;
-        public uint code;
+        public long code;
     }
 }

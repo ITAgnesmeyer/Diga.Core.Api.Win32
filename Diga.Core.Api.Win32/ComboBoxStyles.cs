@@ -1,5 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-namespace Diga.Core.Api.Win32
+﻿namespace Diga.Core.Api.Win32
 {
     public static class ComboBoxStyles
     {

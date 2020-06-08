@@ -1,5 +1,7 @@
 ﻿using System;
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Local
 
 namespace Diga.Core.Api.Win32
 {

@@ -3,7 +3,7 @@
 
 namespace Diga.Core.Api.Win32
 {
-    public  static class ListBoxMessages
+    public static class ListBoxMessages
     {
         /// LB_SETHORIZONTALEXTENT -> 0x0194
         public const int LB_SETHORIZONTALEXTENT = 404;

@@ -5,15 +5,13 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
-   
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    //[StructLayout(LayoutKind.Sequential)]
-    public struct WndClassEx
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    public struct WndclassEx
     {
-        [MarshalAs(UnmanagedType.U4)] public int cbSize;
-        [MarshalAs(UnmanagedType.U4)] public uint style;
-        public IntPtr lpfnWndProc;
+        public int cbSize;
+        public uint style;
+        public WndProc lpfnWndProc;
         public int cbClsExtra;
         public int cbWndExtra;
         public IntPtr hInstance;
@@ -24,11 +22,9 @@ namespace Diga.Core.Api.Win32
         public string lpszClassName;
         public IntPtr hIconSm;
 
-        public static WndClassEx Build()
-        {
-            var nw = new WndClassEx();
-            nw.cbSize = Marshal.SizeOf(typeof(WndClassEx));
-            return nw;
-        }
+
     }
+
+   
+
 }

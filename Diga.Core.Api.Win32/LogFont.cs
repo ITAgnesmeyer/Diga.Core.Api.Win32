@@ -1,11 +1,12 @@
 ﻿using System.Runtime.InteropServices;
 
-
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Local
 
 namespace Diga.Core.Api.Win32
 {
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct LogFontW
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    public struct LogFont
     {
         /// LONG->int
         public int lfHeight;

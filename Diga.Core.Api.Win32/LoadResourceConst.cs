@@ -1,6 +1,6 @@
-﻿
+﻿// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Local
 
-// ReSharper disable InconsistentNaming
 namespace Diga.Core.Api.Win32
 {
     public class LoadResourceConst

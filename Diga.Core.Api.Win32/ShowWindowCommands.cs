@@ -3,7 +3,7 @@
 namespace Diga.Core.Api.Win32
 {
     [Flags]
-    public enum ShowWindowCommands
+    public enum ShowWindowCommands : int
     {
         /// <summary>
         /// Hides the window and activates another window.
@@ -35,7 +35,7 @@ namespace Diga.Core.Api.Win32
 
         /// <summary>
         /// Displays a window in its most recent size and position. This value
-        /// is similar to <see />, except
+        /// is similar to <see cref="Win32"/>, except
         /// the window is not activated.
         /// </summary>
         ShowNoActivate = 4,
@@ -63,7 +63,7 @@ namespace Diga.Core.Api.Win32
         /// similar to <see />, except the
         /// window is not activated.
         /// </summary>
-        ShowNa = 8,
+        ShowNA = 8,
 
         /// <summary>
         /// Activates and displays the window. If the window is minimized or

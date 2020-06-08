@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct ActCtx
     {
         public int cbSize;
@@ -17,6 +17,7 @@ namespace Diga.Core.Api.Win32
         public string lpAssemblyDirectory;
         public IntPtr lpResourceName;
         public string lpApplicationName;
+
     }
 }
 

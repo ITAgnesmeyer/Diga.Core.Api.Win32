@@ -1,11 +1,12 @@
 ﻿using System.Runtime.InteropServices;
 
-
+// ReSharper disable IdentifierTypo
+// ReSharper disable InconsistentNaming
 
 namespace Diga.Core.Api.Win32
 {
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public struct OfStruct
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    public struct OFSTRUCT
     {
 
         /// BYTE->unsigned char

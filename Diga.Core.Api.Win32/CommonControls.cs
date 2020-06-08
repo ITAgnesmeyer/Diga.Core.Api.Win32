@@ -2,7 +2,7 @@
 
 namespace Diga.Core.Api.Win32
 {
-    /// <inheritdoc />
+   
     public enum CommonControls : uint
     {
         ICC_UNDEFINED = 0,

@@ -3,7 +3,7 @@
 
 namespace Diga.Core.Api.Win32
 {
-    public enum DefaultHwnd : int
+    public enum DefaultHWND : int
     {
         HWND_TOP = 0,
         HWND_BOTTOM = 1,

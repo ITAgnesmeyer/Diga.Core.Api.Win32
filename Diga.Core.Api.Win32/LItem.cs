@@ -2,7 +2,7 @@
 
 namespace Diga.Core.Api.Win32
 {
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public class LItem
     {
         public uint mask;
