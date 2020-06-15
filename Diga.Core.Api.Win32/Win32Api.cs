@@ -20,6 +20,19 @@ namespace Diga.Core.Api.Win32
             return number & 0xffff;
         }
 
+        public static uint GetIntPtrUInt(IntPtr ptr)
+        {
+            uint result = unchecked(IntPtr.Size == 8 ? (uint)ptr.ToInt64() : (uint)ptr.ToInt32());
+            return result;
+        }
+        public static HighLow MakeHiLo(IntPtr lParam)
+        {
+            HighLow hl = new HighLow();
+            uint uHiLow = GetIntPtrUInt(lParam);
+            hl.iLow = unchecked((short)uHiLow);
+            hl.iHigh = unchecked((short)(uHiLow >> 16));
+            return hl;
+        }
         public static int MakeLong(int loWord, int hiWord)
         {
             return (hiWord << 16) | (loWord & 0xffff);

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿
+using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {

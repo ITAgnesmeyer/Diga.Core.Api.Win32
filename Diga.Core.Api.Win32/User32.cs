@@ -93,8 +93,7 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "GetClassName", CharSet = CHARSET)]
         public static extern int GetClassName(IntPtr hWnd, StringBuilder buf, int nMaxCount);
 
-        [DllImport(USER32, EntryPoint = "GetClassName", CharSet = CharSet.Unicode)]
-        public static extern int GetClassNameW(IntPtr hWnd, StringBuilder buf, int nMaxCount);
+        
 
 
 
@@ -102,7 +101,7 @@ namespace Diga.Core.Api.Win32
         public static string GetClassName(IntPtr hWnd)
         {
             StringBuilder sb = new StringBuilder(256);
-            int retValue = GetClassNameW(hWnd, sb, 256);
+            int retValue = GetClassName(hWnd, sb, 256);
             return sb.ToString();
         }
 
@@ -585,6 +584,17 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, EntryPoint="GetGuiResources")]
         public static extern  uint GetGuiResources([In] IntPtr hProcess, uint uiFlags) ;
+
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        ///lprcUpdate: RECT*
+        ///hrgnUpdate: HRGN->HRGN__*
+        ///flags: UINT->unsigned int
+        [DllImport("user32.dll", EntryPoint="RedrawWindow")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool RedrawWindow([In] IntPtr hWnd, [In] IntPtr lprcUpdate, [In] IntPtr hrgnUpdate, uint flags) ;
+
 
     }
 }

@@ -35,12 +35,12 @@ namespace Diga.Core.Api.Win32
                 // Common Window Styles
 
                 public const uint WS_OVERLAPPEDWINDOW =
-                        WS_OVERLAPPED |
-                        WS_CAPTION |
-                        WS_SYSMENU |
-                        WS_THICKFRAME |
-                        WS_MINIMIZEBOX |
-                        WS_MAXIMIZEBOX;
+                        (WS_OVERLAPPED |
+                         WS_CAPTION |
+                         WS_SYSMENU |
+                         WS_THICKFRAME |
+                         WS_MINIMIZEBOX |
+                         WS_MAXIMIZEBOX);
 
                 public const uint WS_POPUPWINDOW =
                     WS_POPUP |

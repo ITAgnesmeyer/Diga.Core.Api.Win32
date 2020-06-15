@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F73B6628-BEE6-495B-B8A3-025C46670E1F}</ProjectGuid>
+    <ProjectGuid>{5318AF90-E3ED-4EB1-80F6-42D217653ACE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
@@ -16,7 +16,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -85,9 +85,12 @@
     <Compile Include="MenuStyles.cs" />
     <Compile Include="MessageBoxCheckFlags.cs" />
     <Compile Include="MessageBoxOptionsConst.cs" />
+    <Compile Include="MouseKey.cs" />
+    <Compile Include="MouseKeyConst.cs" />
     <Compile Include="MSG.cs" />
     <Compile Include="NmHdr.cs" />
     <Compile Include="NmlInk.cs" />
+    <Compile Include="NotifyMessageConst.cs" />
     <Compile Include="OfNw.cs" />
     <Compile Include="OFSTRUCT.cs" />
     <Compile Include="Ole32.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="ProgressBarStyles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rect.cs" />
+    <Compile Include="RedrawConstants.cs" />
     <Compile Include="RichEditMessages.cs" />
     <Compile Include="RichTextSetTextConst.cs" />
     <Compile Include="RichtTextGetTextConst.cs" />
@@ -112,7 +116,6 @@
     <Compile Include="TbButton.cs" />
     <Compile Include="TimerProc.cs" />
     <Compile Include="User32.cs" />
-    <Compile Include="UxTheme.cs" />
     <Compile Include="Win32Api.cs" />
     <Compile Include="Win32ApiCursors.cs" />
     <Compile Include="WindowsMessages.cs" />

@@ -742,7 +742,7 @@ namespace Diga.Core.Api.Win32
         public const uint WM_MBUTTONDBLCLK = 0x0209;
 
         /// <summary>
-        /// The WM_MOUSEWHEEL message is sent to the focus window when the mouse wheel is rotated. The DefWindowProc function propagates the message to the window's parent. There should be no internal forwarding of the message; since DefWindowProc propagates it up the parent chain until it finds a window that processes it.
+        /// The WM_MOUSEWHEEL message is sent to the focus window when the mouse wheel is rotated. The DefWindowProc function propagates the message to the window's parent. There should be no public forwarding of the message; since DefWindowProc propagates it up the parent chain until it finds a window that processes it.
         /// </summary>
         public const uint WM_MOUSEWHEEL = 0x020A;
 
@@ -762,7 +762,7 @@ namespace Diga.Core.Api.Win32
         public const uint WM_XBUTTONDBLCLK = 0x020D;
 
         /// <summary>
-        /// The WM_MOUSEHWHEEL message is sent to the focus window when the mouse's horizontal scroll wheel is tilted or rotated. The DefWindowProc function propagates the message to the window's parent. There should be no internal forwarding of the message; since DefWindowProc propagates it up the parent chain until it finds a window that processes it.
+        /// The WM_MOUSEHWHEEL message is sent to the focus window when the mouse's horizontal scroll wheel is tilted or rotated. The DefWindowProc function propagates the message to the window's parent. There should be no public forwarding of the message; since DefWindowProc propagates it up the parent chain until it finds a window that processes it.
         /// </summary>
         public const uint WM_MOUSEHWHEEL = 0x020E;
 
@@ -1139,7 +1139,7 @@ namespace Diga.Core.Api.Win32
         public const uint WM_CPL_LAUNCHED = WM_USER + 0x1001;
 
         /// <summary>
-        /// WM_SYSTIMER is a well-known yet still undocumented message. Windows uses WM_SYSTIMER for internal actions like scrolling.
+        /// WM_SYSTIMER is a well-known yet still undocumented message. Windows uses WM_SYSTIMER for public actions like scrolling.
         /// </summary>
         public const uint WM_SYSTIMER = 0x118;
 

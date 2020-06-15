@@ -49,9 +49,12 @@
     <Compile Include="..\Diga.Core.Api.Win32\MenuStyles.cs" Link="MenuStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxCheckFlags.cs" Link="MessageBoxCheckFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxOptionsConst.cs" Link="MessageBoxOptionsConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MouseKey.cs" Link="MouseKey.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MouseKeyConst.cs" Link="MouseKeyConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MSG.cs" Link="MSG.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\NmHdr.cs" Link="NmHdr.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\NmlInk.cs" Link="NmlInk.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\NotifyMessageConst.cs" Link="NotifyMessageConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\OfNw.cs" Link="OfNw.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\OFSTRUCT.cs" Link="OFSTRUCT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Ole32.cs" Link="Ole32.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\ProgressBarMessages.cs" Link="ProgressBarMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ProgressBarStyles.cs" Link="ProgressBarStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Rect.cs" Link="Rect.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\RedrawConstants.cs" Link="RedrawConstants.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RichEditMessages.cs" Link="RichEditMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RichTextSetTextConst.cs" Link="RichTextSetTextConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RichtTextGetTextConst.cs" Link="RichtTextGetTextConst.cs" />
