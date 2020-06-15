@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Diga.Core.Api.Win32</id>
+    <version>1.0.0</version>
+    <title>Diga.Core.Api.Win32</title>
+    <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
+    <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
+    <developmentDependency>true</developmentDependency>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <icon>Image/logo.ico</icon>
+    <projectUrl>https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32</projectUrl>
+    <description>Win32 - Api Imports</description>
+    <copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</copyright>
+    <repository type="git" url="https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.1" />
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Image\logo.ico" target="Image\logo.ico" />
+    <file src="lib\net472\Diga.Core.Api.Win32.dll" target="lib\net472\Diga.Core.Api.Win32.dll" />
+    <file src="lib\netstandard2.1\Diga.Core.Api.Win32.Std.dll" target="lib\netstandard2.1\Diga.Core.Api.Win32.Std.dll" />
+  </files>
+</package>

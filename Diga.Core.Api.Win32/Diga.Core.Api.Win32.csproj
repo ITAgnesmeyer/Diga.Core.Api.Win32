@@ -125,4 +125,7 @@
     <Compile Include="WndProc.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetDir)* $(SolutionDir)package_create\lib\net472\*</PostBuildEvent>
+  </PropertyGroup>
 </Project>

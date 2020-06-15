@@ -3,6 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
+    <PackageId>Diga.Core.Api.Win32</PackageId>
+    <Authors>Diga.Core.Api.Win32</Authors>
+    <Product>Diga.Core.Api.Win32</Product>
+    <Description>Win32 - Api Imports</Description>
+    <Copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -88,5 +97,9 @@
     <Compile Include="..\Diga.Core.Api.Win32\WndclassEx.cs" Link="WndclassEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WndProc.cs" Link="WndProc.cs" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetDir)* $(SolutionDir)package_create\lib\netstandard2.1\*" />
+  </Target>
 
 </Project>
