@@ -10,6 +10,7 @@
     <Copyright>Copyright 2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Diga.Core.Api.Win32.Core</AssemblyName>
+    <Version>1.0.19</Version>
   </PropertyGroup>
 
   <ItemGroup>
