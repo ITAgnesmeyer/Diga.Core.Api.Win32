@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using System.Text;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Local
@@ -65,6 +67,58 @@ namespace Diga.Core.Api.Win32
         {
             if (input == 1) return true;
             return false;
+        }
+
+        public static string PtrToUtf8(IntPtr nativeString)
+        {
+            string str = null;
+            if (nativeString != IntPtr.Zero)
+            {
+                int nativeUTF8Size = GetNativeUTF8Size(nativeString);
+                byte[] numArray = new byte[nativeUTF8Size - 1];
+                Marshal.Copy(nativeString, numArray, 0, nativeUTF8Size - 1);
+                str = Encoding.UTF8.GetString(numArray, 0, (int)numArray.Length);
+            }
+            return str;
+        }
+
+        public static string PtrToUtf8(IntPtr nativeString, int size)
+        {
+            string str = null;
+            if (nativeString != IntPtr.Zero)
+            {
+                byte[] numArray = new byte[size];
+                Marshal.Copy(nativeString, numArray, 0, size);
+                str = Encoding.UTF8.GetString(numArray, 0, (int)numArray.Length);
+            }
+            return str;
+        }
+
+        public static int GetNativeUTF8Size(IntPtr nativeString)
+        {
+            int num = 0;
+            if (nativeString != IntPtr.Zero)
+            {
+                while (Marshal.ReadByte(nativeString, num) > 0)
+                {
+                    num++;
+                }
+                num++;
+            }
+            return num;
+        }
+
+        public static byte[] GetUtf8Bytes(string sourceText)
+        {
+            if (sourceText == null)
+            {
+                return null;
+            }
+            int byteCount = Encoding.UTF8.GetByteCount(sourceText) + 1;
+            byte[] numArray = new byte[byteCount];
+            byteCount = Encoding.UTF8.GetBytes(sourceText, 0, sourceText.Length, numArray, 0);
+            numArray[byteCount] = 0;
+            return numArray;
         }
     }
 }

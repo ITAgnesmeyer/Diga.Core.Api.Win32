@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.128
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.Core.Api.Win32", "Diga.Core.Api.Win32\Diga.Core.Api.Win32.csproj", "{4E630C50-5811-4DBA-B3A1-2A36689DE037}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diga.Core.Api.Win32.Std", "Diga.Core.Api.Win32.Std\Diga.Core.Api.Win32.Std.csproj", "{38E3FC76-F79F-4CFF-9F38-9A6D19E3F6D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diga.Core.Api.Win32.Core", "Diga.Core.Api.Win32.Core\Diga.Core.Api.Win32.Core.csproj", "{4F45B361-9F3A-4BB0-8900-C3825EB04401}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{4E630C50-5811-4DBA-B3A1-2A36689DE037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E630C50-5811-4DBA-B3A1-2A36689DE037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E630C50-5811-4DBA-B3A1-2A36689DE037}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38E3FC76-F79F-4CFF-9F38-9A6D19E3F6D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38E3FC76-F79F-4CFF-9F38-9A6D19E3F6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38E3FC76-F79F-4CFF-9F38-9A6D19E3F6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38E3FC76-F79F-4CFF-9F38-9A6D19E3F6D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F45B361-9F3A-4BB0-8900-C3825EB04401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F45B361-9F3A-4BB0-8900-C3825EB04401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F45B361-9F3A-4BB0-8900-C3825EB04401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F45B361-9F3A-4BB0-8900-C3825EB04401}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Diga.Core.Api.Win32.Core</id>
+    <version>1.0.1</version>
+    <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
+    <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\netcoreapp3.1\Diga.Core.Api.Win32.Core.dll" target="lib\netcoreapp3.1\Diga.Core.Api.Win32.Core.dll" />
+  </files>
+</package>
