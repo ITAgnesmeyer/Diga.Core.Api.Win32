@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
-    <PackageId>Diga.Core.Api.Win32</PackageId>
+    <PackageId>Diga.Core.Api.Win32.Core</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Product>Diga.Core.Api.Win32</Product>
