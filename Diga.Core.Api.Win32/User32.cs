@@ -14,10 +14,6 @@ namespace Diga.Core.Api.Win32
         public static extern UIntPtr SetTimer([In] IntPtr hWnd, UIntPtr nIdEvent, uint uElapse,
             TimerProc lpTimerFunc);
 
-
-
-
-
         [DllImport(USER32, EntryPoint = "KillTimer")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool KillTimer([In] IntPtr hWnd, UIntPtr uIdEvent);
