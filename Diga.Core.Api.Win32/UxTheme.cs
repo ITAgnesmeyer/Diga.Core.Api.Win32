@@ -10,8 +10,8 @@ namespace Diga.Core.Api.Win32
         [DllImport("UxTheme.dll", EntryPoint = "SetThemeAppProperties")]
         public static extern void SetThemeAppProperties(uint dwFlags);
 
-        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
-        public static extern int SetWindowTheme(IntPtr hWnd, String pszSubAppName, String pszSubIdList);
+        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
 
         public const int STAP_ALLOW_NONCLIENT = (1 << 0);
         public const int STAP_ALLOW_CONTROLS = (1 << 1);

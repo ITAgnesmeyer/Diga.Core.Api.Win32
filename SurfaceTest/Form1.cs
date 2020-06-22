@@ -22,6 +22,10 @@ namespace SurfaceTest
 
         private void button1_Click(object sender, EventArgs e)
         {
+            bool isWindow = User32.IsWindow(this.Handle);
+            MessageBox.Show("IsWindow:" + isWindow);
+            isWindow = User32.IsWindow(button1.Handle);
+            MessageBox.Show("IsWindow:" + isWindow);
             TestOpenFolder of = new TestOpenFolder(User32.GetActiveWindow());
             var retValue = of.ShowBrowseForFolder();
             if(retValue == DialogResult.OK)
@@ -53,7 +57,7 @@ namespace SurfaceTest
                 Debug.Print("Ansi");
 
 
-            BROWSEINFO bf = new BROWSEINFO();
+            BrowseInfo bf = new BrowseInfo();
             bf.hwndOwner = this._HWnd;
             bf.pidlRoot = IntPtr.Zero;
             bf.lpszTitle = "TEST";

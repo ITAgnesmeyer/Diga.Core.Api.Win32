@@ -38,6 +38,9 @@
   <ItemGroup>
     <Compile Include="ActCtx.cs" />
     <Compile Include="ActCtxFlags.cs" />
+    <Compile Include="BrowseCallBackProc.cs" />
+    <Compile Include="BrowseForFolderConst.cs" />
+    <Compile Include="BrowseInfo.cs" />
     <Compile Include="ButtonMessages.cs" />
     <Compile Include="ButtonStyles.cs" />
     <Compile Include="ClassStyles.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="ListBoxStyle.cs" />
     <Compile Include="LItem.cs" />
     <Compile Include="LoadResourceConst.cs" />
+    <Compile Include="LocaleIdentifier.cs" />
     <Compile Include="LogFont.cs" />
     <Compile Include="LogPixels.cs" />
     <Compile Include="LpOfNHookProc.cs" />
@@ -101,6 +105,7 @@
     <Compile Include="RichtTextGetTextConst.cs" />
     <Compile Include="SetTextEx.cs" />
     <Compile Include="SetWindowPosFlags.cs" />
+    <Compile Include="Shell32.cs" />
     <Compile Include="ShowWindowCommands.cs" />
     <Compile Include="SpiConst.cs" />
     <Compile Include="StaticControlMessages.cs" />

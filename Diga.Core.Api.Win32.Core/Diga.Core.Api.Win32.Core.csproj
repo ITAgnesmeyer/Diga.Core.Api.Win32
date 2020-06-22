@@ -16,6 +16,9 @@
   <ItemGroup>
     <Compile Include="..\Diga.Core.Api.Win32\ActCtx.cs" Link="ActCtx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ActCtxFlags.cs" Link="ActCtxFlags.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\BrowseCallBackProc.cs" Link="BrowseCallBackProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\BrowseForFolderConst.cs" Link="BrowseForFolderConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\BrowseInfo.cs" Link="BrowseInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ButtonMessages.cs" Link="ButtonMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ButtonStyles.cs" Link="ButtonStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ClassStyles.cs" Link="ClassStyles.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\RichtTextGetTextConst.cs" Link="RichtTextGetTextConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\SetTextEx.cs" Link="SetTextEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\SetWindowPosFlags.cs" Link="SetWindowPosFlags.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Shell32.cs" Link="Shell32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ShowWindowCommands.cs" Link="ShowWindowCommands.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\SpiConst.cs" Link="SpiConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\StaticControlMessages.cs" Link="StaticControlMessages.cs" />

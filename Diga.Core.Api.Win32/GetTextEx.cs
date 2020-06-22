@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
@@ -16,7 +17,7 @@ namespace Diga.Core.Api.Win32
         public string lpDefaultChar; // Replacement for unmappable chars
 //C++ TO C# CONVERTER TODO TASK: C# does not have an equivalent to pointers to value types:
 //ORIGINAL LINE: bool * lpUsedDefChar;
-        [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+        [MarshalAs(UnmanagedType.Bool)]
         public bool lpUsedDefChar; // Pointer to flag set when def char used
 
       

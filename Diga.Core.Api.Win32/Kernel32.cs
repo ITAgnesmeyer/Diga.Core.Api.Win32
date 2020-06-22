@@ -44,7 +44,7 @@ namespace Diga.Core.Api.Win32
 
 
         [DllImport(KERNEL32, EntryPoint="GetModuleHandle", CharSet = CHARSET)]
-        public static extern  IntPtr GetModuleHandleW([In]  string lpModuleName) ;
+        public static extern  IntPtr GetModuleHandle([In]  string lpModuleName) ;
 
         
        

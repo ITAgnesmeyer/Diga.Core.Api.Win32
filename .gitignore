@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/package_create/lib/net472/Diga.Core.Api.Win32.dll
+/package_create/lib/netcoreapp3.1/Diga.Core.Api.Win32.Core.deps.json
+/package_create/lib/netcoreapp3.1/Diga.Core.Api.Win32.Core.dll

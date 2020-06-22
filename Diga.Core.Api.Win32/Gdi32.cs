@@ -61,6 +61,9 @@ namespace Diga.Core.Api.Win32
 
         public static int RGB(int r, int g, int b) => checked(checked(checked(b * 65536) + checked(g * 256)) + r);
     }
+
+
+   
 }
 
 
