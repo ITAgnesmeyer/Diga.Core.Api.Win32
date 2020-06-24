@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Include="..\Diga.Core.Api.Win32\ActCtx.cs" Link="ActCtx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ActCtxFlags.cs" Link="ActCtxFlags.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ApiHandleRef.cs" Link="ApiHandleRef.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BrowseCallBackProc.cs" Link="BrowseCallBackProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BrowseForFolderConst.cs" Link="BrowseForFolderConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BrowseInfo.cs" Link="BrowseInfo.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxNotify.cs" Link="ListBoxNotify.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxStyle.cs" Link="ListBoxStyle.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LItem.cs" Link="LItem.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\LoadLibraryExFlags.cs" Link="LoadLibraryExFlags.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\LoadLibraryHandler.cs" Link="LoadLibraryHandler.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LoadResourceConst.cs" Link="LoadResourceConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LogFont.cs" Link="LogFont.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LogPixels.cs" Link="LogPixels.cs" />

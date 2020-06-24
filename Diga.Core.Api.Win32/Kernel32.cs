@@ -16,7 +16,6 @@ namespace Diga.Core.Api.Win32
     [UnmanagedFunctionPointer(CallingConvention.StdCall,CharSet = CharSet.Auto)]
     public delegate int ENUMRESLANGPROC([In] IntPtr hModule, [In]  string lpType, [In]  string lpName, ushort wLanguage, [In] IntPtr lParam);
 
-
     public static class Kernel32
     {
         private const string KERNEL32 = "kernel32.dll";
@@ -25,13 +24,23 @@ namespace Diga.Core.Api.Win32
         public static extern uint GetLastError();
 
       
-        [DllImport(KERNEL32, EntryPoint = "LoadLibrary",CharSet =CHARSET)]
+        [DllImport(KERNEL32, EntryPoint = "LoadLibrary",CharSet =CHARSET, SetLastError = true)]
         public static extern IntPtr LoadLibrary([In] string lpLibFileName);
+
+        [DllImport(KERNEL32, EntryPoint = "LoadLibraryEx", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadLibraryEx(string libFilename, IntPtr reserved, uint flags);
+
+        [DllImport(KERNEL32, EntryPoint = "GetProcAddress", CharSet = CharSet.Ansi, SetLastError = true)]
+        public static  extern IntPtr GetProcAddress(IntPtr  moduleHandle, String procName);
+
+        [DllImport(KERNEL32, EntryPoint = "FreeLibrary",  SetLastError = true)]
+        public static extern bool FreeLibrary(IntPtr hModule);
 
         [DllImport(KERNEL32)]
         public static extern ushort GetSystemDefaultLangID();
 
     
+
         [DllImport(KERNEL32, EntryPoint = "GetProcessId")]
         public static extern uint GetProcessId([In] IntPtr Process);
 
