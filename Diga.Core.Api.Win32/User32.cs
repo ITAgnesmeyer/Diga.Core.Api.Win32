@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Diga.Core.Api.Win32
 {
+
+
+
     public static partial class User32
     {
         private const string USER32 = "user32.dll";
@@ -119,11 +122,26 @@ namespace Diga.Core.Api.Win32
             uint fuLoad);
 
 
+        [DllImportAttribute(USER32, EntryPoint = "GetCursorPos")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetCursorPos([Out] out Point lpPoint);
+
+
+        [DllImport(USER32, EntryPoint = "MonitorFromPoint")]
+        public static extern IntPtr MonitorFromPoint(Point pt, uint dwFlags);
+
+        
+        [DllImport(USER32, EntryPoint="MonitorFromWindow")]
+        public static extern  IntPtr MonitorFromWindow([In] IntPtr hwnd, uint dwFlags) ;
+
+
         [DllImport(USER32, EntryPoint = "MoveWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MoveWindow([In] IntPtr hWnd, int X, int y, int nWidth, int nHeight,
             [MarshalAs(UnmanagedType.Bool)] bool bRepaint);
 
+        [DllImport(USER32, EntryPoint = "MonitorFromRect")]
+        public static extern IntPtr MonitorFromRect([In] ref Rect lprc, uint dwFlags);
 
         [DllImport(USER32, EntryPoint = "SetParent")]
         public static extern IntPtr SetParent([In] IntPtr hWndChild, [In] IntPtr hWndNewParent);
@@ -324,6 +342,12 @@ namespace Diga.Core.Api.Win32
             int index = (int)gwl;
             return GetWindowLongPtr(hWnd, index);
         }
+
+
+        [DllImport("user32.dll", EntryPoint="GetWindowPlacement")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool GetWindowPlacement([In()] IntPtr hWnd, ref WindowPlacement lpwndpl) ;
+
 
 
         [DllImport(USER32, EntryPoint = "SetWindowLong", CharSet = CHARSET)]

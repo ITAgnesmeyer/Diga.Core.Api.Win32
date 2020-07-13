@@ -86,6 +86,9 @@
     <Compile Include="MenuStyles.cs" />
     <Compile Include="MessageBoxCheckFlags.cs" />
     <Compile Include="MessageBoxOptionsConst.cs" />
+    <Compile Include="MonitorDefaultFlags.cs" />
+    <Compile Include="MonitorInfo.cs" />
+    <Compile Include="MonitorInfoEx.cs" />
     <Compile Include="MouseKey.cs" />
     <Compile Include="MouseKeyConst.cs" />
     <Compile Include="MSG.cs" />
@@ -121,6 +124,9 @@
     <Compile Include="UxTheme.cs" />
     <Compile Include="Win32Api.cs" />
     <Compile Include="Win32ApiCursors.cs" />
+    <Compile Include="WindowPlacement.cs" />
+    <Compile Include="WindowPlacementFlagConst.cs" />
+    <Compile Include="WindowPlacementFlags.cs" />
     <Compile Include="WindowsMessages.cs" />
     <Compile Include="WindowStyles.cs" />
     <Compile Include="WindowStylesConst.cs" />

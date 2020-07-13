@@ -63,6 +63,9 @@
     <Compile Include="..\Diga.Core.Api.Win32\MenuStyles.cs" Link="MenuStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxCheckFlags.cs" Link="MessageBoxCheckFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxOptionsConst.cs" Link="MessageBoxOptionsConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MonitorDefaultFlags.cs" Link="MonitorDefaultFlags.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MonitorInfo.cs" Link="MonitorInfo.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MonitorInfoEx.cs" Link="MonitorInfoEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MouseKey.cs" Link="MouseKey.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MouseKeyConst.cs" Link="MouseKeyConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MSG.cs" Link="MSG.cs" />
@@ -96,6 +99,9 @@
     <Compile Include="..\Diga.Core.Api.Win32\User32.cs" Link="User32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32Api.cs" Link="Win32Api.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32ApiCursors.cs" Link="Win32ApiCursors.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\WindowPlacement.cs" Link="WindowPlacement.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\WindowPlacementFlagConst.cs" Link="WindowPlacementFlagConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\WindowPlacementFlags.cs" Link="WindowPlacementFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowsMessages.cs" Link="WindowsMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowStyles.cs" Link="WindowStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowStylesConst.cs" Link="WindowStylesConst.cs" />
