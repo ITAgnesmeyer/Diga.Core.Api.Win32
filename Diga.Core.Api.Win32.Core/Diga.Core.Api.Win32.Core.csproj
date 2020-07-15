@@ -14,9 +14,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Diga.Core.Api.Win32\ABC.cs" Link="ABC.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ABCFloat.cs" Link="ABCFloat.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\AbortProc.cs" Link="AbortProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ActCtx.cs" Link="ActCtx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ActCtxFlags.cs" Link="ActCtxFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ApiHandleRef.cs" Link="ApiHandleRef.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Bitmap.cs" Link="Bitmap.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\BitmapInfo.cs" Link="BitmapInfo.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\BitmapInfoHeader.cs" Link="BitmapInfoHeader.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\BlendFunction.cs" Link="BlendFunction.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BrowseCallBackProc.cs" Link="BrowseCallBackProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BrowseForFolderConst.cs" Link="BrowseForFolderConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BrowseInfo.cs" Link="BrowseInfo.cs" />
@@ -24,6 +31,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\ButtonStyles.cs" Link="ButtonStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ClassStyles.cs" Link="ClassStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\CodepageConst.cs" Link="CodepageConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ColorAdjustment.cs" Link="ColorAdjustment.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ComboBoxCommands.cs" Link="ComboBoxCommands.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ComboboxInfo.cs" Link="ComboboxInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ComboBoxMessages.cs" Link="ComboBoxMessages.cs" />
@@ -33,21 +41,38 @@
     <Compile Include="..\Diga.Core.Api.Win32\CommonControls.cs" Link="CommonControls.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DefaultHWND.cs" Link="DefaultHWND.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DeferWindowPosCommands.cs" Link="DeferWindowPosCommands.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DesignVector.cs" Link="DesignVector.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DevMode.cs" Link="DevMode.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion1.cs" Link="DevModeUnion1.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion1Struct1.cs" Link="DevModeUnion1Struct1.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion1Struct2.cs" Link="DevModeUnion1Struct2.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion2.cs" Link="DevModeUnion2.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DialogTemplate.cs" Link="DialogTemplate.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgItemTemplate.cs" Link="DlgItemTemplate.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgProc.cs" Link="DlgProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgTemplate.cs" Link="DlgTemplate.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DocInfo.cs" Link="DocInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EditBoxMessages.cs" Link="EditBoxMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EditBoxStyles.cs" Link="EditBoxStyles.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\EnhMetaRecord.cs" Link="EnhMetaRecord.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\EnhMfEnumProc.cs" Link="EnhMfEnumProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\EnumLogFontEx.cs" Link="EnumLogFontEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\EnumLogFontExDv.cs" Link="EnumLogFontExDv.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Fixed.cs" Link="Fixed.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\FontSignature.cs" Link="FontSignature.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\FontType.cs" Link="FontType.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\FonWeight.cs" Link="FonWeight.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Gdi32.cs" Link="Gdi32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GetTextEx.cs" Link="GetTextEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\GlypHMetrics.cs" Link="GlypHMetrics.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\GlyphSet.cs" Link="GlyphSet.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\GObjEnumProc.cs" Link="GObjEnumProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GWL.cs" Link="GWL.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\HighLow.cs" Link="HighLow.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ImageTypeConst.cs" Link="ImageTypeConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\InitCommonControlsEx.cs" Link="InitCommonControlsEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Kernel32.cs" Link="Kernel32.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\LineDDAProc.cs" Link="LineDDAProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxMessages.cs" Link="ListBoxMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxNotify.cs" Link="ListBoxNotify.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxStyle.cs" Link="ListBoxStyle.cs" />
@@ -55,14 +80,21 @@
     <Compile Include="..\Diga.Core.Api.Win32\LoadLibraryExFlags.cs" Link="LoadLibraryExFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LoadLibraryHandler.cs" Link="LoadLibraryHandler.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LoadResourceConst.cs" Link="LoadResourceConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\LogBrush.cs" Link="LogBrush.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LogFont.cs" Link="LogFont.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\LogPalette.cs" Link="LogPalette.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\LogPen.cs" Link="LogPen.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LogPixels.cs" Link="LogPixels.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LpOfNHookProc.cs" Link="LpOfNHookProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Mat2.cs" Link="Mat2.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MEMORY_RESOURCE_NOTIFICATION_TYPE.cs" Link="MEMORY_RESOURCE_NOTIFICATION_TYPE.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MenuFlags.cs" Link="MenuFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MenuStyles.cs" Link="MenuStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxCheckFlags.cs" Link="MessageBoxCheckFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxOptionsConst.cs" Link="MessageBoxOptionsConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MetaFilePict.cs" Link="MetaFilePict.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MetaRecord.cs" Link="MetaRecord.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MfEnumProc.cs" Link="MfEnumProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorDefaultFlags.cs" Link="MonitorDefaultFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfo.cs" Link="MonitorInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfoEx.cs" Link="MonitorInfoEx.cs" />
@@ -74,14 +106,23 @@
     <Compile Include="..\Diga.Core.Api.Win32\NotifyMessageConst.cs" Link="NotifyMessageConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\OfNw.cs" Link="OfNw.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\OFSTRUCT.cs" Link="OFSTRUCT.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\OldFontEnumProc.cs" Link="OldFontEnumProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Ole32.cs" Link="Ole32.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\OutlineTextMetric.cs" Link="OutlineTextMetric.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\PaintStruct.cs" Link="PaintStruct.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\PaletteEntry.cs" Link="PaletteEntry.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\PanOse.cs" Link="PanOse.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\PixelFormatDescriptor.cs" Link="PixelFormatDescriptor.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Point.cs" Link="Point.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ProcessAccessTypes.cs" Link="ProcessAccessTypes.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ProgressBarMessages.cs" Link="ProgressBarMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ProgressBarStyles.cs" Link="ProgressBarStyles.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\RasterizerStatus.cs" Link="RasterizerStatus.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Rect.cs" Link="Rect.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RedrawConstants.cs" Link="RedrawConstants.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\RgbQuad.cs" Link="RgbQuad.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\RgnData.cs" Link="RgnData.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\RgnDataHeader.cs" Link="RgnDataHeader.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RichEditMessages.cs" Link="RichEditMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RichTextSetTextConst.cs" Link="RichTextSetTextConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\RichtTextGetTextConst.cs" Link="RichtTextGetTextConst.cs" />
@@ -89,14 +130,17 @@
     <Compile Include="..\Diga.Core.Api.Win32\SetWindowPosFlags.cs" Link="SetWindowPosFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Shell32.cs" Link="Shell32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ShowWindowCommands.cs" Link="ShowWindowCommands.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Size.cs" Link="Size.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\SpiConst.cs" Link="SpiConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\StaticControlMessages.cs" Link="StaticControlMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\StaticControlStyles.cs" Link="StaticControlStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\StockObjects.cs" Link="StockObjects.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\SystemMetric.cs" Link="SystemMetric.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TbButton.cs" Link="TbButton.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\TextMetric.cs" Link="TextMetric.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TimerProc.cs" Link="TimerProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\User32.cs" Link="User32.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\WCrange.cs" Link="WCrange.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32Api.cs" Link="Win32Api.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32ApiCursors.cs" Link="Win32ApiCursors.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowPlacement.cs" Link="WindowPlacement.cs" />
@@ -107,6 +151,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\WindowStylesConst.cs" Link="WindowStylesConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WndclassEx.cs" Link="WndclassEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WndProc.cs" Link="WndProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\XForm.cs" Link="XForm.cs" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
