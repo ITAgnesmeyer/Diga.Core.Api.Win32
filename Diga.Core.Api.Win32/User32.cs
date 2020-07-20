@@ -65,15 +65,33 @@ namespace Diga.Core.Api.Win32
             IntPtr lpParam);
 
 
-        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET)]
+        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET,SetLastError = true)]
         public static extern IntPtr CreateDialogParam([In] IntPtr hInstance, [In] string lpTemplateName,
-            [In] IntPtr hWndParent, DlgProc lpDialogFunc, [MarshalAs(UnmanagedType.SysInt)] int dwInitParam);
+            [In] IntPtr hWndParent, DlgProc lpDialogFunc,  IntPtr dwInitParam);
+        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET,SetLastError = true)]
+        public static extern IntPtr CreateDialogParam([In] IntPtr hInstance, [In] IntPtr lpTemplateName,
+            [In] IntPtr hWndParent, DlgProc lpDialogFunc,  IntPtr dwInitParam);
+        public static IntPtr CreateDialog(IntPtr hInstance, string templateName, IntPtr hWndParent, DlgProc dlgFunc)
+        {
+            return CreateDialogParam(hInstance, templateName, hWndParent, dlgFunc, IntPtr.Zero);
+        }
+
+        public static IntPtr CreateDialog(IntPtr hInstance, int templateId, IntPtr hWndParent, DlgProc dlgFunc)
+        {
+            return CreateDialogParam(hInstance, Win32Api.MakeInterSource(templateId),hWndParent, dlgFunc, IntPtr.Zero);
+        }
 
 
         [DllImportAttribute(USER32, EntryPoint = "CreateDialogIndirectParam", CharSet = CHARSET)]
         public static extern IntPtr CreateDialogIndirectParam([In] IntPtr hInstance, [In] ref DlgTemplate lpTemplate,
             [In] IntPtr hWndParent, DlgProc lpDialogFunc, [MarshalAs(UnmanagedType.SysInt)] int dwInitParam);
 
+
+        public static IntPtr CreateDialogIndirect(IntPtr hInstance, ref DlgTemplate lpTemplate, IntPtr hWndParent,
+            DlgProc dlgFunc)
+        {
+            return CreateDialogIndirectParam(hInstance, ref lpTemplate, hWndParent, dlgFunc, 0);
+        }
 
         [DllImport(USER32, EntryPoint = "RegisterClassEx", SetLastError = true, CharSet = CHARSET)]
         public static extern ushort RegisterClassEx([In] ref WndclassEx param0);
@@ -121,6 +139,9 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr LoadImage([In] IntPtr hInst, [In] string name, uint type, int cx, int cy,
             uint fuLoad);
 
+        [DllImport(USER32, EntryPoint = "LoadImage", CharSet = CHARSET)]
+        public static extern IntPtr LoadImage([In] IntPtr hInst, [In] IntPtr name, uint type, int cx, int cy,
+            uint fuLoad);
 
         [DllImportAttribute(USER32, EntryPoint = "GetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -130,9 +151,9 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "MonitorFromPoint")]
         public static extern IntPtr MonitorFromPoint(Point pt, uint dwFlags);
 
-        
-        [DllImport(USER32, EntryPoint="MonitorFromWindow")]
-        public static extern  IntPtr MonitorFromWindow([In] IntPtr hwnd, uint dwFlags) ;
+
+        [DllImport(USER32, EntryPoint = "MonitorFromWindow")]
+        public static extern IntPtr MonitorFromWindow([In] IntPtr hwnd, uint dwFlags);
 
 
         [DllImport(USER32, EntryPoint = "MoveWindow")]
@@ -344,9 +365,9 @@ namespace Diga.Core.Api.Win32
         }
 
 
-        [DllImport("user32.dll", EntryPoint="GetWindowPlacement")]
+        [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool GetWindowPlacement([In()] IntPtr hWnd, ref WindowPlacement lpwndpl) ;
+        public static extern bool GetWindowPlacement([In()] IntPtr hWnd, ref WindowPlacement lpwndpl);
 
 
 
@@ -477,6 +498,28 @@ namespace Diga.Core.Api.Win32
         public static extern int DialogBoxIndirectParam([In] IntPtr hInstance, [In] ref DialogTemplate hDialogTemplate,
             [In] IntPtr hWndParent, DlgProc lpDialogFunc, [MarshalAs(UnmanagedType.SysInt)] int dwInitParam);
 
+        [DllImport(USER32, EntryPoint = "EndDialog")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EndDialog([In] IntPtr hDlg, int nResult);
+
+
+        [DllImport(USER32, EntryPoint = "DialogBoxParam", CharSet = CHARSET)]
+        public static extern int DialogBoxParam([In] IntPtr hInstance, [In] string lpTemplateName, [In] IntPtr hWndParent, DlgProc lpDialogFunc, IntPtr dwInitParam);
+
+        [DllImport(USER32, EntryPoint = "DialogBoxParam", CharSet = CHARSET)]
+        public static extern int DialogBoxParam([In] IntPtr hInstance, [In] IntPtr lpTemplateName, [In] IntPtr hWndParent, DlgProc lpDialogFunc, IntPtr dwInitParam);
+
+
+        public static int DialogBox(IntPtr hInstance, string templateName, IntPtr hWndParent, DlgProc lpDialogFunc)
+        {
+            return DialogBoxParam(hInstance, templateName, hWndParent, lpDialogFunc, IntPtr.Zero);
+        }
+
+        public static int DialogBox(IntPtr hInstance, int templateId, IntPtr hWndParent, DlgProc lpDialogFunc)
+        {
+
+            return DialogBoxParam(hInstance, Win32Api.MakeInterSource(templateId), hWndParent, lpDialogFunc, IntPtr.Zero);
+        }
 
         public static void AddTbButton(IntPtr tbHandle, string name, int idCommand)
         {

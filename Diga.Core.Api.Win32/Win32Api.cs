@@ -7,8 +7,20 @@ using System.Text;
 
 namespace Diga.Core.Api.Win32
 {
+    
+
     public static class Win32Api
     {
+ 
+
+        public static IntPtr MakeInterSource(int id)
+        {
+            return new IntPtr(id);
+        }
+        public static IntPtr MakeInterSource(uint id)
+        {
+            return new IntPtr(id);
+        }
         public static int HiWord(int number)
         {
             if ((number & 0x80000000) == 0x80000000)
