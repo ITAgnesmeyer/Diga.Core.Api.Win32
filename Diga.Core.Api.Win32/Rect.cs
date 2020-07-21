@@ -71,6 +71,8 @@ namespace Diga.Core.Api.Win32
             }
         }
 
+       
+
         public static implicit operator System.Drawing.Rectangle(Rect r)
         {
             return new System.Drawing.Rectangle(r.Left, r.Top, r.Width, r.Height);

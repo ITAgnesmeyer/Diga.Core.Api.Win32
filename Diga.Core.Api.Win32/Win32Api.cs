@@ -11,8 +11,16 @@ namespace Diga.Core.Api.Win32
 
     public static class Win32Api
     {
- 
 
+        public static IntPtr MakeInterSource(string id)
+        {
+            if(int.TryParse(id, out int idInt))
+            {
+                return MakeInterSource(idInt);
+            }
+
+            return MakeInterSource(0);
+        }
         public static IntPtr MakeInterSource(int id)
         {
             return new IntPtr(id);
@@ -89,7 +97,7 @@ namespace Diga.Core.Api.Win32
                 int nativeUTF8Size = GetNativeUTF8Size(nativeString);
                 byte[] numArray = new byte[nativeUTF8Size - 1];
                 Marshal.Copy(nativeString, numArray, 0, nativeUTF8Size - 1);
-                str = Encoding.UTF8.GetString(numArray, 0, (int)numArray.Length);
+                str = Encoding.UTF8.GetString(numArray, 0, numArray.Length);
             }
             return str;
         }
@@ -101,7 +109,7 @@ namespace Diga.Core.Api.Win32
             {
                 byte[] numArray = new byte[size];
                 Marshal.Copy(nativeString, numArray, 0, size);
-                str = Encoding.UTF8.GetString(numArray, 0, (int)numArray.Length);
+                str = Encoding.UTF8.GetString(numArray, 0, numArray.Length);
             }
             return str;
         }
@@ -131,6 +139,19 @@ namespace Diga.Core.Api.Win32
             byteCount = Encoding.UTF8.GetBytes(sourceText, 0, sourceText.Length, numArray, 0);
             numArray[byteCount] = 0;
             return numArray;
+        }
+
+        public static uint MakeLcId(int lgid, int srtid)
+        {
+            return ((uint)(ushort)srtid << 16) | (ushort)lgid;
+        }
+
+        public static  bool IsResource(IntPtr r)
+        {
+            uint value = GetIntPtrUInt(r);
+
+            var retVal = (value >> 16) > 0;
+            return retVal;
         }
     }
 }

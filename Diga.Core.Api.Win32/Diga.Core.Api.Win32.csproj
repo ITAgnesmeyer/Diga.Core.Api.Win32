@@ -80,6 +80,9 @@
     <Compile Include="EnhMfEnumProc.cs" />
     <Compile Include="EnumLogFontEx.cs" />
     <Compile Include="EnumLogFontExDv.cs" />
+    <Compile Include="EnumResLangProc.cs" />
+    <Compile Include="EnumResNameProc.cs" />
+    <Compile Include="EnumResTypeProc.cs" />
     <Compile Include="Fixed.cs" />
     <Compile Include="FontSignature.cs" />
     <Compile Include="FontType.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="LoadLibraryExFlags.cs" />
     <Compile Include="LoadLibraryHandler.cs" />
     <Compile Include="LoadResourceConst.cs" />
+    <Compile Include="LocaleEnumProc.cs" />
     <Compile Include="LocaleIdentifier.cs" />
     <Compile Include="LogBrush.cs" />
     <Compile Include="LogFont.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="RasterizerStatus.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="RedrawConstants.cs" />
+    <Compile Include="ResourceTypes.cs" />
     <Compile Include="RgbQuad.cs" />
     <Compile Include="RgnData.cs" />
     <Compile Include="RgnDataHeader.cs" />

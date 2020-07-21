@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Text;
+﻿
 // ReSharper disable InconsistentNaming
 
 namespace Diga.Core.Api.Win32
@@ -7,7 +6,7 @@ namespace Diga.Core.Api.Win32
     public static class LocaleIdentifier
     {
 
-        
+
         public const int LOCALE_IDEFAULTEBCDICCODEPAGE = 4114;
 
         public const int LOCALE_IDEFAULTANSICODEPAGE = 4100;
@@ -125,7 +124,7 @@ namespace Diga.Core.Api.Win32
 
         // LOCALE_SYSTEM_DEFAULT -> (MAKELCID(LANG_SYSTEM_DEFAULT, SORT_DEFAULT))
         // Error generating expression: Error generating function call.  Operation not implemented
-        public static int LOCALE_SYSTEM_DEFAULT = (int)(MakeLcId(LANG_SYSTEM_DEFAULT, SORT_DEFAULT));
+        public static int LOCALE_SYSTEM_DEFAULT = (int)(Win32Api.MakeLcId(LANG_SYSTEM_DEFAULT, SORT_DEFAULT));
 
         // LOCALE_SMONDECIMALSEP -> 0x00000016
         public const int LOCALE_SMONDECIMALSEP = 22;
@@ -160,9 +159,6 @@ namespace Diga.Core.Api.Win32
         // LOCALE_FONTSIGNATURE -> 0x00000058
         public const int LOCALE_FONTSIGNATURE = 88;
 
-        // LOCALE_USER_DEFAULT -> (MAKELCID(LANG_USER_DEFAULT, SORT_DEFAULT))
-        // Error generating expression: Error generating function call.  Operation not implemented
-        public static int LOCALE_USER_DEFAULT = (int)MakeLcId(LANG_USER_DEFAULT, SORT_DEFAULT);
 
         // LOCALE_SMONTHNAME13 -> 0x0000100E
         public const int LOCALE_SMONTHNAME13 = 4110;
@@ -286,7 +282,7 @@ namespace Diga.Core.Api.Win32
         public const int LANG_INVARIANT = 127;
         // LOCALE_INVARIANT -> (MAKELCID(MAKELANGID(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT))
         // Error generating expression: Expression is not parsable.  Treating value as a raw string
-        public static int LOCALE_INVARIANT = (int)(MakeLcId((int)MakeLcId(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT));
+        public static int LOCALE_INVARIANT = (int)(Win32Api.MakeLcId((int)Win32Api.MakeLcId(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT));
 
         // LOCALE_IMONLZERO -> 0x00000027
         public const int LOCALE_IMONLZERO = 39;
@@ -324,12 +320,12 @@ namespace Diga.Core.Api.Win32
 
         // LOCALE_USE_NLS -> 0x10000000
         public const int LOCALE_USE_NLS = 268435456;
-        
+
         public const int SUBLANG_NEUTRAL = 0;
 
         // LOCALE_NEUTRAL -> (MAKELCID(MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), SORT_DEFAULT))
         // Error generating expression: Expression is not parsable.  Treating value as a raw string
-        public static int LOCALE_NEUTRAL => (int) MakeLcId((int)MakeLcId(LANG_NEUTRAL, SUBLANG_NEUTRAL), SORT_DEFAULT);
+        public static int LOCALE_NEUTRAL => (int)Win32Api.MakeLcId((int)Win32Api.MakeLcId(LANG_NEUTRAL, SUBLANG_NEUTRAL), SORT_DEFAULT);
 
         // LOCALE_ITLZERO -> 0x00000025
         public const int LOCALE_ITLZERO = 37;
@@ -366,14 +362,17 @@ namespace Diga.Core.Api.Win32
 
         // LANG_SYSTEM_DEFAULT -> (MAKELANGID(LANG_NEUTRAL, SUBLANG_SYS_DEFAULT))
         // Error generating expression: Error generating function call.  Operation not implemented
-        public static  int LANG_SYSTEM_DEFAULT => (int)MakeLcId(LANG_NEUTRAL, SUBLANG_SYS_DEFAULT);
+        public static int LANG_SYSTEM_DEFAULT => (int)Win32Api.MakeLcId(LANG_NEUTRAL, SUBLANG_SYS_DEFAULT);
 
         // SORT_DEFAULT -> 0x0
         public const int SORT_DEFAULT = 0;
 
         // LANG_USER_DEFAULT -> (MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT))
         // Error generating expression: Error generating function call.  Operation not implemented
-        public static  int LANG_USER_DEFAULT = (int)MakeLcId(LANG_NEUTRAL, SUBLANG_DEFAULT);
+        public static int LANG_USER_DEFAULT = (int)Win32Api.MakeLcId(LANG_NEUTRAL, SUBLANG_DEFAULT);
+        // LOCALE_USER_DEFAULT -> (MAKELCID(LANG_USER_DEFAULT, SORT_DEFAULT))
+        // Error generating expression: Error generating function call.  Operation not implemented
+        public static int LOCALE_USER_DEFAULT = (int)Win32Api.MakeLcId(LANG_USER_DEFAULT, SORT_DEFAULT);
 
         // LANG_NEUTRAL -> 0x00
         public const int LANG_NEUTRAL = 0;
@@ -384,14 +383,7 @@ namespace Diga.Core.Api.Win32
         // SUBLANG_DEFAULT -> 0x01
         public const int SUBLANG_DEFAULT = 1;
 
-        // Return Type: BOOL->int
-        ///param0: LPWSTR->WCHAR*
-        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int LOCALE_ENUMPROCW([MarshalAs(UnmanagedType.LPWStr)] StringBuilder param0);
-
-        public static uint MakeLcId(int lgid, int srtid)
-        {
-            return ((uint)(ushort)srtid << 16) | (ushort)lgid;
-        }
     }
+
+    // Return Type: BOOL->int
 }

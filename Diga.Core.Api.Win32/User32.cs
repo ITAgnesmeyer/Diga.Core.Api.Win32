@@ -65,12 +65,12 @@ namespace Diga.Core.Api.Win32
             IntPtr lpParam);
 
 
-        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET,SetLastError = true)]
+        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr CreateDialogParam([In] IntPtr hInstance, [In] string lpTemplateName,
-            [In] IntPtr hWndParent, DlgProc lpDialogFunc,  IntPtr dwInitParam);
-        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET,SetLastError = true)]
+            [In] IntPtr hWndParent, DlgProc lpDialogFunc, IntPtr dwInitParam);
+        [DllImport(USER32, EntryPoint = "CreateDialogParam", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr CreateDialogParam([In] IntPtr hInstance, [In] IntPtr lpTemplateName,
-            [In] IntPtr hWndParent, DlgProc lpDialogFunc,  IntPtr dwInitParam);
+            [In] IntPtr hWndParent, DlgProc lpDialogFunc, IntPtr dwInitParam);
         public static IntPtr CreateDialog(IntPtr hInstance, string templateName, IntPtr hWndParent, DlgProc dlgFunc)
         {
             return CreateDialogParam(hInstance, templateName, hWndParent, dlgFunc, IntPtr.Zero);
@@ -78,7 +78,7 @@ namespace Diga.Core.Api.Win32
 
         public static IntPtr CreateDialog(IntPtr hInstance, int templateId, IntPtr hWndParent, DlgProc dlgFunc)
         {
-            return CreateDialogParam(hInstance, Win32Api.MakeInterSource(templateId),hWndParent, dlgFunc, IntPtr.Zero);
+            return CreateDialogParam(hInstance, Win32Api.MakeInterSource(templateId), hWndParent, dlgFunc, IntPtr.Zero);
         }
 
 
@@ -107,9 +107,13 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "PostQuitMessage")]
         public static extern void PostQuitMessage(int nExitCode);
 
+        [System.Runtime.InteropServices.DllImportAttribute(USER32, EntryPoint = "PostMessage", CharSet = CHARSET, SetLastError = true)]
+        [return: MarshalAsAttribute(UnmanagedType.Bool)]
+        public static extern bool PostMessage([In] IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+
         [DllImport(USER32, EntryPoint = "GetMessage", CharSet = CHARSET)]
-        public static extern sbyte GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin,
-            uint wMsgFilterMax);
+        public static extern sbyte GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
 
         [DllImport(USER32, EntryPoint = "GetClassName", CharSet = CHARSET)]
@@ -428,14 +432,11 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, StringBuilder lParam);
 
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, string lParam);
 
         [DllImport(USER32, CharSet = CHARSET)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam,
-            string lParam);
-
-        [DllImport(USER32, CharSet = CHARSET)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam,
-            string lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, string lParam);
 
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, ref IntPtr lParam);
@@ -445,7 +446,6 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-
 
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, uint wParam = 0, uint lParam = 0);
@@ -461,6 +461,43 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, IntPtr wParam, StringBuilder lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, StringBuilder lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, IntPtr wParam, string lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, string lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, ref IntPtr lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, IntPtr lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, int lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, uint msg, uint wParam = 0, uint lParam = 0);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, out HighLow lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, HighLow lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, uint msg, IntPtr wParam, int lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, uint msg, IntPtr wParam, IntPtr lParam);
+
 
 
         [DllImport(USER32, EntryPoint = "SetMenu")]

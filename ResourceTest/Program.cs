@@ -5,16 +5,39 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ResourceTest
 {
-    public  class Program
+    [StructLayout(LayoutKind.Sequential,CharSet= CharSet.Auto)]
+    public class DLGTEMPLATEEX
     {
-        private static IntPtr hDlg = IntPtr.Zero;
-        private static Task _DispatchTask;
-        private static IntPtr hInsance;
-        private static IntPtr hMessageDialog;
+        public ushort dlgVer;
+        public ushort signature;
+        public uint helpID;
+        public uint exStyle;
+        public uint style;
+        public ushort cDlgItems;
+        public short x;
+        public short y;
+        public short cx;
+        public short cy;
+        public IntPtr menu ;
+        public IntPtr windowClass;
+        public string title ;
+        public ushort pointsize;
+        public ushort weight;
+        public byte italic;
+        public byte charset;
+        public string typeface;
+    }
+
+
+
+    public class Program
+    {
+        private static IntPtr _hDlg = IntPtr.Zero;
+        private static IntPtr _hInsance;
+
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -22,39 +45,58 @@ namespace ResourceTest
         static void Main()
         {
             Module mod = typeof(Program).Module;
-            hInsance = Marshal.GetHINSTANCE(mod);
+            _hInsance = Marshal.GetHINSTANCE(mod);
             InitCommonControlsEx cex = new InitCommonControlsEx(CommonControls.ICC_WIN95_CLASSES);
             ComCtl32.InitCommonControlsEx(ref cex);
+            IntPtr hres = Kernel32.FindResource(_hInsance, Win32Api.MakeInterSource( 101),ResourceTypes.RT_DIALOG);
+            if (Win32Api.IsResource(hres))
+            {
+                if (hres == IntPtr.Zero)
+                {
+                    Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
+                    Debug.Print(ex.Message);
+                }
 
-            hDlg = User32.CreateDialog(hInsance, 101, IntPtr.Zero, DProc);
-            if (hDlg == IntPtr.Zero)
+                IntPtr res = Kernel32.LoadResource(_hInsance, hres);
+                if (res == IntPtr.Zero)
+                {
+                    Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
+                    Debug.Print(ex.Message);
+                }
+
+                IntPtr locked = Kernel32.LockResource(res);
+
+                DialogTemplate temp = Marshal.PtrToStructure<DialogTemplate>(locked);
+
+                Debug.Print(temp.ToString());
+
+            }
+
+            _hDlg = User32.CreateDialog(_hInsance, 101, IntPtr.Zero, DProc);
+            if (_hDlg == IntPtr.Zero)
             {
                 Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
                 Debug.Print(ex.Message);
             }
-            User32.ShowWindow(hDlg, (int)ShowWindowCommands.ShowDefault );
+
+            User32.ShowWindow(_hDlg, (int) ShowWindowCommands.ShowDefault);
 
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) != 0)
             {
                 if (ret == -1)
                 {
-                    return ;
+                    return;
                 }
 
-                if (!User32.IsDialogMessage(hDlg,ref msg))
+                if (!User32.IsDialogMessage(_hDlg, ref msg))
                 {
                     User32.TranslateMessage(ref msg);
                     User32.DispatchMessage(ref msg);
                 }
             }
-
-           
-
         }
 
-       
-     
 
         private static int DProcMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
         {
@@ -65,22 +107,24 @@ namespace ResourceTest
                     User32.EndDialog(hwnd, result);
 
                     return 1;
-                    
             }
+
             return 0;
         }
+
         private static int DProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
         {
             switch (msg)
             {
                 case WindowsMessages.WM_INITDIALOG:
-                    IntPtr hIcon = User32.LoadImage(hInsance, Win32Api.MakeInterSource(102), ImageTypeConst.IMAGE_ICON,
+                    IntPtr hIcon = User32.LoadImage(_hInsance, Win32Api.MakeInterSource(102), ImageTypeConst.IMAGE_ICON,
                         User32.GetSystemMetrics(SystemMetric.SM_CXSMICON),
                         User32.GetSystemMetrics(SystemMetric.SM_CYSMICON), 0);
                     if (hIcon != IntPtr.Zero)
                     {
                         User32.SendMessage(hwnd, WindowsMessages.WM_SETICON, new IntPtr(0), hIcon);
                     }
+
                     break;
                 case WindowsMessages.WM_COMMAND:
                     int id = Win32Api.LoWord(wparam.ToInt32());
@@ -90,38 +134,41 @@ namespace ResourceTest
                         case 1:
                             if (cmdInt == ButtonMessages.BN_CLICKED)
                             {
-                                User32.SendMessage(hDlg, WindowsMessages.WM_CLOSE, 0, 0);
+                                User32.SendMessage(_hDlg, WindowsMessages.WM_CLOSE);
                                 return 1;
                             }
+
                             break;
                         case 2:
                             if (cmdInt == ButtonMessages.BN_CLICKED)
                             {
-                                User32.DialogBox(hInsance, 102, hDlg, DProcMessage);
+                                User32.DialogBox(_hInsance, 102, _hDlg, DProcMessage);
                             }
+
                             break;
                         case 40001:
-                            User32.SendMessage(hDlg, WindowsMessages.WM_CLOSE, 0, 0);
+                            User32.SendMessage(_hDlg, WindowsMessages.WM_CLOSE);
                             return 1;
-                            
+
                         case 1005:
                             StringBuilder sb = new StringBuilder(255);
                             User32.GetDlgItemText(hwnd, 1004, sb, sb.Capacity);
                             User32.SetDlgItemText(hwnd, 1000, sb.ToString());
                             break;
                     }
+
                     break;
 
                 case WindowsMessages.WM_CLOSE:
                     User32.DestroyWindow(hwnd);
 
                     return 1;
-                    
+
                 case WindowsMessages.WM_DESTROY:
                     User32.PostQuitMessage(0);
                     return 1;
-                   
             }
+
             return 0;
         }
     }
