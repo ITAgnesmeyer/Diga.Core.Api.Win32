@@ -5,34 +5,12 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using Diga.Core.Api.Win32.Tools;
+using System.Collections.Generic;
 
 namespace ResourceTest
 {
-    [StructLayout(LayoutKind.Sequential,CharSet= CharSet.Auto)]
-    public class DLGTEMPLATEEX
-    {
-        public ushort dlgVer;
-        public ushort signature;
-        public uint helpID;
-        public uint exStyle;
-        public uint style;
-        public ushort cDlgItems;
-        public short x;
-        public short y;
-        public short cx;
-        public short cy;
-        public IntPtr menu ;
-        public IntPtr windowClass;
-        public string title ;
-        public ushort pointsize;
-        public ushort weight;
-        public byte italic;
-        public byte charset;
-        public string typeface;
-    }
-
-
-
+  
     public class Program
     {
         private static IntPtr _hDlg = IntPtr.Zero;
@@ -48,29 +26,14 @@ namespace ResourceTest
             _hInsance = Marshal.GetHINSTANCE(mod);
             InitCommonControlsEx cex = new InitCommonControlsEx(CommonControls.ICC_WIN95_CLASSES);
             ComCtl32.InitCommonControlsEx(ref cex);
-            IntPtr hres = Kernel32.FindResource(_hInsance, Win32Api.MakeInterSource( 101),ResourceTypes.RT_DIALOG);
-            if (Win32Api.IsResource(hres))
+
+            DlgTemplateEx dlgTemplateEx =  DlgTemplateExLoader.LoadDialog(_hInsance, 101);
+            Debug.Print(dlgTemplateEx.IsDialogEx().ToString());
+            foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
             {
-                if (hres == IntPtr.Zero)
-                {
-                    Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
-                    Debug.Print(ex.Message);
-                }
-
-                IntPtr res = Kernel32.LoadResource(_hInsance, hres);
-                if (res == IntPtr.Zero)
-                {
-                    Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
-                    Debug.Print(ex.Message);
-                }
-
-                IntPtr locked = Kernel32.LockResource(res);
-
-                DialogTemplate temp = Marshal.PtrToStructure<DialogTemplate>(locked);
-
-                Debug.Print(temp.ToString());
-
+                Debug.Print(dlgItemTemplateEx.Id.ToString());
             }
+
 
             _hDlg = User32.CreateDialog(_hInsance, 101, IntPtr.Zero, DProc);
             if (_hDlg == IntPtr.Zero)
@@ -79,7 +42,7 @@ namespace ResourceTest
                 Debug.Print(ex.Message);
             }
 
-            User32.ShowWindow(_hDlg, (int) ShowWindowCommands.ShowDefault);
+            User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
 
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) != 0)
@@ -96,7 +59,7 @@ namespace ResourceTest
                 }
             }
         }
-
+        
 
         private static int DProcMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
         {
@@ -111,6 +74,8 @@ namespace ResourceTest
 
             return 0;
         }
+
+
 
         private static int DProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
         {

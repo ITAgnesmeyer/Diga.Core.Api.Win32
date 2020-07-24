@@ -69,10 +69,14 @@
     <Compile Include="DevModeUnion1Struct1.cs" />
     <Compile Include="DevModeUnion1Struct2.cs" />
     <Compile Include="DevModeUnion2.cs" />
+    <Compile Include="DialogBoxStyles.cs" />
     <Compile Include="DialogTemplate.cs" />
     <Compile Include="DlgItemTemplate.cs" />
+    <Compile Include="DlgItemTemplateEx.cs" />
     <Compile Include="DlgProc.cs" />
     <Compile Include="DlgTemplate.cs" />
+    <Compile Include="DlgTemplateEx.cs" />
+    <Compile Include="DlgTemplateExLoader.cs" />
     <Compile Include="DocInfo.cs" />
     <Compile Include="EditBoxMessages.cs" />
     <Compile Include="EditBoxStyles.cs" />
@@ -168,6 +172,7 @@
     <Compile Include="TbButton.cs" />
     <Compile Include="TextMetric.cs" />
     <Compile Include="TimerProc.cs" />
+    <Compile Include="Tools\ByteReader.cs" />
     <Compile Include="User32.cs" />
     <Compile Include="UxTheme.cs" />
     <Compile Include="WCrange.cs" />
@@ -183,6 +188,7 @@
     <Compile Include="WndProc.cs" />
     <Compile Include="XForm.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetDir)* $(SolutionDir)package_create\lib\net472\*</PostBuildEvent>

@@ -47,10 +47,14 @@
     <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion1Struct1.cs" Link="DevModeUnion1Struct1.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion1Struct2.cs" Link="DevModeUnion1Struct2.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DevModeUnion2.cs" Link="DevModeUnion2.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DialogBoxStyles.cs" Link="DialogBoxStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DialogTemplate.cs" Link="DialogTemplate.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgItemTemplate.cs" Link="DlgItemTemplate.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DlgItemTemplateEx.cs" Link="DlgItemTemplateEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgProc.cs" Link="DlgProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgTemplate.cs" Link="DlgTemplate.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DlgTemplateEx.cs" Link="DlgTemplateEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DlgTemplateExLoader.cs" Link="DlgTemplateExLoader.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DocInfo.cs" Link="DocInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EditBoxMessages.cs" Link="EditBoxMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EditBoxStyles.cs" Link="EditBoxStyles.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\TbButton.cs" Link="TbButton.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TextMetric.cs" Link="TextMetric.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TimerProc.cs" Link="TimerProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Tools\ByteReader.cs" Link="Tools\ByteReader.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\User32.cs" Link="User32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WCrange.cs" Link="WCrange.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32Api.cs" Link="Win32Api.cs" />
@@ -157,6 +162,10 @@
     <Compile Include="..\Diga.Core.Api.Win32\WndclassEx.cs" Link="WndclassEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WndProc.cs" Link="WndProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\XForm.cs" Link="XForm.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tools\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
