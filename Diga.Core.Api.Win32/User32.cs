@@ -135,17 +135,54 @@ namespace Diga.Core.Api.Win32
             ref WndclassEx lpwcx);
 
 
-        [DllImport(USER32, EntryPoint = "LoadCursor", CharSet = CHARSET)]
+        [DllImport(USER32, EntryPoint = "LoadCursor", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursorName);
 
+        [DllImport(USER32, EntryPoint = "LoadCursor", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadCursor(IntPtr hInstance, IntPtr lpCursorName);
 
-        [DllImport(USER32, EntryPoint = "LoadImage", CharSet = CHARSET)]
+        [DllImport(USER32, EntryPoint = "LoadCursor", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadCursor(IntPtr hInstance, string lpCursorName);
+
+        [DllImport(USER32, EntryPoint = "LoadCursorFromFile", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadCursorFromFile([In] string fileName);
+        
+
+        [DllImport(USER32, EntryPoint = "LoadImage", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr LoadImage([In] IntPtr hInst, [In] string name, uint type, int cx, int cy,
             uint fuLoad);
 
-        [DllImport(USER32, EntryPoint = "LoadImage", CharSet = CHARSET)]
+        [DllImport(USER32, EntryPoint = "LoadImage", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr LoadImage([In] IntPtr hInst, [In] IntPtr name, uint type, int cx, int cy,
             uint fuLoad);
+
+        [DllImport(USER32, EntryPoint = "LoadIcon", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadIcon([In] IntPtr hInst, [In] IntPtr name);
+
+        [DllImport(USER32, EntryPoint = "LoadIcon", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadIcon([In] IntPtr hInst, [In] string name);
+
+        [DllImport(USER32, EntryPoint = "LoadAccelerators", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadAccelerators([In] IntPtr hInst, [In] IntPtr tableName);
+
+        [DllImport(USER32, EntryPoint = "LoadAccelerators", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadAccelerators([In] IntPtr hInst, [In] string tableName);
+
+        [DllImport(USER32, EntryPoint = "LoadMenu", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadMenu([In] IntPtr hInst, [In] IntPtr name);
+
+        [DllImport(USER32, EntryPoint = "LoadMenu", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadMenu([In] IntPtr hInst, [In] string name);
+
+        [DllImport(USER32, EntryPoint = "LoadString", CharSet = CHARSET, SetLastError = true)]
+        public static extern int LoadString([In] IntPtr hInst, [In] int id, StringBuilder buffer, int buffLen);
+
+        [DllImport(USER32, EntryPoint = "LoadString", CharSet = CHARSET, SetLastError = true)]
+        public static extern int LoadString([In] IntPtr hInst, [In] int id, IntPtr buffer, int buffLen = 0);
+
+
+
+
 
         [DllImportAttribute(USER32, EntryPoint = "GetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -463,6 +500,13 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, SystemTime lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, out SystemTime lParam);
+
+
+        [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, IntPtr wParam, StringBuilder lParam);
 
         [DllImport(USER32, CharSet = CHARSET)]
@@ -497,6 +541,8 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, uint msg, IntPtr wParam, IntPtr lParam);
+
+        
 
 
 

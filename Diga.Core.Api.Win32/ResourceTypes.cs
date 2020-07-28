@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable InconsistentNaming
 
 namespace Diga.Core.Api.Win32
 {
@@ -26,6 +27,16 @@ namespace Diga.Core.Api.Win32
         public const int RT_ANIICON_ID = 22;
         public const int RT_HTML_ID = 23;
         public const int RT_MANIFEST_ID = 24;
+        public const int IDI_APPLICATION_ID = 32512;
+        public const int IDI_ASTERISK_ID = 32516;
+        public const int IDI_ERROR_ID = 32513;
+        public const int IDI_EXCLAMATION_ID = 32515;
+        public const int IDI_HAND_ID = 32513;
+        public const int IDI_INFORMATION_ID = 32516;
+        public const int IDI_QUESTION_ID = 32514;
+        public const int IDI_SHIELD_ID = 32518;
+        public const int IDI_WARNING_ID = 32515;
+        public const int IDI_WINLOGO_ID = 32517;
         public static IntPtr RT_CURSOR = Win32Api.MakeInterSource(RT_CURSOR_ID);
         public static IntPtr RT_BITMAP = Win32Api.MakeInterSource(RT_BITMAP_ID);
         public static IntPtr RT_ICON = Win32Api.MakeInterSource(RT_ICON_ID);
@@ -52,6 +63,32 @@ namespace Diga.Core.Api.Win32
         public static IntPtr ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID = Win32Api.MakeInterSource(3);
         public static IntPtr MINIMUM_RESERVED_MANIFEST_RESOURCE_ID = Win32Api.MakeInterSource(1);
         public static IntPtr MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID = Win32Api.MakeInterSource(16);
+        public static IntPtr IDI_APPLICATION = Win32Api.MakeInterSource(IDI_APPLICATION_ID);
+        public static IntPtr IDI_ASTERISK = Win32Api.MakeInterSource(IDI_ASTERISK_ID);
+        public static IntPtr IDI_ERROR = Win32Api.MakeInterSource(IDI_ERROR_ID);
+        public static IntPtr IDI_EXCLAMATION = Win32Api.MakeInterSource(IDI_EXCLAMATION_ID);
+        public static IntPtr IDI_HAND = Win32Api.MakeInterSource(IDI_HAND_ID);
+        public static IntPtr IDI_INFORMATION = Win32Api.MakeInterSource(IDI_INFORMATION_ID);
+        public static IntPtr IDI_QUESTION = Win32Api.MakeInterSource(IDI_QUESTION_ID);
+        public static IntPtr IDI_SHIELD = Win32Api.MakeInterSource(IDI_SHIELD_ID);        
+        public static IntPtr IDI_WARNING = Win32Api.MakeInterSource(IDI_WARNING_ID);
+        public static IntPtr IDI_WINLOGO = Win32Api.MakeInterSource(IDI_WINLOGO_ID);
+        public static IntPtr IDC_APPSTARTING = Win32Api.MakeInterSource(32650);
+        public static IntPtr IDC_ARROW = Win32Api.MakeInterSource(32512);
+        public static IntPtr IDC_CROSS = Win32Api.MakeInterSource(32515);
+        public static IntPtr IDC_HAND = Win32Api.MakeInterSource(32649);
+        public static IntPtr IDC_HELP = Win32Api.MakeInterSource(32651);
+        public static IntPtr IDC_IBEAM = Win32Api.MakeInterSource(32513);
+        public static IntPtr IDC_ICON = Win32Api.MakeInterSource(32641);
+        public static IntPtr IDC_NO = Win32Api.MakeInterSource(32648);
+        public static IntPtr IDC_SIZE = Win32Api.MakeInterSource(32640);
+        public static IntPtr IDC_SIZEALL = Win32Api.MakeInterSource(32646);
+        public static IntPtr IDC_SIZENESW = Win32Api.MakeInterSource(32643);
+        public static IntPtr IDC_SIZENS = Win32Api.MakeInterSource(32645);
+        public static IntPtr IDC_SIZENWSE = Win32Api.MakeInterSource(32642);
+        public static IntPtr IDC_SIZEWE = Win32Api.MakeInterSource(32644);
+        public static IntPtr IDC_UPARROW = Win32Api.MakeInterSource(32516);
+        public static IntPtr IDC_WAIT = Win32Api.MakeInterSource(32514);
 
     }
 }

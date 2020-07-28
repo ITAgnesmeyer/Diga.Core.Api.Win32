@@ -840,6 +840,23 @@ namespace Diga.Core.Api.Win32
 
 
         public static int RGB(int r, int g, int b) => checked(checked(checked(b * 65536) + checked(g * 256)) + r);
+
+        public static byte GetRValue(uint rgb)
+        {
+            return Win32Api.LoByte((ushort) rgb);
+        }
+
+        public static byte GetGValue(uint rgb)
+        {
+            ushort v = (ushort)((ushort) rgb >> 8);
+            return Win32Api.LoByte(v);
+        }
+
+        public static byte GetBValue(uint rgb)
+        {
+            ushort v = (ushort) (rgb >> 16);
+            return Win32Api.LoByte(v);
+        }
     }
 
 

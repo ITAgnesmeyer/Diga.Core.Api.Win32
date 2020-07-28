@@ -12,6 +12,10 @@ namespace Diga.Core.Api.Win32
     public static class Win32Api
     {
 
+        public static string MakeInterSourceString(int id)
+        {
+            return $"#{id}";
+        }
         public static IntPtr MakeInterSource(string id)
         {
             if(int.TryParse(id, out int idInt))
@@ -60,6 +64,30 @@ namespace Diga.Core.Api.Win32
             return (hiWord << 16) | (loWord & 0xffff);
         }
 
+        public static ushort LoWord(uint nValue)
+        {
+            return (ushort) (nValue & 0xffff);
+        }
+
+        public static ushort HiWord(uint nValue)
+        {
+            return (ushort) (nValue >> 16);
+        }
+
+        public static Byte LoByte(ushort nValue)
+        {
+            return (byte) (nValue & 0xff);
+        }
+
+        public static byte HiByte(ushort nValue)
+        {
+            return (byte) (nValue >> 8);
+        }
+
+        public static IntPtr HiLoToLParam(HighLow hiLo)
+        {
+            return MakeLParam(hiLo.iLow, hiLo.iHigh);
+        }
         public static IntPtr MakeLParam(int loWord, int hiWord)
         {
             return (IntPtr)((hiWord << 16) | (loWord & 0xffff));

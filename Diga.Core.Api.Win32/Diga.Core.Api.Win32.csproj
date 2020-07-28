@@ -41,7 +41,9 @@
     <Compile Include="AbortProc.cs" />
     <Compile Include="ActCtx.cs" />
     <Compile Include="ActCtxFlags.cs" />
+    <Compile Include="ApiBool.cs" />
     <Compile Include="ApiHandleRef.cs" />
+    <Compile Include="ApiStructHandleRef.cs" />
     <Compile Include="Bitmap.cs" />
     <Compile Include="BitmapInfo.cs" />
     <Compile Include="BitmapInfoHeader.cs" />
@@ -61,6 +63,9 @@
     <Compile Include="ComCtl32.cs" />
     <Compile Include="ComDlg32.cs" />
     <Compile Include="CommonControls.cs" />
+    <Compile Include="CreateStruct.cs" />
+    <Compile Include="DateTimePickerInfo.cs" />
+    <Compile Include="DateTimePickerMessages.cs" />
     <Compile Include="DefaultHWND.cs" />
     <Compile Include="DeferWindowPosCommands.cs" />
     <Compile Include="DesignVector.cs" />
@@ -129,6 +134,7 @@
     <Compile Include="MonitorDefaultFlags.cs" />
     <Compile Include="MonitorInfo.cs" />
     <Compile Include="MonitorInfoEx.cs" />
+    <Compile Include="MonthCalenderMessages.cs" />
     <Compile Include="MouseKey.cs" />
     <Compile Include="MouseKeyConst.cs" />
     <Compile Include="MSG.cs" />
@@ -169,6 +175,8 @@
     <Compile Include="StaticControlStyles.cs" />
     <Compile Include="StockObjects.cs" />
     <Compile Include="SystemMetric.cs" />
+    <Compile Include="SystemTime.cs" />
+    <Compile Include="SystemTimeRange.cs" />
     <Compile Include="TbButton.cs" />
     <Compile Include="TextMetric.cs" />
     <Compile Include="TimerProc.cs" />

@@ -19,7 +19,9 @@
     <Compile Include="..\Diga.Core.Api.Win32\AbortProc.cs" Link="AbortProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ActCtx.cs" Link="ActCtx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ActCtxFlags.cs" Link="ActCtxFlags.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ApiBool.cs" Link="ApiBool.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ApiHandleRef.cs" Link="ApiHandleRef.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ApiStructHandleRef.cs" Link="ApiStructHandleRef.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Bitmap.cs" Link="Bitmap.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BitmapInfo.cs" Link="BitmapInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\BitmapInfoHeader.cs" Link="BitmapInfoHeader.cs" />
@@ -39,6 +41,9 @@
     <Compile Include="..\Diga.Core.Api.Win32\ComCtl32.cs" Link="ComCtl32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ComDlg32.cs" Link="ComDlg32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\CommonControls.cs" Link="CommonControls.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\CreateStruct.cs" Link="CreateStruct.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DateTimePickerInfo.cs" Link="DateTimePickerInfo.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\DateTimePickerMessages.cs" Link="DateTimePickerMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DefaultHWND.cs" Link="DefaultHWND.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DeferWindowPosCommands.cs" Link="DeferWindowPosCommands.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DesignVector.cs" Link="DesignVector.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\MonitorDefaultFlags.cs" Link="MonitorDefaultFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfo.cs" Link="MonitorInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfoEx.cs" Link="MonitorInfoEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MonthCalenderMessages.cs" Link="MonthCalenderMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MouseKey.cs" Link="MouseKey.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MouseKeyConst.cs" Link="MouseKeyConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MSG.cs" Link="MSG.cs" />
@@ -145,6 +151,8 @@
     <Compile Include="..\Diga.Core.Api.Win32\StaticControlStyles.cs" Link="StaticControlStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\StockObjects.cs" Link="StockObjects.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\SystemMetric.cs" Link="SystemMetric.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\SystemTime.cs" Link="SystemTime.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\SystemTimeRange.cs" Link="SystemTimeRange.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TbButton.cs" Link="TbButton.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TextMetric.cs" Link="TextMetric.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TimerProc.cs" Link="TimerProc.cs" />

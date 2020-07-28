@@ -80,9 +80,11 @@ namespace ResourceTest
             switch (msg)
             {
                 case WindowsMessages.WM_INITDIALOG:
+
                     IntPtr hIcon = User32.LoadImage(_hInsance, Win32Api.MakeInterSource(102), ImageTypeConst.IMAGE_ICON,
                         User32.GetSystemMetrics(SystemMetric.SM_CXSMICON),
                         User32.GetSystemMetrics(SystemMetric.SM_CYSMICON), 0);
+                    //IntPtr hIcon = User32.LoadIcon(IntPtr.Zero,Win32Api.MakeInterSourceString(ResourceTypes.IDI_APPLICATION_ID));
                     if (hIcon != IntPtr.Zero)
                     {
                         User32.SendMessage(hwnd, WindowsMessages.WM_SETICON, new IntPtr(0), hIcon);
@@ -117,6 +119,45 @@ namespace ResourceTest
                             StringBuilder sb = new StringBuilder(255);
                             User32.GetDlgItemText(hwnd, 1004, sb, sb.Capacity);
                             User32.SetDlgItemText(hwnd, 1000, sb.ToString());
+                            break;
+                        case 1006:
+                            IntPtr h = User32.GetDlgItem(hwnd, 1004);
+                            DateTimePickerMessages.DateTime_GetDateTimePickerInfo(h, out DateTimePickerInfo info);
+                            Debug.Print(info.rcButton.Width.ToString());
+
+                            DateTimePickerMessages.DateTime_GetIdealSize(h, out Size sz);
+                            Debug.Print(sz.cx.ToString());
+                            uint bg = DateTimePickerMessages.DateTime_GetMonthCalColor(h, MonthCalenderMessages.MCSC_TITLETEXT);
+                            byte r = Gdi32.GetRValue(bg);
+                            byte g = Gdi32.GetGValue(bg);
+                            byte b = Gdi32.GetBValue(bg);
+
+                            Debug.Print($"R:{r},G:{g},B:{b}");
+                            SystemTimeRange range = DateTimePickerMessages.DateTime_GetRange(h);
+                            DateTime min = range.RangeStart;
+                            DateTime max = range.RangeEnd;
+                            Debug.Print("start:" + min.ToString("f"));
+                            Debug.Print("end:" + max.ToString("f"));
+                            int retVal = DateTimePickerMessages.DateTime_GetSystemtime(h, out SystemTime t);
+                            if (retVal == 0)
+                            {
+                                DateTime dt = t;
+                                Debug.Print("Valud=>" + dt.ToString("f"));
+                            }
+                            else
+                            {
+                                if (retVal == -1)
+                                {
+                                    Debug.Print("Error");
+                                }
+                                else
+                                {
+                                    Debug.Print("None");
+                                }
+                            }
+
+                            SystemTime tToSet = DateTime.Now;
+                            DateTimePickerMessages.DateTime_SetSystemtime(h, tToSet);
                             break;
                     }
 
