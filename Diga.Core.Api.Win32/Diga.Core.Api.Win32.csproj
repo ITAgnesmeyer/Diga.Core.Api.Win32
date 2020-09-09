@@ -102,10 +102,14 @@
     <Compile Include="GlyphSet.cs" />
     <Compile Include="GObjEnumProc.cs" />
     <Compile Include="GWL.cs" />
+    <Compile Include="HARDWAREINPUT.cs" />
     <Compile Include="HighLow.cs" />
     <Compile Include="ImageTypeConst.cs" />
     <Compile Include="InitCommonControlsEx.cs" />
+    <Compile Include="INPUT.cs" />
+    <Compile Include="INPUT_UNION.cs" />
     <Compile Include="Kernel32.cs" />
+    <Compile Include="KEYBDINPUT.cs" />
     <Compile Include="LineDDAProc.cs" />
     <Compile Include="ListBoxMessages.cs" />
     <Compile Include="ListBoxNotify.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="MonitorInfo.cs" />
     <Compile Include="MonitorInfoEx.cs" />
     <Compile Include="MonthCalenderMessages.cs" />
+    <Compile Include="MOUSEINPUT.cs" />
     <Compile Include="MouseKey.cs" />
     <Compile Include="MouseKeyConst.cs" />
     <Compile Include="MSG.cs" />

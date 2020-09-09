@@ -34,14 +34,18 @@ namespace ResourceTest
 
 
             _hDlg = User32.CreateDialog(_hInsance, 101, IntPtr.Zero, DProc);
+            
+            bool isUni = User32.IsWindowUnicode(_hDlg);
+
             if (_hDlg == IntPtr.Zero)
             {
                 Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
                 Debug.Print(ex.Message);
             }
-
+           
+            
             User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
-
+            
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) != 0)
             {
@@ -89,7 +93,7 @@ namespace ResourceTest
                     {
                         User32.SendMessage(hwnd, WindowsMessages.WM_SETICON, new IntPtr(0), hIcon);
                     }
-
+                  
                     break;
                 case WindowsMessages.WM_COMMAND:
                     int id = Win32Api.LoWord(wparam.ToInt32());

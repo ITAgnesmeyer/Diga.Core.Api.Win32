@@ -80,10 +80,14 @@
     <Compile Include="..\Diga.Core.Api.Win32\GlyphSet.cs" Link="GlyphSet.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GObjEnumProc.cs" Link="GObjEnumProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GWL.cs" Link="GWL.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\HARDWAREINPUT.cs" Link="HARDWAREINPUT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\HighLow.cs" Link="HighLow.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ImageTypeConst.cs" Link="ImageTypeConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\InitCommonControlsEx.cs" Link="InitCommonControlsEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\INPUT.cs" Link="INPUT.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\INPUT_UNION.cs" Link="INPUT_UNION.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Kernel32.cs" Link="Kernel32.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\KEYBDINPUT.cs" Link="KEYBDINPUT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LineDDAProc.cs" Link="LineDDAProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxMessages.cs" Link="ListBoxMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ListBoxNotify.cs" Link="ListBoxNotify.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfo.cs" Link="MonitorInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfoEx.cs" Link="MonitorInfoEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonthCalenderMessages.cs" Link="MonthCalenderMessages.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MOUSEINPUT.cs" Link="MOUSEINPUT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MouseKey.cs" Link="MouseKey.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MouseKeyConst.cs" Link="MouseKeyConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MSG.cs" Link="MSG.cs" />

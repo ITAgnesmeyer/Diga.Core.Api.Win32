@@ -6,9 +6,6 @@ using System.Text;
 
 namespace Diga.Core.Api.Win32
 {
-
-
-
     public static partial class User32
     {
         private const string USER32 = "user32.dll";
@@ -82,16 +79,30 @@ namespace Diga.Core.Api.Win32
         }
 
 
-        [DllImportAttribute(USER32, EntryPoint = "CreateDialogIndirectParam", CharSet = CHARSET)]
+        [DllImport(USER32, EntryPoint = "CreateDialogIndirectParam", CharSet = CHARSET)]
         public static extern IntPtr CreateDialogIndirectParam([In] IntPtr hInstance, [In] ref DlgTemplate lpTemplate,
             [In] IntPtr hWndParent, DlgProc lpDialogFunc, [MarshalAs(UnmanagedType.SysInt)] int dwInitParam);
 
+        [DllImport(USER32, EntryPoint = "CreateDialogIndirectParam", CharSet = CHARSET,SetLastError = true)]
+        public static extern IntPtr CreateDialogIndirectParamEx([In] IntPtr hInstance, [In] IntPtr lpTemplate,
+            [In] IntPtr hWndParent, DlgProc lpDialogFunc, IntPtr dwInitParam);
 
         public static IntPtr CreateDialogIndirect(IntPtr hInstance, ref DlgTemplate lpTemplate, IntPtr hWndParent,
             DlgProc dlgFunc)
         {
             return CreateDialogIndirectParam(hInstance, ref lpTemplate, hWndParent, dlgFunc, 0);
         }
+
+        public static IntPtr CreateDialogIndirectEx(IntPtr hInstance, DlgTemplateEx lpTemplate, IntPtr hWndParent,
+            DlgProc dlgFunc)
+        {
+            using (ApiStructHandleRef<DialogTemplate> pt = new ApiStructHandleRef<DialogTemplate>(lpTemplate))
+            {
+                return CreateDialogIndirectParamEx(hInstance,  pt, hWndParent, dlgFunc, IntPtr.Zero);
+            }
+            
+        }
+
 
         [DllImport(USER32, EntryPoint = "RegisterClassEx", SetLastError = true, CharSet = CHARSET)]
         public static extern ushort RegisterClassEx([In] ref WndclassEx param0);
@@ -107,8 +118,8 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "PostQuitMessage")]
         public static extern void PostQuitMessage(int nExitCode);
 
-        [System.Runtime.InteropServices.DllImportAttribute(USER32, EntryPoint = "PostMessage", CharSet = CHARSET, SetLastError = true)]
-        [return: MarshalAsAttribute(UnmanagedType.Bool)]
+        [DllImport(USER32, EntryPoint = "PostMessage", CharSet = CHARSET, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PostMessage([In] IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
 
@@ -134,6 +145,7 @@ namespace Diga.Core.Api.Win32
         public static extern bool GetClassInfoExIntern([In] IntPtr hInstance, [In] string lpszClass,
             ref WndclassEx lpwcx);
 
+   
 
         [DllImport(USER32, EntryPoint = "LoadCursor", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursorName);
@@ -184,10 +196,19 @@ namespace Diga.Core.Api.Win32
 
 
 
-        [DllImportAttribute(USER32, EntryPoint = "GetCursorPos")]
+        [DllImport(USER32, EntryPoint = "GetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos([Out] out Point lpPoint);
 
+        [DllImport(USER32,EntryPoint = "SetCursorPos", SetLastError = true)]
+        public static extern bool SetCursorPos(int x, int y);
+
+
+        [DllImport(USER32,EntryPoint = "SendInput", SetLastError = true)]
+        public static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, int cbSize);
+        
+        [DllImport(USER32,EntryPoint = "GetDoubleClickTime", SetLastError = true)]
+        public static extern uint GetDoubleClickTime();
 
         [DllImport(USER32, EntryPoint = "MonitorFromPoint")]
         public static extern IntPtr MonitorFromPoint(Point pt, uint dwFlags);
@@ -208,6 +229,12 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "SetParent")]
         public static extern IntPtr SetParent([In] IntPtr hWndChild, [In] IntPtr hWndNewParent);
 
+        [DllImport(USER32,EntryPoint = "SetForegroundWindow",  SetLastError = true)]
+        public static extern bool SetForegroundWindow(IntPtr windowHandle);
+
+        [DllImport(USER32, EntryPoint = "SetFocus", SetLastError = true)]
+        public static extern IntPtr SetFocus(IntPtr hWnd);
+
         [DllImport(USER32, EntryPoint = "IsWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindow([In] IntPtr hWnd);
@@ -215,6 +242,11 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "IsWindowEnabled")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindowEnabled([In] IntPtr hWnd);
+
+        [DllImport("user32.dll", EntryPoint="IsWindowUnicode")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool IsWindowUnicode([In] IntPtr hWnd) ;
+
 
         [DllImport(USER32, EntryPoint = "IsWindowVisible")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -307,7 +339,7 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SystemParametersInfo(uint uiAction, int uiParam, ref LogFont logFont, int fWinIni);
 
-        [DllImportAttribute(USER32, EntryPoint = "GetDesktopWindow")]
+        [DllImport(USER32, EntryPoint = "GetDesktopWindow")]
         public static extern IntPtr GetDesktopWindow();
 
         public static bool GetDefaultLogFont(out LogFont logFont)
@@ -448,6 +480,16 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy,
             SetWindowPosFlags uFlags);
+
+        [DllImport(USER32,EntryPoint = "SetLayeredWindowAttributes",  SetLastError = true)]
+        public static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
+
+
+        [DllImport(USER32,EntryPoint = "GetMessageExtraInfo", SetLastError = true)]
+        public static extern IntPtr GetMessageExtraInfo();
+
+        [DllImport(USER32, EntryPoint = "SendMessageTimeout", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessageTimeout(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam, uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);
 
 
         [DllImport(USER32)]
@@ -742,5 +784,14 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool RedrawWindow([In] IntPtr hWnd, [In] IntPtr lprcUpdate, [In] IntPtr hrgnUpdate,
             uint flags);
+
+
+        [DllImport(USER32,EntryPoint = "VkKeyScan", CharSet = CHARSET, SetLastError = true)]
+        public static extern short VkKeyScan(char ch);
+
+        [DllImport(USER32,EntryPoint ="GetKeyState", CharSet = CHARSET, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern short GetKeyState(int keyCode);
+
+
     }
 }
