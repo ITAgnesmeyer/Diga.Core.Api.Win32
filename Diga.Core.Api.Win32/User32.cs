@@ -438,12 +438,17 @@ namespace Diga.Core.Api.Win32
         }
 
 
-        [DllImport("user32.dll", EntryPoint = "GetWindowPlacement")]
+        [DllImport(USER32, EntryPoint = "GetWindowPlacement")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowPlacement([In()] IntPtr hWnd, ref WindowPlacement lpwndpl);
 
+        
+        [DllImport(USER32, EntryPoint="GetMonitorInfo", CharSet =CHARSET , SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool GetMonitorInfo([In()] IntPtr hMonitor, ref MonitorInfo lpmi) ;
 
-
+        
+     
         [DllImport(USER32, EntryPoint = "SetWindowLong", CharSet = CHARSET)]
         public static extern int SetWindowLongPrt32([In] IntPtr hWnd, int nIndex, int dwNewLong);
 

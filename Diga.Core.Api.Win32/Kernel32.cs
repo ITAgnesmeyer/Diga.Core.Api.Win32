@@ -139,6 +139,13 @@ namespace Diga.Core.Api.Win32
         [DllImport(KERNEL32, EntryPoint = "CreateMemoryResourceNotification", SetLastError = true)]
         public static extern IntPtr CreateMemoryResourceNotification(MEMORY_RESOURCE_NOTIFICATION_TYPE NotificationType);
 
+        [DllImport(KERNEL32, EntryPoint = "Wow64DisableWow64FsRedirection", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool Wow64DisableWow64FsRedirection(ref IntPtr oldValue);
+
+        [DllImport(KERNEL32, EntryPoint = "Wow64RevertWow64FsRedirection", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool Wow64RevertWow64FsRedirection([In] IntPtr oldValue);
 
     }
 }
