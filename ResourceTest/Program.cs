@@ -27,9 +27,13 @@ namespace ResourceTest
 
             DlgTemplateEx dlgTemplateEx =  DlgTemplateExLoader.LoadDialog(_hInsance, 101);
             Debug.Print(dlgTemplateEx.IsDialogEx().ToString());
+            int count = 0;
             foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
             {
+                count += 1;
                 Debug.Print(dlgItemTemplateEx.Id.ToString());
+                int u = (int)0x40 + count;
+                Debug.Print("id=>" + u);
             }
 
 
@@ -45,7 +49,14 @@ namespace ResourceTest
            
             
             User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
-            
+            foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
+            {
+                IntPtr hwnd = User32.GetDlgItem(_hDlg,(int) dlgItemTemplateEx.Id);
+
+                dlgItemTemplateEx.WindowClass  = User32.GetClassName(hwnd);
+                Debug.Print("ID=" + dlgItemTemplateEx.Id + ",WindClass=" + dlgItemTemplateEx.WindowClass +
+                            ", WindowClassId=" + dlgItemTemplateEx.WindowClassId);
+            }
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) != 0)
             {
