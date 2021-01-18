@@ -252,6 +252,19 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindowVisible([In] IntPtr hWnd);
 
+
+
+        [DllImport("user32.dll", EntryPoint = "IsGUIThread")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsGUIThread(
+            [MarshalAs(UnmanagedType.Bool)]
+            bool bConvert);
+
+        [DllImport("user32.dll", EntryPoint="IsZoomed")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool IsZoomed([In] IntPtr hWnd) ;
+
+
         [DllImport(USER32, EntryPoint = "EnableWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnableWindow([In] IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bEnable);
@@ -402,6 +415,12 @@ namespace Diga.Core.Api.Win32
             return sb.ToString();
         }
 
+        
+
+        [DllImport(USER32, EntryPoint="GetWindowModuleFileName", CharSet = CHARSET)]
+        public static extern  uint GetWindowModuleFileNameW([In] IntPtr hwnd, [Out] StringBuilder pszFileName, uint cchFileNameMax) ;
+
+
 
         [DllImport(USER32)]
         public static extern IntPtr GetActiveWindow();
@@ -440,15 +459,19 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, EntryPoint = "GetWindowPlacement")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowPlacement([In()] IntPtr hWnd, ref WindowPlacement lpwndpl);
+        public static extern bool GetWindowPlacement([In] IntPtr hWnd, ref WindowPlacement lpwndpl);
 
         
         [DllImport(USER32, EntryPoint="GetMonitorInfo", CharSet =CHARSET , SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool GetMonitorInfo([In()] IntPtr hMonitor, ref MonitorInfo lpmi) ;
+        public static extern  bool GetMonitorInfo([In] IntPtr hMonitor, ref MonitorInfo lpmi) ;
 
-        
-     
+        [DllImport(USER32, EntryPoint = "GetParent", SetLastError = true)]
+        public static extern IntPtr GetParent(IntPtr hWnd);
+
+        [DllImport(USER32, EntryPoint = "GetMonitorInfo", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr GetAncestor(IntPtr hWnd, uint gwFlags);
+
         [DllImport(USER32, EntryPoint = "SetWindowLong", CharSet = CHARSET)]
         public static extern int SetWindowLongPrt32([In] IntPtr hWnd, int nIndex, int dwNewLong);
 
@@ -796,6 +819,9 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32,EntryPoint ="GetKeyState", CharSet = CHARSET, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
         public static extern short GetKeyState(int keyCode);
+
+        [DllImport(USER32,EntryPoint = "WindowFromPoint", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr WindowFromPoint(Point point);
 
 
     }
