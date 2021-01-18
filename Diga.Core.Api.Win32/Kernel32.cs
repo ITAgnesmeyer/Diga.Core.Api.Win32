@@ -147,6 +147,11 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Wow64RevertWow64FsRedirection([In] IntPtr oldValue);
 
+        [DllImport(KERNEL32, EntryPoint="FileTimeToSystemTime")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool FileTimeToSystemTime([In] ref FileTime lpFileTime, [Out] out SystemTime lpSystemTime) ;
+
+
     }
 }
 

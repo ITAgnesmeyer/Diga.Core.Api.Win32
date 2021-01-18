@@ -6,12 +6,15 @@ using System.Text;
 
 namespace Diga.Core.Api.Win32.Tools
 {
+
     public class ByteReader
     {
+        
         private ApiHandleRef Handle;
         public int Positon { get; set; }
         public ByteReader(IntPtr ptr)
         {
+            
             this.Handle = ptr;
             this.Positon = 0;
         }

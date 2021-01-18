@@ -41,6 +41,8 @@
     <Compile Include="..\Diga.Core.Api.Win32\ComCtl32.cs" Link="ComCtl32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ComDlg32.cs" Link="ComDlg32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\CommonControls.cs" Link="CommonControls.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IClassFactory.cs" Link="Com\IClassFactory.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IOleWindow.cs" Link="Com\IOleWindow.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\CreateStruct.cs" Link="CreateStruct.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DateTimePickerInfo.cs" Link="DateTimePickerInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DateTimePickerMessages.cs" Link="DateTimePickerMessages.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\EnumResLangProc.cs" Link="EnumResLangProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EnumResNameProc.cs" Link="EnumResNameProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EnumResTypeProc.cs" Link="EnumResTypeProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\FileTime.cs" Link="FileTime.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Fixed.cs" Link="Fixed.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\FontSignature.cs" Link="FontSignature.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\FontType.cs" Link="FontType.cs" />
@@ -178,6 +181,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Com\" />
     <Folder Include="Tools\" />
   </ItemGroup>
 

@@ -63,6 +63,8 @@
     <Compile Include="ComCtl32.cs" />
     <Compile Include="ComDlg32.cs" />
     <Compile Include="CommonControls.cs" />
+    <Compile Include="Com\IClassFactory.cs" />
+    <Compile Include="Com\IOleWindow.cs" />
     <Compile Include="CreateStruct.cs" />
     <Compile Include="DateTimePickerInfo.cs" />
     <Compile Include="DateTimePickerMessages.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="EnumResLangProc.cs" />
     <Compile Include="EnumResNameProc.cs" />
     <Compile Include="EnumResTypeProc.cs" />
+    <Compile Include="FileTime.cs" />
     <Compile Include="Fixed.cs" />
     <Compile Include="FontSignature.cs" />
     <Compile Include="FontType.cs" />
@@ -201,7 +204,9 @@
     <Compile Include="WndProc.cs" />
     <Compile Include="XForm.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Com\Shell\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetDir)* $(SolutionDir)package_create\lib\net472\*</PostBuildEvent>
