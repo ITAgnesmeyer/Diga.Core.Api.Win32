@@ -3,7 +3,8 @@
 namespace Diga.Core.Api.Win32
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct INPUT {
+    public struct INPUT 
+    {
     
         /// DWORD->unsigned int
         public uint type;

@@ -3,7 +3,8 @@
 namespace Diga.Core.Api.Win32
 {
     [StructLayout(LayoutKind.Explicit)]
-    public struct INPUT_UNION {
+    public struct INPUT_UNION 
+    {
     
         /// MOUSEINPUT->tagMOUSEINPUT
         [FieldOffset(0)]

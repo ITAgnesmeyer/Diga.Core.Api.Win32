@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using Diga.Core.Api.Win32.GDI;
 
 namespace Diga.Core.Api.Win32
 {

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using Diga.Core.Api.Win32.GDI;
 
 namespace ResourceTest
 {

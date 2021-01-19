@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Diga.Core.Api.Win32.GDI;
 
 namespace Diga.Core.Api.Win32
 {
