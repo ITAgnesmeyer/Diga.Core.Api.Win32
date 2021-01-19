@@ -88,6 +88,9 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr LoadResource([In] IntPtr hModule, [In] IntPtr hResInfo);
 
 
+        [DllImport(KERNEL32, CharSet=CharSet.None, ExactSpelling=false)]
+        internal static extern IntPtr LocalFree(ref object obj);
+
         [DllImport(KERNEL32, EntryPoint = "LockResource", SetLastError = true)]
         public static extern IntPtr LockResource([In] IntPtr hResData);
 

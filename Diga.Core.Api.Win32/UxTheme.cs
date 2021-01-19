@@ -5,12 +5,13 @@ namespace Diga.Core.Api.Win32
 {
     public static class UxTheme
     {
+        private const string UXTHEME = "UxTheme.dll";
         /// Return Type: void
         ///dwFlags: DWORD->unsigned int
-        [DllImport("UxTheme.dll", EntryPoint = "SetThemeAppProperties")]
+        [DllImport(UXTHEME, EntryPoint = "SetThemeAppProperties")]
         public static extern void SetThemeAppProperties(uint dwFlags);
 
-        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        [DllImport(UXTHEME, ExactSpelling = true, CharSet = CharSet.Auto)]
         public static extern int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
 
         public const int STAP_ALLOW_NONCLIENT = (1 << 0);

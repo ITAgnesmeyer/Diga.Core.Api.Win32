@@ -9,7 +9,7 @@ namespace Diga.Core.Api.Win32
     {
         public static DlgTemplateEx LoadDialog(IntPtr hInstance,int id)
         {
-            IntPtr hres = Kernel32.FindResource(hInstance, Win32Api.MakeInterSource(101), ResourceTypes.RT_DIALOG);
+            IntPtr hres = Kernel32.FindResource(hInstance, Win32Api.MakeInterSource(id), ResourceTypes.RT_DIALOG);
             if(hres == IntPtr.Zero)
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());

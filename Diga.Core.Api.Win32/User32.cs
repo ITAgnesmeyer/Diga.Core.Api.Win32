@@ -244,7 +244,7 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindowEnabled([In] IntPtr hWnd);
 
-        [DllImport("user32.dll", EntryPoint="IsWindowUnicode")]
+        [DllImport(USER32, EntryPoint="IsWindowUnicode")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern  bool IsWindowUnicode([In] IntPtr hWnd) ;
 
@@ -255,13 +255,13 @@ namespace Diga.Core.Api.Win32
 
 
 
-        [DllImport("user32.dll", EntryPoint = "IsGUIThread")]
+        [DllImport(USER32, EntryPoint = "IsGUIThread")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsGUIThread(
             [MarshalAs(UnmanagedType.Bool)]
             bool bConvert);
 
-        [DllImport("user32.dll", EntryPoint="IsZoomed")]
+        [DllImport(USER32, EntryPoint="IsZoomed")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern  bool IsZoomed([In] IntPtr hWnd) ;
 
