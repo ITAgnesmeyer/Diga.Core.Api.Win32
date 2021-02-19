@@ -14,11 +14,13 @@ namespace Diga.Core.Api.Win32
         [DllImport(OLE32, EntryPoint = "OleUninitialize", CallingConvention = CallingConvention.StdCall)]
         public static extern void OleUninitialize();
 
-        [DllImport(OLE32, EntryPoint="CoLockObjectExternal", CallingConvention= CallingConvention.StdCall, PreserveSig = true)]
-        public static extern  int CoLockObjectExternal([MarshalAs(UnmanagedType.IUnknown)]  object pUnk, [MarshalAs(UnmanagedType.Bool)] bool fLock, [MarshalAs(UnmanagedType.Bool)] bool fLastUnlockReleases) ;
+        [DllImport(OLE32, EntryPoint = "CoLockObjectExternal", CallingConvention = CallingConvention.StdCall, PreserveSig = true)]
+        public static extern int CoLockObjectExternal([MarshalAs(UnmanagedType.IUnknown)] object pUnk, [MarshalAs(UnmanagedType.Bool)] bool fLock, [MarshalAs(UnmanagedType.Bool)] bool fLastUnlockReleases);
 
-        [DllImport(OLE32, EntryPoint="CoLockObjectExternal", CallingConvention= CallingConvention.StdCall, PreserveSig = true)]
-        public static extern  int CoLockObjectExternal(IntPtr pUnk, [MarshalAs(UnmanagedType.Bool)] bool fLock, [MarshalAs(UnmanagedType.Bool)] bool fLastUnlockReleases) ;
+        [DllImport(OLE32, EntryPoint = "CoLockObjectExternal", CallingConvention = CallingConvention.StdCall, PreserveSig = true)]
+        public static extern int CoLockObjectExternal(IntPtr pUnk, [MarshalAs(UnmanagedType.Bool)] bool fLock, [MarshalAs(UnmanagedType.Bool)] bool fLastUnlockReleases);
 
+        [DllImport(OLE32, SetLastError = true, CharSet = CharSet.Auto, ExactSpelling = true)]
+        public extern static void CoTaskMemFree(IntPtr pv);
     }
 }

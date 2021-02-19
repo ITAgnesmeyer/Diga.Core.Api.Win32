@@ -1,11 +1,15 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct Rect
     {
-        public int Left, Top, Right, Bottom;
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
 
         public Rect(int left, int top, int right, int bottom)
         {
@@ -21,7 +25,7 @@ namespace Diga.Core.Api.Win32
 
         public int X
         {
-            get { return this.Left; }
+            get => this.Left;
             set
             {
                 this.Right -= (this.Left - value);
@@ -31,7 +35,7 @@ namespace Diga.Core.Api.Win32
 
         public int Y
         {
-            get { return this.Top; }
+            get => this.Top;
             set
             {
                 this.Bottom -= (this.Top - value);
@@ -41,19 +45,19 @@ namespace Diga.Core.Api.Win32
 
         public int Height
         {
-            get { return this.Bottom - this.Top; }
-            set { this.Bottom = value + this.Top; }
+            get => this.Bottom - this.Top;
+            set => this.Bottom = value + this.Top;
         }
 
         public int Width
         {
-            get { return this.Right - this.Left; }
-            set { this.Right = value + this.Left; }
+            get => this.Right - this.Left;
+            set => this.Right = value + this.Left;
         }
 
         public System.Drawing.Point Location
         {
-            get { return new System.Drawing.Point(this.Left, this.Top); }
+            get => new System.Drawing.Point(this.Left, this.Top);
             set
             {
                 this.X = value.X;
@@ -63,7 +67,7 @@ namespace Diga.Core.Api.Win32
 
         public System.Drawing.Size Size
         {
-            get { return new System.Drawing.Size(this.Width, this.Height); }
+            get => new System.Drawing.Size(this.Width, this.Height);
             set
             {
                 this.Width = value.Width;
@@ -100,11 +104,15 @@ namespace Diga.Core.Api.Win32
 
         public override bool Equals(object obj)
         {
-            if (obj is Rect)
-                return Equals((Rect) obj);
-            else if (obj is System.Drawing.Rectangle)
-                return Equals(new Rect((System.Drawing.Rectangle) obj));
-            return false;
+            switch (obj)
+            {
+                case Rect rect:
+                    return Equals(rect);
+                case Rectangle rectangle:
+                    return Equals(new Rect(rectangle));
+                default:
+                    return false;
+            }
         }
 
         public override int GetHashCode()

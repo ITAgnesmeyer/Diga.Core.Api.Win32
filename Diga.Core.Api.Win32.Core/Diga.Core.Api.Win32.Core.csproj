@@ -33,8 +33,26 @@
     <Compile Include="..\Diga.Core.Api.Win32\ComCtl32.cs" Link="ComCtl32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ComDlg32.cs" Link="ComDlg32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\CommonControls.cs" Link="CommonControls.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\COMDLG_FILTERSPEC.cs" Link="Com\COMDLG_FILTERSPEC.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\FDE_OVERWRITE_RESPONSE.cs" Link="Com\FDE_OVERWRITE_RESPONSE.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\FDE_SHAREVIOLATION_RESPONSE.cs" Link="Com\FDE_SHAREVIOLATION_RESPONSE.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\FileDialogCustomPlace.cs" Link="Com\FileDialogCustomPlace.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\FOS.cs" Link="Com\FOS.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\HRESULT.cs" Link="Com\HRESULT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Com\IClassFactory.cs" Link="Com\IClassFactory.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IFileDialog.cs" Link="Com\IFileDialog.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IFileDialogEvents.cs" Link="Com\IFileDialogEvents.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IFileOpenDialog.cs" Link="Com\IFileOpenDialog.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IFileSaveDialog.cs" Link="Com\IFileSaveDialog.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IMalloc.cs" Link="Com\IMalloc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Com\IOleWindow.cs" Link="Com\IOleWindow.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IShellItem.cs" Link="Com\IShellItem.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IShellItemArray.cs" Link="Com\IShellItemArray.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\IUnkCaller.cs" Link="Com\IUnkCaller.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\PROPERTYKEY.cs" Link="Com\PROPERTYKEY.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\SIATTRIBFLAGS.cs" Link="Com\SIATTRIBFLAGS.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\SIGDN.cs" Link="Com\SIGDN.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Com\UnknownWrapper.cs" Link="Com\UnknownWrapper.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\CreateStruct.cs" Link="CreateStruct.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DateTimePickerInfo.cs" Link="DateTimePickerInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DateTimePickerMessages.cs" Link="DateTimePickerMessages.cs" />
@@ -103,6 +121,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\GWL.cs" Link="GWL.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\HARDWAREINPUT.cs" Link="HARDWAREINPUT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\HighLow.cs" Link="HighLow.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ImageInfo.cs" Link="ImageInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ImageTypeConst.cs" Link="ImageTypeConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\InitCommonControlsEx.cs" Link="InitCommonControlsEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\INPUT.cs" Link="INPUT.cs" />
@@ -165,11 +184,13 @@
     <Compile Include="..\Diga.Core.Api.Win32\SystemTimeRange.cs" Link="SystemTimeRange.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TbButton.cs" Link="TbButton.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TextMetric.cs" Link="TextMetric.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\ThemeSizeType.cs" Link="ThemeSizeType.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\TimerProc.cs" Link="TimerProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Tools\ByteReader.cs" Link="Tools\ByteReader.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\User32.cs" Link="User32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32Api.cs" Link="Win32Api.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Win32ApiCursors.cs" Link="Win32ApiCursors.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\WindowClass.cs" Link="WindowClass.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowPlacement.cs" Link="WindowPlacement.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowPlacementFlagConst.cs" Link="WindowPlacementFlagConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowPlacementFlags.cs" Link="WindowPlacementFlags.cs" />
@@ -181,7 +202,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Com\" />
     <Folder Include="GDI\" />
     <Folder Include="Tools\" />
   </ItemGroup>

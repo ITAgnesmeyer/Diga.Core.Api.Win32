@@ -35,12 +35,39 @@ namespace Diga.Core.Api.Win32
         [DllImport(KERNEL32, EntryPoint = "GetProcessId", SetLastError = true)]
         public static extern uint GetProcessId([In] IntPtr Process);
 
+        [DllImport(KERNEL32, EntryPoint="GetCurrentThreadId",ExactSpelling=true, CharSet=CHARSET)]
+        public static extern int GetCurrentThreadId();
+
+        [DllImport(KERNEL32, EntryPoint= "GetExitCodeThread",ExactSpelling = true, CharSet = CHARSET)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeThread(IntPtr hWnd, out int lpdwExitCode);
 
         [DllImport(KERNEL32, EntryPoint = "OpenFile", CharSet = CHARSET, SetLastError = true)]
         public static extern int OpenFile([In] string lpFileName, ref OFSTRUCT lpReOpenBuff, uint uStyle);
 
         [DllImport(KERNEL32, EntryPoint = "CopyMemory", SetLastError = false)]
         public static extern void CopyMemory(IntPtr dest, IntPtr src, uint count);
+
+
+        [DllImport(KERNEL32, SetLastError=true, ExactSpelling=true, EntryPoint="RtlMoveMemory", CharSet=CharSet.Auto)]
+        public static extern void RtlMoveMemory(IntPtr destData, IntPtr srcData, int size);
+
+        [DllImport(KERNEL32, ExactSpelling=true, EntryPoint="RtlMoveMemory")]
+        public static extern void RtlMoveMemory(IntPtr pdst, byte[] psrc, int cb);
+ 
+        [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Unicode)]
+        public static extern void RtlMoveMemoryW(IntPtr pdst, string psrc, int cb);
+
+        [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Unicode)]
+        public static extern void RtlMoveMemoryW(IntPtr pdst, char[] psrc, int cb);
+
+ 
+        [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Ansi)]
+        public static extern void RtlMoveMemoryA(IntPtr pdst, string psrc, int cb);
+
+        [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Ansi)]
+        public static extern void RtlMoveMemoryA(IntPtr pdst, char[] psrc, int cb);
+
 
 
         [DllImport(KERNEL32, EntryPoint = "GetModuleHandle", CharSet = CHARSET)]

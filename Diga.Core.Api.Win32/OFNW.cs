@@ -6,6 +6,23 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
+    public static class EnvironmentExtension
+    {
+        private static readonly Version VistaOSVersion = new Version(6, 0);
+        public static bool IsVista
+        {
+            get
+            {
+                OperatingSystem os = Environment.OSVersion;
+
+                return (os.Platform == PlatformID.Win32NT) &&
+                       (os.Version.CompareTo(VistaOSVersion) >= 0);
+            }
+        }
+
+        public static bool Is64Bit => IntPtr.Size == 8;
+    }
+
     [StructLayout(LayoutKind.Sequential,CharSet =CharSet.Auto)]
     public struct OfNw
     {
