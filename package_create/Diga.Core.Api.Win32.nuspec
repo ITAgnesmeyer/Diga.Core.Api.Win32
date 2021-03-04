@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Diga.Core.Api.Win32</id>
-    <version>1.0.22</version>
+    <version>1.0.24</version>
     <title>Diga.Core.Api.Win32</title>
     <authors>Dipl.-Ing.(FH) Guido Agnesmeyer</authors>
     <owners>Dipl.-Ing.(FH) Guido Agnesmeyer</owners>
@@ -12,7 +12,7 @@
     <icon>Image/logo.png</icon>
     <projectUrl>https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32</projectUrl>
     <description>Win32 - Api Imports</description>
-    <copyright>2020 Dipl.-Ing.(FH) Guido Agnesmeyer</copyright>
+    <copyright>2021 Dipl.-Ing.(FH) Guido Agnesmeyer</copyright>
     <repository type="git" url="https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32" />
     <dependencies>
       <group targetFramework=".NETFramework4.7.2" />
