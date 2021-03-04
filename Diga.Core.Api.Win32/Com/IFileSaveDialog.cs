@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32.Com
 {
-    [ComImport(),
+    [ComImport,
      Guid("84bccd23-5fde-4cdb-aea4-af64b83d78ab"),
      InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IFileSaveDialog : IFileDialog

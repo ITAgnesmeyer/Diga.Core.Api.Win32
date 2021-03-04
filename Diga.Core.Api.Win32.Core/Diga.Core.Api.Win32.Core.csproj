@@ -118,6 +118,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\GDI\WCrange.cs" Link="GDI\WCrange.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GDI\XForm.cs" Link="GDI\XForm.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GetTextEx.cs" Link="GetTextEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\GetWindowFlag.cs" Link="GetWindowFlag.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\GWL.cs" Link="GWL.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\HARDWAREINPUT.cs" Link="HARDWAREINPUT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\HighLow.cs" Link="HighLow.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\Ole32.cs" Link="Ole32.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\PaintStruct.cs" Link="PaintStruct.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\PanOse.cs" Link="PanOse.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\PeekMessageFlag.cs" Link="PeekMessageFlag.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\PixelFormatDescriptor.cs" Link="PixelFormatDescriptor.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Point.cs" Link="Point.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ProcessAccessTypes.cs" Link="ProcessAccessTypes.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\WindowStyles.cs" Link="WindowStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WindowStylesConst.cs" Link="WindowStylesConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WndclassEx.cs" Link="WndclassEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\WndEumProc.cs" Link="WndEumProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\WndProc.cs" Link="WndProc.cs" />
   </ItemGroup>
 

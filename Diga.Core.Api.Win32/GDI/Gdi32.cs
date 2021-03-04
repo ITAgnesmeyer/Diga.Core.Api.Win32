@@ -685,7 +685,7 @@ namespace Diga.Core.Api.Win32.GDI
         public static extern IntPtr SetEnhMetaFileBits(uint nSize, ref byte pb);
 
         [DllImport(GDI32, EntryPoint = "SetWinMetaFileBits")]
-        public static extern System.IntPtr SetWinMetaFileBits(uint nSize, [In] IntPtr lpMeta16Data, [In] IntPtr hdcRef, [In] IntPtr lpMFP);
+        public static extern IntPtr SetWinMetaFileBits(uint nSize, [In] IntPtr lpMeta16Data, [In] IntPtr hdcRef, [In] IntPtr lpMFP);
 
 
         [DllImport(GDI32, EntryPoint = "SetWinMetaFileBits")]
@@ -697,7 +697,7 @@ namespace Diga.Core.Api.Win32.GDI
 
         [DllImport(GDI32, EntryPoint = "GdiComment")]
         [return: MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        public static extern bool GdiComment([In()] IntPtr hdc, uint nSize, [In()] IntPtr lpData);
+        public static extern bool GdiComment([In] IntPtr hdc, uint nSize, [In] IntPtr lpData);
 
 
         [DllImport(GDI32, EntryPoint = "GetTextMetrics", CharSet = CHARSET)]

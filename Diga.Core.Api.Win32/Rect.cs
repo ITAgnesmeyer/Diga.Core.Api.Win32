@@ -19,7 +19,7 @@ namespace Diga.Core.Api.Win32
             this.Bottom = bottom;
         }
 
-        public Rect(System.Drawing.Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom)
+        public Rect(Rectangle r) : this(r.Left, r.Top, r.Right, r.Bottom)
         {
         }
 
@@ -77,12 +77,12 @@ namespace Diga.Core.Api.Win32
 
        
 
-        public static implicit operator System.Drawing.Rectangle(Rect r)
+        public static implicit operator Rectangle(Rect r)
         {
-            return new System.Drawing.Rectangle(r.Left, r.Top, r.Width, r.Height);
+            return new Rectangle(r.Left, r.Top, r.Width, r.Height);
         }
 
-        public static implicit operator Rect(System.Drawing.Rectangle r)
+        public static implicit operator Rect(Rectangle r)
         {
             return new Rect(r);
         }
@@ -117,7 +117,7 @@ namespace Diga.Core.Api.Win32
 
         public override int GetHashCode()
         {
-            return ((System.Drawing.Rectangle) this).GetHashCode();
+            return ((Rectangle) this).GetHashCode();
         }
 
         public override string ToString()

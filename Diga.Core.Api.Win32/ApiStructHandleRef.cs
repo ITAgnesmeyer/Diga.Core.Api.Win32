@@ -22,7 +22,7 @@ namespace Diga.Core.Api.Win32
         private static IntPtr Allocate(T item)
         {
             IntPtr ptr = Allocate();
-            Marshal.StructureToPtr<T>(item, ptr, true);
+            Marshal.StructureToPtr(item, ptr, true);
             return ptr;
         }
         private static IntPtr Allocate()

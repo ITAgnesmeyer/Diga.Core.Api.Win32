@@ -4,10 +4,10 @@ using System.Security;
 
 namespace Diga.Core.Api.Win32.Com
 {
-    [ComImport()]
+    [ComImport]
     [Guid("00000002-0000-0000-c000-000000000046")]
     [InterfaceType(System.Runtime.InteropServices.ComInterfaceType.InterfaceIsIUnknown)]
-    [SuppressUnmanagedCodeSecurity()]
+    [SuppressUnmanagedCodeSecurity]
     public interface IMalloc
     {
         [PreserveSig]

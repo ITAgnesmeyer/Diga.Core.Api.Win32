@@ -30,7 +30,7 @@ namespace Diga.Core.Api.Win32.Com
     { }
 
 
-    [ComImport()]
+    [ComImport]
     [Guid("42f85136-db7e-439c-85f1-e4075d135fc8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IFileDialog

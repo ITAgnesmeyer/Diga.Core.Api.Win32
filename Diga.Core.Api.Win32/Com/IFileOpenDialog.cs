@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 #pragma warning disable 108,114
 namespace Diga.Core.Api.Win32.Com
 {
-    [ComImport()]
+    [ComImport]
     [Guid("d57c7288-d4ad-4768-be02-9d969532d960")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IFileOpenDialog : IFileDialog

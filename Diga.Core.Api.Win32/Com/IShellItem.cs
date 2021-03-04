@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32.Com
 {
-    [ComImport()]
+    [ComImport]
     [Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IShellItem
