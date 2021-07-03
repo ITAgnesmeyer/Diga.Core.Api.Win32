@@ -16,28 +16,44 @@ namespace Diga.Core.Api.Win32
 
 
         [DllImport(COMCTL32, EntryPoint = "ImageList_Create")]
-        public static extern IntPtr ImageList_Create(int cx, int cy, int flags, int cInitial, int cGrow);
+        public static extern IntPtr ImageList_Create( [In] int cx,
+            [In] int cy,
+            [In] uint flags,
+            [In] int cInitial,
+            [In] int cGrow);
 
         //[DllImport(COMCTL32, EntryPoint = "ImageList_Add", CallingConvention = CallingConvention.StdCall)]
         //public static extern int ImageList_Add(IntPtr hIml, IntPtr hbmImage, IntPtr hbmMask);
 
         [DllImport(COMCTL32, EntryPoint = "ImageList_Destroy")]
-        public static extern int ImageList_Destroy(IntPtr hIml);
+        public static extern int ImageList_Destroy([In] IntPtr hIml);
 
         [DllImport(COMCTL32)]
-        public static extern int ImageList_GetImageCount(IntPtr hIml);
+        public static extern int ImageList_GetImageCount([In] IntPtr hIml);
 
         [DllImport(COMCTL32)]
-        public static extern int ImageList_Add(IntPtr hIml, IntPtr hbmImage, IntPtr hbmMask);
+        public static extern int ImageList_SetImageCount([In] IntPtr hIml, [In] uint uNewCount);
+
 
         [DllImport(COMCTL32)]
-        public static extern int ImageList_ReplaceIcon(IntPtr hIml, int index, IntPtr hicon);
+        public static extern int ImageList_Add([In] IntPtr hIml, [In] IntPtr hbmImage, [In, Optional] IntPtr hbmMask);
 
         [DllImport(COMCTL32)]
-        public static extern int ImageList_SetBkColor(IntPtr hIml, int clrBk);
+        public static extern int ImageList_ReplaceIcon([In] IntPtr hIml, [In] int index, [In] IntPtr hicon);
 
         [DllImport(COMCTL32)]
-        public static extern bool ImageList_Draw(IntPtr hIml, int i, IntPtr hdcDst, int x, int y, int fStyle);
+        public static extern uint ImageList_SetBkColor([In] IntPtr hIml, [In] uint clrBk);
+        
+        [DllImport(COMCTL32)]
+        public static extern uint ImageList_GetBkColor([In] IntPtr hIml);
+        
+        [DllImport(COMCTL32)]
+        public static extern int ImageList_SetOverlayImage([In] IntPtr hIml, [In] int imageIndex, [In] int OverlayIndex);
+
+
+
+        [DllImport(COMCTL32)]
+        public static extern bool ImageList_Draw([In] IntPtr hIml, [In] int i, [In] IntPtr hdcDst, [In] int x, [In] int y, int fStyle);
 
         [DllImport(COMCTL32)]
         public static extern bool ImageList_Replace(IntPtr hIml, int i, IntPtr hbmImage, IntPtr hbmMask);

@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
     <PackageId>Diga.Core.Api.Win32.Core</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Product>Diga.Core.Api.Win32</Product>
-    <Copyright>Copyright 2020 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <Copyright>Copyright 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyName>Diga.Core.Api.Win32.Core</AssemblyName>
-    <Version>1.0.19</Version>
+    <Version>1.0.26</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -125,6 +125,7 @@
     <Compile Include="..\Diga.Core.Api.Win32\ImageInfo.cs" Link="ImageInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\ImageTypeConst.cs" Link="ImageTypeConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\InitCommonControlsEx.cs" Link="InitCommonControlsEx.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\INITCOMMONCONTROLSEX_ICC.cs" Link="INITCOMMONCONTROLSEX_ICC.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\INPUT.cs" Link="INPUT.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\INPUT_UNION.cs" Link="INPUT_UNION.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\Kernel32.cs" Link="Kernel32.cs" />
@@ -208,9 +209,5 @@
     <Folder Include="GDI\" />
     <Folder Include="Tools\" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(TargetDir)* $(SolutionDir)package_create\lib\netcoreapp3.1\*" />
-  </Target>
 
 </Project>

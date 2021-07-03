@@ -129,6 +129,7 @@
     <Compile Include="ImageInfo.cs" />
     <Compile Include="ImageTypeConst.cs" />
     <Compile Include="InitCommonControlsEx.cs" />
+    <Compile Include="INITCOMMONCONTROLSEX_ICC.cs" />
     <Compile Include="INPUT.cs" />
     <Compile Include="INPUT_UNION.cs" />
     <Compile Include="Kernel32.cs" />

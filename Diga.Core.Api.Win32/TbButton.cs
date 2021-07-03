@@ -4,7 +4,8 @@ using System.Runtime.InteropServices;
 namespace Diga.Core.Api.Win32
 {
     [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Auto)]
-    public struct TbButton {
+    public struct TbButton 
+    {
         public int iBitmap;
         public int idCommand;
         [StructLayout(LayoutKind.Explicit)]
