@@ -12,6 +12,12 @@ namespace Diga.Core.Api.Win32
         private const string USER32 = "user32.dll";
         private const CharSet CHARSET = CharSet.Auto;
 
+        [DllImport(USER32, EntryPoint="AdjustWindowRectEx")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool AdjustWindowRectEx(ref Rect  lpRect, uint dwStyle, [MarshalAs(UnmanagedType.Bool)] bool bMenu, uint dwExStyle) ;
+
+
+
         [DllImport(USER32, EntryPoint = "SetTimer")]
         public static extern UIntPtr SetTimer([In] IntPtr hWnd, UIntPtr nIdEvent, uint uElapse, TimerProc lpTimerFunc);
 
@@ -220,7 +226,7 @@ namespace Diga.Core.Api.Win32
         public static extern  uint MsgWaitForMultipleObjects(uint nCount, ref IntPtr pHandles, [MarshalAs(UnmanagedType.Bool)] bool fWaitAll, uint dwMilliseconds, uint dwWakeMask) ;
 
 
-        [DllImportAttribute(USER32, EntryPoint="MsgWaitForMultipleObjectsEx", SetLastError = true)]
+        [DllImport(USER32, EntryPoint="MsgWaitForMultipleObjectsEx", SetLastError = true)]
         public static extern  uint MsgWaitForMultipleObjectsEx(uint nCount, ref IntPtr pHandles, uint dwMilliseconds, uint dwWakeMask, uint dwFlags) ;
 
 

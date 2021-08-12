@@ -88,7 +88,7 @@ namespace Diga.Core.Api.Win32
 
         public static void EnableTheme()
         {
-            UxTheme.SetThemeAppProperties(STAP_ALLOW_NONCLIENT | STAP_ALLOW_CONTROLS | STAP_ALLOW_WEBCONTENT);
+            SetThemeAppProperties(STAP_ALLOW_NONCLIENT | STAP_ALLOW_CONTROLS | STAP_ALLOW_WEBCONTENT);
         }
     }
 }

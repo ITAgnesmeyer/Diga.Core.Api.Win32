@@ -696,7 +696,7 @@ namespace Diga.Core.Api.Win32.GDI
         public static extern bool GdiComment(IntPtr hdc, uint nSize, ref byte lpData);
 
         [DllImport(GDI32, EntryPoint = "GdiComment")]
-        [return: MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GdiComment([In] IntPtr hdc, uint nSize, [In] IntPtr lpData);
 
 

@@ -6,7 +6,7 @@ namespace Diga.Core.Api.Win32.Com
 {
     [ComImport]
     [Guid("00000002-0000-0000-c000-000000000046")]
-    [InterfaceType(System.Runtime.InteropServices.ComInterfaceType.InterfaceIsIUnknown)]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [SuppressUnmanagedCodeSecurity]
     public interface IMalloc
     {

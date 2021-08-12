@@ -1,0 +1,12 @@
+﻿namespace Diga.Core.Api.Win32.Dwm
+{
+    public enum DWM_SOURCE_FRAME_SAMPLING
+    {
+
+        DWM_SOURCE_FRAME_SAMPLING_POINT,
+
+        DWM_SOURCE_FRAME_SAMPLING_COVERAGE,
+
+        DWM_SOURCE_FRAME_SAMPLING_LAST,
+    }
+}

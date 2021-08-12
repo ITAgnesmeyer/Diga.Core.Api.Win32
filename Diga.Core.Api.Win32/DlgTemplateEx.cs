@@ -62,7 +62,7 @@ namespace Diga.Core.Api.Win32
         {
             this.DlgVer = this._Reader.GetNextWordAsUShort();
             this.Signature = this._Reader.GetNextWordAsUShort();
-            if (!this.IsDialogEx())
+            if (!IsDialogEx())
             {
                 throw new InvalidOperationException("this is no DialogEx");
             }

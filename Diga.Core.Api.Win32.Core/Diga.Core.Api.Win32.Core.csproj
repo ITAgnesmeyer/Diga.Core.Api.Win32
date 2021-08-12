@@ -66,6 +66,22 @@
     <Compile Include="..\Diga.Core.Api.Win32\DlgTemplate.cs" Link="DlgTemplate.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgTemplateEx.cs" Link="DlgTemplateEx.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\DlgTemplateExLoader.cs" Link="DlgTemplateExLoader.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DwmApi.cs" Link="Dwm\DwmApi.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DwmApiConstants.cs" Link="Dwm\DwmApiConstants.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWMFLIP3DWINDOWPOLICY.cs" Link="Dwm\DWMFLIP3DWINDOWPOLICY.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWMNCRENDERINGPOLICY.cs" Link="Dwm\DWMNCRENDERINGPOLICY.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWMTRANSITION_OWNEDWINDOW_TARGET.cs" Link="Dwm\DWMTRANSITION_OWNEDWINDOW_TARGET.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWMWINDOWATTRIBUTE.cs" Link="Dwm\DWMWINDOWATTRIBUTE.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_BLURBEHIND.cs" Link="Dwm\DWM_BLURBEHIND.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_PRESENT_PARAMETERS.cs" Link="Dwm\DWM_PRESENT_PARAMETERS.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_SHOWCONTACT.cs" Link="Dwm\DWM_SHOWCONTACT.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_SOURCE_FRAME_SAMPLING.cs" Link="Dwm\DWM_SOURCE_FRAME_SAMPLING.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_TAB_WINDOW_REQUIREMENTS.cs" Link="Dwm\DWM_TAB_WINDOW_REQUIREMENTS.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_THUMBNAIL_PROPERTIES.cs" Link="Dwm\DWM_THUMBNAIL_PROPERTIES.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\DWM_TIMING_INFO.cs" Link="Dwm\DWM_TIMING_INFO.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\GESTURE_TYPE.cs" Link="Dwm\GESTURE_TYPE.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\MilMatrix3x2D.cs" Link="Dwm\MilMatrix3x2D.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Dwm\UNSIGNED_RATIO.cs" Link="Dwm\UNSIGNED_RATIO.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EditBoxMessages.cs" Link="EditBoxMessages.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EditBoxStyles.cs" Link="EditBoxStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\EnumResLangProc.cs" Link="EnumResLangProc.cs" />
@@ -139,11 +155,13 @@
     <Compile Include="..\Diga.Core.Api.Win32\LoadResourceConst.cs" Link="LoadResourceConst.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LocaleEnumProc.cs" Link="LocaleEnumProc.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\LpOfNHookProc.cs" Link="LpOfNHookProc.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\Margins.cs" Link="Margins.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MEMORY_RESOURCE_NOTIFICATION_TYPE.cs" Link="MEMORY_RESOURCE_NOTIFICATION_TYPE.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MenuFlags.cs" Link="MenuFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MenuStyles.cs" Link="MenuStyles.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxCheckFlags.cs" Link="MessageBoxCheckFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MessageBoxOptionsConst.cs" Link="MessageBoxOptionsConst.cs" />
+    <Compile Include="..\Diga.Core.Api.Win32\MinMaxInfo.cs" Link="MinMaxInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorDefaultFlags.cs" Link="MonitorDefaultFlags.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfo.cs" Link="MonitorInfo.cs" />
     <Compile Include="..\Diga.Core.Api.Win32\MonitorInfoEx.cs" Link="MonitorInfoEx.cs" />
@@ -207,6 +225,7 @@
 
   <ItemGroup>
     <Folder Include="GDI\" />
+    <Folder Include="Dwm\" />
     <Folder Include="Tools\" />
   </ItemGroup>
 
