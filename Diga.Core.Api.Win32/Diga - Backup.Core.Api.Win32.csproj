@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
+    <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
+    <PackageId>Diga.Core.Api.Win32</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
+    <Product>Diga.Core.Api.Win32</Product>
+    <Copyright>Copyright 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyName>Diga.Core.Api.Win32.Core</AssemblyName>
+    <Version>1.0.26</Version>
+  </PropertyGroup>
+</Project>

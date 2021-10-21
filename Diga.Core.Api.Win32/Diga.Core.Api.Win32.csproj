@@ -1,257 +1,68 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E630C50-5811-4DBA-B3A1-2A36689DE037}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
-    <AssemblyName>Diga.Core.Api.Win32</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Com\COMDLG_FILTERSPEC.cs" />
-    <Compile Include="Com\FDE_OVERWRITE_RESPONSE.cs" />
-    <Compile Include="Com\FDE_SHAREVIOLATION_RESPONSE.cs" />
-    <Compile Include="Com\FileDialogCustomPlace.cs" />
-    <Compile Include="Com\FOS.cs" />
-    <Compile Include="Com\HRESULT.cs" />
-    <Compile Include="Com\IFileDialog.cs" />
-    <Compile Include="Com\IFileDialogEvents.cs" />
-    <Compile Include="Com\IFileOpenDialog.cs" />
-    <Compile Include="Com\IFileSaveDialog.cs" />
-    <Compile Include="Com\IMalloc.cs" />
-    <Compile Include="Com\IShellItem.cs" />
-    <Compile Include="Com\IShellItemArray.cs" />
-    <Compile Include="Com\IUnkCaller.cs" />
-    <Compile Include="Com\PROPERTYKEY.cs" />
-    <Compile Include="Com\SIATTRIBFLAGS.cs" />
-    <Compile Include="Com\SIGDN.cs" />
-    <Compile Include="Com\UnknownWrapper.cs" />
-    <Compile Include="Dwm\DwmApi.cs" />
-    <Compile Include="Dwm\DwmApiConstants.cs" />
-    <Compile Include="Dwm\DWMFLIP3DWINDOWPOLICY.cs" />
-    <Compile Include="Dwm\DWMNCRENDERINGPOLICY.cs" />
-    <Compile Include="Dwm\DWMTRANSITION_OWNEDWINDOW_TARGET.cs" />
-    <Compile Include="Dwm\DWMWINDOWATTRIBUTE.cs" />
-    <Compile Include="Dwm\DWM_BLURBEHIND.cs" />
-    <Compile Include="Dwm\DWM_PRESENT_PARAMETERS.cs" />
-    <Compile Include="Dwm\DWM_SHOWCONTACT.cs" />
-    <Compile Include="Dwm\DWM_SOURCE_FRAME_SAMPLING.cs" />
-    <Compile Include="Dwm\DWM_TAB_WINDOW_REQUIREMENTS.cs" />
-    <Compile Include="Dwm\DWM_THUMBNAIL_PROPERTIES.cs" />
-    <Compile Include="Dwm\DWM_TIMING_INFO.cs" />
-    <Compile Include="Dwm\GESTURE_TYPE.cs" />
-    <Compile Include="Dwm\MilMatrix3x2D.cs" />
-    <Compile Include="Dwm\UNSIGNED_RATIO.cs" />
-    <Compile Include="GDI\ABC.cs" />
-    <Compile Include="GDI\ABCFloat.cs" />
-    <Compile Include="GDI\AbortProc.cs" />
-    <Compile Include="ActCtx.cs" />
-    <Compile Include="ActCtxFlags.cs" />
-    <Compile Include="ApiBool.cs" />
-    <Compile Include="ApiHandleRef.cs" />
-    <Compile Include="ApiStructHandleRef.cs" />
-    <Compile Include="GDI\Bitmap.cs" />
-    <Compile Include="GDI\BitmapInfo.cs" />
-    <Compile Include="GDI\BitmapInfoHeader.cs" />
-    <Compile Include="GDI\BlendFunction.cs" />
-    <Compile Include="BrowseCallBackProc.cs" />
-    <Compile Include="BrowseForFolderConst.cs" />
-    <Compile Include="BrowseInfo.cs" />
-    <Compile Include="ButtonMessages.cs" />
-    <Compile Include="ButtonStyles.cs" />
-    <Compile Include="ClassStyles.cs" />
-    <Compile Include="CodepageConst.cs" />
-    <Compile Include="GDI\ColorAdjustment.cs" />
-    <Compile Include="ComboBoxCommands.cs" />
-    <Compile Include="ComboboxInfo.cs" />
-    <Compile Include="ComboBoxMessages.cs" />
-    <Compile Include="ComboBoxStyles.cs" />
-    <Compile Include="ComCtl32.cs" />
-    <Compile Include="ComDlg32.cs" />
-    <Compile Include="CommonControls.cs" />
-    <Compile Include="Com\IClassFactory.cs" />
-    <Compile Include="Com\IOleWindow.cs" />
-    <Compile Include="CreateStruct.cs" />
-    <Compile Include="DateTimePickerInfo.cs" />
-    <Compile Include="DateTimePickerMessages.cs" />
-    <Compile Include="DefaultHWND.cs" />
-    <Compile Include="DeferWindowPosCommands.cs" />
-    <Compile Include="GDI\DesignVector.cs" />
-    <Compile Include="GDI\DevMode.cs" />
-    <Compile Include="GDI\DevModeUnion1.cs" />
-    <Compile Include="GDI\DevModeUnion1Struct1.cs" />
-    <Compile Include="GDI\DevModeUnion1Struct2.cs" />
-    <Compile Include="GDI\DevModeUnion2.cs" />
-    <Compile Include="DialogBoxStyles.cs" />
-    <Compile Include="DialogTemplate.cs" />
-    <Compile Include="DlgItemTemplate.cs" />
-    <Compile Include="DlgItemTemplateEx.cs" />
-    <Compile Include="DlgProc.cs" />
-    <Compile Include="DlgTemplate.cs" />
-    <Compile Include="DlgTemplateEx.cs" />
-    <Compile Include="DlgTemplateExLoader.cs" />
-    <Compile Include="GDI\DocInfo.cs" />
-    <Compile Include="EditBoxMessages.cs" />
-    <Compile Include="EditBoxStyles.cs" />
-    <Compile Include="GDI\EnhMetaRecord.cs" />
-    <Compile Include="GDI\EnhMfEnumProc.cs" />
-    <Compile Include="GDI\EnumLogFontEx.cs" />
-    <Compile Include="GDI\EnumLogFontExDv.cs" />
-    <Compile Include="EnumResLangProc.cs" />
-    <Compile Include="EnumResNameProc.cs" />
-    <Compile Include="EnumResTypeProc.cs" />
-    <Compile Include="FileTime.cs" />
-    <Compile Include="GDI\Fixed.cs" />
-    <Compile Include="FontSignature.cs" />
-    <Compile Include="FontType.cs" />
-    <Compile Include="FonWeight.cs" />
-    <Compile Include="GDI\Gdi32.cs" />
-    <Compile Include="GetTextEx.cs" />
-    <Compile Include="GDI\GlypHMetrics.cs" />
-    <Compile Include="GDI\GlyphSet.cs" />
-    <Compile Include="GDI\GObjEnumProc.cs" />
-    <Compile Include="GetWindowFlag.cs" />
-    <Compile Include="GWL.cs" />
-    <Compile Include="HARDWAREINPUT.cs" />
-    <Compile Include="HighLow.cs" />
-    <Compile Include="ImageInfo.cs" />
-    <Compile Include="ImageTypeConst.cs" />
-    <Compile Include="InitCommonControlsEx.cs" />
-    <Compile Include="INITCOMMONCONTROLSEX_ICC.cs" />
-    <Compile Include="INPUT.cs" />
-    <Compile Include="INPUT_UNION.cs" />
-    <Compile Include="Kernel32.cs" />
-    <Compile Include="KEYBDINPUT.cs" />
-    <Compile Include="GDI\LineDDAProc.cs" />
-    <Compile Include="ListBoxMessages.cs" />
-    <Compile Include="ListBoxNotify.cs" />
-    <Compile Include="ListBoxStyle.cs" />
-    <Compile Include="LItem.cs" />
-    <Compile Include="LoadLibraryExFlags.cs" />
-    <Compile Include="LoadLibraryHandler.cs" />
-    <Compile Include="LoadResourceConst.cs" />
-    <Compile Include="LocaleEnumProc.cs" />
-    <Compile Include="LocaleIdentifier.cs" />
-    <Compile Include="GDI\LogBrush.cs" />
-    <Compile Include="GDI\LogFont.cs" />
-    <Compile Include="GDI\LogPalette.cs" />
-    <Compile Include="GDI\LogPen.cs" />
-    <Compile Include="GDI\LogPixels.cs" />
-    <Compile Include="LpOfNHookProc.cs" />
-    <Compile Include="GDI\Mat2.cs" />
-    <Compile Include="Margins.cs" />
-    <Compile Include="MEMORY_RESOURCE_NOTIFICATION_TYPE.cs" />
-    <Compile Include="MenuFlags.cs" />
-    <Compile Include="MenuStyles.cs" />
-    <Compile Include="MessageBoxCheckFlags.cs" />
-    <Compile Include="MessageBoxOptionsConst.cs" />
-    <Compile Include="GDI\MetaFilePict.cs" />
-    <Compile Include="GDI\MetaRecord.cs" />
-    <Compile Include="GDI\MfEnumProc.cs" />
-    <Compile Include="MinMaxInfo.cs" />
-    <Compile Include="MonitorDefaultFlags.cs" />
-    <Compile Include="MonitorInfo.cs" />
-    <Compile Include="MonitorInfoEx.cs" />
-    <Compile Include="MonthCalenderMessages.cs" />
-    <Compile Include="MOUSEINPUT.cs" />
-    <Compile Include="MouseKey.cs" />
-    <Compile Include="MouseKeyConst.cs" />
-    <Compile Include="MSG.cs" />
-    <Compile Include="NmHdr.cs" />
-    <Compile Include="NmlInk.cs" />
-    <Compile Include="NotifyMessageConst.cs" />
-    <Compile Include="OfNw.cs" />
-    <Compile Include="OFSTRUCT.cs" />
-    <Compile Include="OldFontEnumProc.cs" />
-    <Compile Include="Ole32.cs" />
-    <Compile Include="GDI\OutlineTextMetric.cs" />
-    <Compile Include="PaintStruct.cs" />
-    <Compile Include="GDI\PaletteEntry.cs" />
-    <Compile Include="PanOse.cs" />
-    <Compile Include="PeekMessageFlag.cs" />
-    <Compile Include="PixelFormatDescriptor.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="ProcessAccessTypes.cs" />
-    <Compile Include="ProgressBarMessages.cs" />
-    <Compile Include="ProgressBarStyles.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RasterizerStatus.cs" />
-    <Compile Include="Rect.cs" />
-    <Compile Include="RedrawConstants.cs" />
-    <Compile Include="ResourceTypes.cs" />
-    <Compile Include="GDI\RgbQuad.cs" />
-    <Compile Include="GDI\RgnData.cs" />
-    <Compile Include="GDI\RgnDataHeader.cs" />
-    <Compile Include="RichEditMessages.cs" />
-    <Compile Include="RichTextSetTextConst.cs" />
-    <Compile Include="RichtTextGetTextConst.cs" />
-    <Compile Include="SetTextEx.cs" />
-    <Compile Include="SetWindowPosFlags.cs" />
-    <Compile Include="Shell32.cs" />
-    <Compile Include="ShowWindowCommands.cs" />
-    <Compile Include="Size.cs" />
-    <Compile Include="SpiConst.cs" />
-    <Compile Include="StaticControlMessages.cs" />
-    <Compile Include="StaticControlStyles.cs" />
-    <Compile Include="GDI\StockObjects.cs" />
-    <Compile Include="SystemMetric.cs" />
-    <Compile Include="SystemTime.cs" />
-    <Compile Include="SystemTimeRange.cs" />
-    <Compile Include="TbButton.cs" />
-    <Compile Include="TextMetric.cs" />
-    <Compile Include="ThemeSizeType.cs" />
-    <Compile Include="TimerProc.cs" />
-    <Compile Include="Tools\ByteReader.cs" />
-    <Compile Include="User32.cs" />
-    <Compile Include="UxTheme.cs" />
-    <Compile Include="GDI\WCrange.cs" />
-    <Compile Include="Win32Api.cs" />
-    <Compile Include="Win32ApiCursors.cs" />
-    <Compile Include="WindowClass.cs" />
-    <Compile Include="WindowPlacement.cs" />
-    <Compile Include="WindowPlacementFlagConst.cs" />
-    <Compile Include="WindowPlacementFlags.cs" />
-    <Compile Include="WindowsMessages.cs" />
-    <Compile Include="WindowStyles.cs" />
-    <Compile Include="WindowStylesConst.cs" />
-    <Compile Include="WndclassEx.cs" />
-    <Compile Include="WndEumProc.cs" />
-    <Compile Include="WndProc.cs" />
-    <Compile Include="GDI\XForm.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Com\Shell\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)* $(SolutionDir)package_create\lib\net472\*</PostBuildEvent>
-  </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net461;net472</TargetFrameworks>
+		<AssemblyName>Diga.Core.Api.Win32</AssemblyName>
+		<RootNamespace>Diga.Core.Api.Win32</RootNamespace>
+		<Version>2.0.1</Version>
+		<PackageId>Diga.Core.Api.Win32</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
+		<Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
+		<Copyright>Copyright 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+		<Description>Win32 - Api Imports</Description>
+		<PackageTags>Win32,Win32 Api</PackageTags>
+		<Product>Diga.Core.Api.Win32</Product>
+		<PackageProjectUrl>https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ITAgnesmeyer/Diga.Core.Api.Win32</RepositoryUrl>
+		<PackageIcon>logo.png</PackageIcon>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>digaCoreApi.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="logo.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
 </Project>

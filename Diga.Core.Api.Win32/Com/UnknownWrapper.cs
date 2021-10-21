@@ -13,16 +13,31 @@ namespace Diga.Core.Api.Win32.Com
         }
         int IUnkCaller.QueryInterface(IntPtr thisPtr, ref Guid riid, out IntPtr ppvObject)
         {
+            if(Environment.OSVersion.Platform != PlatformID.Win32NT)
+            {
+                ppvObject = IntPtr.Zero;
+                return -1;
+            }
+                
+
             return Marshal.QueryInterface(thisPtr, ref riid, out ppvObject);
         }
 
         int IUnkCaller.AddRef(IntPtr thisPtr)
         {
+            if(Environment.OSVersion.Platform != PlatformID.Win32NT)
+            {
+               return -1;
+            }
             return Marshal.AddRef(thisPtr);
         }
 
         int IUnkCaller.Release(IntPtr thisPtr)
         {
+            if(Environment.OSVersion.Platform != PlatformID.Win32NT)
+            {
+                return -1;
+            }
             return Marshal.Release(thisPtr);
         }
 

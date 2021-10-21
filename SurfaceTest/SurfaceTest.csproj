@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net5.0-windows;net6.0-windows</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Diga.Core.Api.Win32.Core\Diga.Core.Api.Win32.Core.csproj" />
+    <ProjectReference Include="..\Diga.Core.Api.Win32\Diga.Core.Api.Win32.csproj" />
   </ItemGroup>
 
 </Project>

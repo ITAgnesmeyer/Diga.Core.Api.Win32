@@ -35,11 +35,11 @@ namespace Diga.Core.Api.Win32
         [DllImport(KERNEL32, EntryPoint = "GetProcessId", SetLastError = true)]
         public static extern uint GetProcessId([In] IntPtr Process);
 
-        [DllImport(KERNEL32, EntryPoint="GetCurrentThreadId",ExactSpelling=true, CharSet=CHARSET)]
+        [DllImport(KERNEL32, EntryPoint = "GetCurrentThreadId", ExactSpelling = true, CharSet = CHARSET)]
         public static extern int GetCurrentThreadId();
 
-        [DllImport(KERNEL32, EntryPoint= "GetExitCodeThread",ExactSpelling = true, CharSet = CHARSET)]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [DllImport(KERNEL32, EntryPoint = "GetExitCodeThread", ExactSpelling = true, CharSet = CHARSET)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetExitCodeThread(IntPtr hWnd, out int lpdwExitCode);
 
         [DllImport(KERNEL32, EntryPoint = "OpenFile", CharSet = CHARSET, SetLastError = true)]
@@ -49,19 +49,19 @@ namespace Diga.Core.Api.Win32
         public static extern void CopyMemory(IntPtr dest, IntPtr src, uint count);
 
 
-        [DllImport(KERNEL32, SetLastError=true, ExactSpelling=true, EntryPoint="RtlMoveMemory", CharSet=CharSet.Auto)]
+        [DllImport(KERNEL32, SetLastError = true, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Auto)]
         public static extern void RtlMoveMemory(IntPtr destData, IntPtr srcData, int size);
 
-        [DllImport(KERNEL32, ExactSpelling=true, EntryPoint="RtlMoveMemory")]
+        [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory")]
         public static extern void RtlMoveMemory(IntPtr pdst, byte[] psrc, int cb);
- 
+
         [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Unicode)]
         public static extern void RtlMoveMemoryW(IntPtr pdst, string psrc, int cb);
 
         [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Unicode)]
         public static extern void RtlMoveMemoryW(IntPtr pdst, char[] psrc, int cb);
 
- 
+
         [DllImport(KERNEL32, ExactSpelling = true, EntryPoint = "RtlMoveMemory", CharSet = CharSet.Ansi)]
         public static extern void RtlMoveMemoryA(IntPtr pdst, string psrc, int cb);
 
@@ -115,7 +115,7 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr LoadResource([In] IntPtr hModule, [In] IntPtr hResInfo);
 
 
-        [DllImport(KERNEL32, CharSet=CharSet.None, ExactSpelling=false)]
+        [DllImport(KERNEL32, CharSet = CharSet.None, ExactSpelling = false)]
         internal static extern IntPtr LocalFree(ref object obj);
 
         [DllImport(KERNEL32, EntryPoint = "LockResource", SetLastError = true)]
@@ -128,7 +128,7 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr FindResource([In] IntPtr hModule, [In] string lpName, [In] string lpType);
 
         [DllImport(KERNEL32, EntryPoint = "FindResource", CharSet = CHARSET, SetLastError = true)]
-        public static extern IntPtr FindResource([In] IntPtr hModule, [In] IntPtr lpName, [In]IntPtr lpType);
+        public static extern IntPtr FindResource([In] IntPtr hModule, [In] IntPtr lpName, [In] IntPtr lpType);
 
         [DllImport(KERNEL32, EntryPoint = "SizeofResource", SetLastError = true)]
         public static extern uint SizeofResource([In] IntPtr hModule, [In] IntPtr hResInfo);
@@ -171,15 +171,15 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(KERNEL32, EntryPoint = "Wow64DisableWow64FsRedirection", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool Wow64DisableWow64FsRedirection(ref IntPtr oldValue);
+        public static extern bool Wow64DisableWow64FsRedirection(ref IntPtr oldValue);
 
         [DllImport(KERNEL32, EntryPoint = "Wow64RevertWow64FsRedirection", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Wow64RevertWow64FsRedirection([In] IntPtr oldValue);
 
-        [DllImport(KERNEL32, EntryPoint="FileTimeToSystemTime")]
+        [DllImport(KERNEL32, EntryPoint = "FileTimeToSystemTime")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool FileTimeToSystemTime([In] ref FileTime lpFileTime, [Out] out SystemTime lpSystemTime) ;
+        public static extern bool FileTimeToSystemTime([In] ref FileTime lpFileTime, [Out] out SystemTime lpSystemTime);
 
 
     }
