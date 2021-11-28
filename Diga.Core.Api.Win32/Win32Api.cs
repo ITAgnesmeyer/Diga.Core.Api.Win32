@@ -45,7 +45,7 @@ namespace Diga.Core.Api.Win32
         {
             return number & 0xffff;
         }
-
+       
         public static uint GetIntPtrUInt(IntPtr ptr)
         {
             uint result = unchecked(IntPtr.Size == 8 ? (uint)ptr.ToInt64() : (uint)ptr.ToInt32());
