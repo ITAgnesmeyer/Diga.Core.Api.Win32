@@ -57,4 +57,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>class h
+ private mName
+ public property get Name()
+	Name = mName
+ end property
+ public property let Name(val)
+	mName = val
+ end property
+ public function GetName()
+   GetName = mName
+ end function
+ public sub SetName(val)
+  mName = val
+ end sub
+
+ 
+end class
+
+set ab = new h
+
+ab.Name = "Hallo Welt"
+
+MyObject.log(ab)
+
+MsgBox(ab.Name)</value>
+  </data>
 </root>

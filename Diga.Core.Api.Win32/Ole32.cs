@@ -44,13 +44,13 @@ namespace Diga.Core.Api.Win32
                 impers,
             IntPtr ciptr, int dwCapabilities);
 
-        [DllImport(OLE32, PreserveSig=false)] 
+        [DllImport(OLE32, PreserveSig = false)]
         public static extern void CoCreateInstance(
             [In] ref Guid clsid,
             IntPtr pUnkOuter,
             int context,
             [In] ref Guid iid,
-            [MarshalAs(UnmanagedType.IUnknown)] out Object o );
+            [MarshalAs(UnmanagedType.IUnknown)] out Object o);
 
         [DllImport(OLE32, CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = false)]
         public static extern void CoCreateInstanceEx(
@@ -79,7 +79,7 @@ namespace Diga.Core.Api.Win32
                 return CreateRemoteObjectX64(remoteObjectType.GUID, remoteObjectInterfaceType.GUID, server, username, domain,
                     password);
             }
-           
+
             return CreateRemoteObjectX32(remoteObjectType.GUID, remoteObjectInterfaceType.GUID, server, username, domain,
                 password);
 
@@ -88,28 +88,29 @@ namespace Diga.Core.Api.Win32
         public static object CreateRemoteObjectX64(Guid remoteObjectGuid, Guid remoteObjectInterfaceGuid, string server,
             string username, string domain, string password)
         {
-            MULTI_QI_X64[]      amqi            = new MULTI_QI_X64[1];
-            IntPtr              guidbuf         = IntPtr.Zero;
-            COAUTHINFO_X64      ca              = null;
-            IntPtr              captr           = IntPtr.Zero;
-            COSERVERINFO_X64    cs              = null;
-            Guid                clsid           = remoteObjectGuid;
-            int                 hr              = 0;
-            COAUTHIDENTITY_X64  ci              = null;
-            IntPtr              ciptr           = IntPtr.Zero;
-             try {
+            MULTI_QI_X64[] amqi = new MULTI_QI_X64[1];
+            IntPtr guidbuf = IntPtr.Zero;
+            COAUTHINFO_X64 ca = null;
+            IntPtr captr = IntPtr.Zero;
+            COSERVERINFO_X64 cs = null;
+            Guid clsid = remoteObjectGuid;
+            int hr = 0;
+            COAUTHIDENTITY_X64 ci = null;
+            IntPtr ciptr = IntPtr.Zero;
+            try
+            {
                 guidbuf = Marshal.AllocCoTaskMem(16);
                 Marshal.StructureToPtr(remoteObjectInterfaceGuid, guidbuf, false);
                 amqi[0] = new MULTI_QI_X64(guidbuf);
- 
+
                 ci = new COAUTHIDENTITY_X64(username, domain, password);
                 ciptr = Marshal.AllocCoTaskMem(Marshal.SizeOf(ci));
                 Marshal.StructureToPtr(ci, ciptr, false);
- 
+
                 ca = new COAUTHINFO_X64(RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr);
                 captr = Marshal.AllocCoTaskMem(Marshal.SizeOf(ca));
                 Marshal.StructureToPtr(ca, captr, false);
- 
+
                 cs = new COSERVERINFO_X64(server, captr);
                 hr = CoCreateInstanceEx(ref clsid, IntPtr.Zero, (int)ClsCtx.RemoteServer, cs, 1, amqi);
                 if ((uint)hr == 0x80040154)
@@ -118,65 +119,7 @@ namespace Diga.Core.Api.Win32
                     Marshal.ThrowExceptionForHR(hr);
                 if (amqi[0].hr < 0)
                     Marshal.ThrowExceptionForHR(amqi[0].hr);
-                hr =CoSetProxyBlanket(amqi[0].pItf, RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr, 0);
-                if (hr < 0)
-                    Marshal.ThrowExceptionForHR(hr);
-                return Marshal.GetObjectForIUnknown(amqi[0].pItf);
-            } finally {
-                if (amqi[0].pItf != IntPtr.Zero) {
-                    Marshal.Release(amqi[0].pItf);
-                    amqi[0].pItf = IntPtr.Zero;
-                }
-                amqi[0].piid = IntPtr.Zero;
-                if (captr != IntPtr.Zero) {
-                    Marshal.DestroyStructure(captr, typeof(COAUTHINFO_X64));
-                    Marshal.FreeCoTaskMem(captr);
-                }
-                if (ciptr != IntPtr.Zero) {
-                    Marshal.DestroyStructure(ciptr, typeof(COAUTHIDENTITY_X64));
-                    Marshal.FreeCoTaskMem(ciptr);
-                }
-                if (guidbuf != IntPtr.Zero)
-                    Marshal.FreeCoTaskMem(guidbuf);
-            }
-        }
-
-        public static object CreateRemoteObjectX32(Guid remoteObjectGuid, Guid remoteObjectInterfaceGuid,string server, string username, string domain,
-            string password)
-        {
-            MULTI_QI []     amqi            = new MULTI_QI[1];
-            IntPtr          guidbuf         = IntPtr.Zero;
-            COAUTHINFO      ca              = null;
-            IntPtr          captr           = IntPtr.Zero;
-            COSERVERINFO    cs              = null;
-            Guid clsid = remoteObjectGuid;
-            int             hr              = 0;
-            COAUTHIDENTITY  ci              = null;
-            IntPtr          ciptr           = IntPtr.Zero;
-
-            try
-            {
-                guidbuf = Marshal.AllocCoTaskMem(16);
-                Marshal.StructureToPtr(remoteObjectInterfaceGuid, guidbuf, false);
-                amqi[0] = new MULTI_QI(guidbuf);
- 
-                ci = new COAUTHIDENTITY(username, domain, password);
-                ciptr = Marshal.AllocCoTaskMem(Marshal.SizeOf(ci));
-                Marshal.StructureToPtr(ci, ciptr, false);
- 
-                ca = new COAUTHINFO(RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr);
-                captr = Marshal.AllocCoTaskMem(Marshal.SizeOf(ca));
-                Marshal.StructureToPtr(ca, captr, false);
- 
-                cs = new COSERVERINFO(server, captr);
-                hr = CoCreateInstanceEx(ref clsid, IntPtr.Zero, (int)ClsCtx.RemoteServer, cs, 1, amqi);
-                if ((uint)hr == 0x80040154)
-                    throw new Exception("Make sure remote server is enabled for config access");
-                if (hr < 0)
-                    Marshal.ThrowExceptionForHR(hr);
-                if (amqi[0].hr < 0)
-                    Marshal.ThrowExceptionForHR(amqi[0].hr);
-                hr =CoSetProxyBlanket(amqi[0].pItf, RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr, 0);
+                hr = CoSetProxyBlanket(amqi[0].pItf, RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr, 0);
                 if (hr < 0)
                     Marshal.ThrowExceptionForHR(hr);
                 return Marshal.GetObjectForIUnknown(amqi[0].pItf);
@@ -189,11 +132,76 @@ namespace Diga.Core.Api.Win32
                     amqi[0].pItf = IntPtr.Zero;
                 }
                 amqi[0].piid = IntPtr.Zero;
-                if (captr != IntPtr.Zero) {
+                if (captr != IntPtr.Zero)
+                {
+                    Marshal.DestroyStructure(captr, typeof(COAUTHINFO_X64));
+                    Marshal.FreeCoTaskMem(captr);
+                }
+                if (ciptr != IntPtr.Zero)
+                {
+                    Marshal.DestroyStructure(ciptr, typeof(COAUTHIDENTITY_X64));
+                    Marshal.FreeCoTaskMem(ciptr);
+                }
+                if (guidbuf != IntPtr.Zero)
+                    Marshal.FreeCoTaskMem(guidbuf);
+            }
+        }
+
+        public static object CreateRemoteObjectX32(Guid remoteObjectGuid, Guid remoteObjectInterfaceGuid, string server, string username, string domain,
+            string password)
+        {
+            MULTI_QI[] amqi = new MULTI_QI[1];
+            IntPtr guidbuf = IntPtr.Zero;
+            COAUTHINFO ca = null;
+            IntPtr captr = IntPtr.Zero;
+            COSERVERINFO cs = null;
+            Guid clsid = remoteObjectGuid;
+            int hr = 0;
+            COAUTHIDENTITY ci = null;
+            IntPtr ciptr = IntPtr.Zero;
+
+            try
+            {
+                guidbuf = Marshal.AllocCoTaskMem(16);
+                Marshal.StructureToPtr(remoteObjectInterfaceGuid, guidbuf, false);
+                amqi[0] = new MULTI_QI(guidbuf);
+
+                ci = new COAUTHIDENTITY(username, domain, password);
+                ciptr = Marshal.AllocCoTaskMem(Marshal.SizeOf(ci));
+                Marshal.StructureToPtr(ci, ciptr, false);
+
+                ca = new COAUTHINFO(RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr);
+                captr = Marshal.AllocCoTaskMem(Marshal.SizeOf(ca));
+                Marshal.StructureToPtr(ca, captr, false);
+
+                cs = new COSERVERINFO(server, captr);
+                hr = CoCreateInstanceEx(ref clsid, IntPtr.Zero, (int)ClsCtx.RemoteServer, cs, 1, amqi);
+                if ((uint)hr == 0x80040154)
+                    throw new Exception("Make sure remote server is enabled for config access");
+                if (hr < 0)
+                    Marshal.ThrowExceptionForHR(hr);
+                if (amqi[0].hr < 0)
+                    Marshal.ThrowExceptionForHR(amqi[0].hr);
+                hr = CoSetProxyBlanket(amqi[0].pItf, RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr, 0);
+                if (hr < 0)
+                    Marshal.ThrowExceptionForHR(hr);
+                return Marshal.GetObjectForIUnknown(amqi[0].pItf);
+            }
+            finally
+            {
+                if (amqi[0].pItf != IntPtr.Zero)
+                {
+                    Marshal.Release(amqi[0].pItf);
+                    amqi[0].pItf = IntPtr.Zero;
+                }
+                amqi[0].piid = IntPtr.Zero;
+                if (captr != IntPtr.Zero)
+                {
                     Marshal.DestroyStructure(captr, typeof(COAUTHINFO));
                     Marshal.FreeCoTaskMem(captr);
                 }
-                if (ciptr != IntPtr.Zero) {
+                if (ciptr != IntPtr.Zero)
+                {
                     Marshal.DestroyStructure(ciptr, typeof(COAUTHIDENTITY));
                     Marshal.FreeCoTaskMem(ciptr);
                 }
@@ -202,6 +210,6 @@ namespace Diga.Core.Api.Win32
             }
 
         }
-        
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Diga.Core.Api.Win32.Com
 {
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential,Pack=4)]
-    internal struct HRESULT :
+    public struct HRESULT :
         System.IComparable
 
     {

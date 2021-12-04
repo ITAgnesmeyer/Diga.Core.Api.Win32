@@ -1,7 +1,12 @@
 ﻿using Diga.Core.Api.Win32;
 using System;
+using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
+using System.Xml.XPath;
+using Diga.Core.Api.Win32.Com;
 
 namespace SurfaceTest
 {
@@ -57,5 +62,60 @@ namespace SurfaceTest
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         private delegate int MyMessageBoxA(IntPtr hWnd,  string lpText, string lpCaption, uint uType);
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ComCallingInfo info = new ComCallingInfo();
+            info.DllPath = "C:\\Windows\\System32\\VBSCRIPT.DLL";
+
+            Guid clsId = new Guid("B54F3741-5B07-11CF-A4B0-00AA004A55E8");
+            Guid iid = new Guid("BB1A2AE1-A4F9-11cf-8F20-00805F2CD064");
+
+
+            Ole32.CoCreateInstance(ref clsId , IntPtr.Zero,
+                (int)CLSCTX.CLSCTX_INPROC_SERVER, ref iid, out object scriptObject);
+
+            //object scriptObject = ComLoader.GetObject(info, new Guid("B54F3741-5B07-11CF-A4B0-00AA004A55E8"),
+            //    new Guid("BB1A2AE1-A4F9-11cf-8F20-00805F2CD064"));
+
+            IActiveScript ac = (IActiveScript)scriptObject;
+            IActiveScriptParse32 ap = (IActiveScriptParse32)scriptObject;
+            DefaultScriptSite site = new DefaultScriptSite(this.Handle);
+            ScriptObj so = new ScriptObj();
+            site.RefObj = so;
+            ac.SetScriptSite(site);
+            ac.AddNamedItem("MyObject",
+                ((uint)SCRIPTITEMFLAGS.SCRIPTITEM_ISVISIBLE | (uint)SCRIPTITEMFLAGS.SCRIPTITEM_ISSOURCE));
+            
+            
+            ap.InitNew();
+            try
+            {
+                EXCEPINFO[] infoArr = new EXCEPINFO[10];
+                string str = this.textBox1.Text;
+                ap.ParseScriptText(str, "MyObject", so, "\r\n", 0, 0,
+                    (uint)SCRIPTTEXT.SCRIPTTEXT_ISVISIBLE, out var result, infoArr);
+                if (result != null)
+                {
+                    Debug.Print(result.ToString());
+                }
+
+            }
+            catch (COMException exception)
+            {
+                Console.WriteLine(exception.Message);
+                MessageBox.Show(exception.Message);
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return;
+            }
+            
+            //ac.SetScriptState(SCRIPTSTATE.SCRIPTSTATE_CONNECTED);
+
+
+
+        }
     }
 }

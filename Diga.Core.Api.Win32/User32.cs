@@ -12,9 +12,9 @@ namespace Diga.Core.Api.Win32
         private const string USER32 = "user32.dll";
         private const CharSet CHARSET = CharSet.Auto;
 
-        [DllImport(USER32, EntryPoint="AdjustWindowRectEx")]
+        [DllImport(USER32, EntryPoint = "AdjustWindowRectEx")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool AdjustWindowRectEx(ref Rect  lpRect, uint dwStyle, [MarshalAs(UnmanagedType.Bool)] bool bMenu, uint dwExStyle) ;
+        public static extern bool AdjustWindowRectEx(ref Rect lpRect, uint dwStyle, [MarshalAs(UnmanagedType.Bool)] bool bMenu, uint dwExStyle);
 
 
 
@@ -109,9 +109,9 @@ namespace Diga.Core.Api.Win32
         public static extern bool PostMessage([In] IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
 
-        [DllImport(USER32, EntryPoint="PeekMessage", CharSet = CHARSET, SetLastError = true)]
+        [DllImport(USER32, EntryPoint = "PeekMessage", CharSet = CHARSET, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool PeekMessage([Out] out MSG lpMsg, [In] IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg) ;
+        public static extern bool PeekMessage([Out] out MSG lpMsg, [In] IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
 
         [DllImport(USER32, EntryPoint = "GetMessage", CharSet = CHARSET)]
@@ -222,12 +222,12 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr MonitorFromRect([In] ref Rect lprc, uint dwFlags);
 
 
-        [DllImport(USER32, EntryPoint="MsgWaitForMultipleObjects", SetLastError = true)]
-        public static extern  uint MsgWaitForMultipleObjects(uint nCount, ref IntPtr pHandles, [MarshalAs(UnmanagedType.Bool)] bool fWaitAll, uint dwMilliseconds, uint dwWakeMask) ;
+        [DllImport(USER32, EntryPoint = "MsgWaitForMultipleObjects", SetLastError = true)]
+        public static extern uint MsgWaitForMultipleObjects(uint nCount, ref IntPtr pHandles, [MarshalAs(UnmanagedType.Bool)] bool fWaitAll, uint dwMilliseconds, uint dwWakeMask);
 
 
-        [DllImport(USER32, EntryPoint="MsgWaitForMultipleObjectsEx", SetLastError = true)]
-        public static extern  uint MsgWaitForMultipleObjectsEx(uint nCount, ref IntPtr pHandles, uint dwMilliseconds, uint dwWakeMask, uint dwFlags) ;
+        [DllImport(USER32, EntryPoint = "MsgWaitForMultipleObjectsEx", SetLastError = true)]
+        public static extern uint MsgWaitForMultipleObjectsEx(uint nCount, ref IntPtr pHandles, uint dwMilliseconds, uint dwWakeMask, uint dwFlags);
 
 
 
@@ -399,8 +399,8 @@ namespace Diga.Core.Api.Win32
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, [Out] out uint lpdwProcessId);
 
 
-        [DllImport(USER32, EntryPoint="GetWindowThreadProcessId", SetLastError = true)]
-        public static extern uint GetWindowThreadProcessId([In] IntPtr hWnd, IntPtr lpdwProcessId) ;
+        [DllImport(USER32, EntryPoint = "GetWindowThreadProcessId", SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId([In] IntPtr hWnd, IntPtr lpdwProcessId);
 
 
         [DllImport(USER32, EntryPoint = "GetWindowLong", CharSet = CHARSET)]
@@ -431,6 +431,11 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "GetWindowPlacement")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowPlacement([In] IntPtr hWnd, ref WindowPlacement lpwndpl);
+
+
+        [DllImport(USER32, EntryPoint = "SetWindowPlacement")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPlacement([In] IntPtr hWnd, [In] ref WindowPlacement lpwndpl);
 
 
         [DllImport(USER32, EntryPoint = "GetWindow")]
@@ -522,13 +527,13 @@ namespace Diga.Core.Api.Win32
         public static extern bool EnumChildWindows([In] IntPtr hWndParent, WndEumProc lpEnumFunc, IntPtr lParam);
 
 
-        [DllImport(USER32, EntryPoint="EnumDesktopWindows", SetLastError = true)]
+        [DllImport(USER32, EntryPoint = "EnumDesktopWindows", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool EnumDesktopWindows([In] IntPtr hDesktop, WndEumProc lpfn, [MarshalAs(UnmanagedType.SysInt)] int lParam) ;
+        public static extern bool EnumDesktopWindows([In] IntPtr hDesktop, WndEumProc lpfn, [MarshalAs(UnmanagedType.SysInt)] int lParam);
 
-        [DllImport(USER32, EntryPoint="EnumDesktopWindows", SetLastError = true)]
+        [DllImport(USER32, EntryPoint = "EnumDesktopWindows", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool EnumDesktopWindows([In] IntPtr hDesktop, WndEumProc lpfn, IntPtr lParam) ;
+        public static extern bool EnumDesktopWindows([In] IntPtr hDesktop, WndEumProc lpfn, IntPtr lParam);
 
 
 
@@ -538,15 +543,15 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, EntryPoint = "EnumWindows", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool EnumWindows(WndEumProc lpEnumFunc,  IntPtr lParam);
+        public static extern bool EnumWindows(WndEumProc lpEnumFunc, IntPtr lParam);
 
 
-        [DllImport(USER32, EntryPoint="FindWindow", CharSet = CHARSET, SetLastError = true)]
-        public static extern  IntPtr FindWindow([In]  string lpClassName, [In] string lpWindowName) ;
+        [DllImport(USER32, EntryPoint = "FindWindow", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr FindWindow([In] string lpClassName, [In] string lpWindowName);
 
 
-        [DllImport(USER32, EntryPoint="FindWindowEx", CharSet = CHARSET, SetLastError = true)]
-        public static extern  IntPtr FindWindowEx([In] IntPtr hWndParent, [In] IntPtr hWndChildAfter, [In] string lpszClass, [In] string lpszWindow) ;
+        [DllImport(USER32, EntryPoint = "FindWindowEx", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr FindWindowEx([In] IntPtr hWndParent, [In] IntPtr hWndChildAfter, [In] string lpszClass, [In] string lpszWindow);
 
 
 
