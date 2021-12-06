@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Diga.Core.Api.Win32.Com;
 using SurfaceTest;
@@ -759,7 +760,7 @@ namespace SurfaceTest
 
                 if (item.Value == "SetName")
                 {
-                    DispatchUtility.Invoke(value, item.Value, new object[] { "hallo" });
+                    DispatchUtility.InvokeSet(value, item.Value, new object[] { "hallo" });
                 }
 
             }
@@ -909,46 +910,7 @@ namespace SurfaceTest
 
 
 
-    [ComImport()]
-    [Guid("00020400-0000-0000-C000-000000000046")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IDispatch
-    {
-        [PreserveSig]
-        int GetTypeInfoCount(out int Count);
-
-        [PreserveSig]
-        int GetTypeInfo
-        (
-            [MarshalAs(UnmanagedType.U4)] int iTInfo,
-            [MarshalAs(UnmanagedType.U4)] int lcid,
-            out System.Runtime.InteropServices.ComTypes.ITypeInfo typeInfo
-        );
-
-        [PreserveSig]
-        int GetIDsOfNames
-        (
-            ref Guid riid,
-            [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr)]
-            string[] rgsNames,
-            int cNames,
-            int lcid,
-            [MarshalAs(UnmanagedType.LPArray)] int[] rgDispId
-        );
-
-        [PreserveSig]
-        int Invoke
-        (
-            int dispIdMember,
-            ref Guid riid,
-            uint lcid,
-            ushort wFlags,
-            ref System.Runtime.InteropServices.ComTypes.DISPPARAMS pDispParams,
-            out object pVarResult,
-            ref System.Runtime.InteropServices.ComTypes.EXCEPINFO pExcepInfo,
-            IntPtr[] pArgErr
-        );
-    }
+    
 }
 
 
@@ -1015,22 +977,14 @@ public static class DispatchUtility
             IDispatch disp = (IDispatch)obj;
             DISPPARAMS pars = new DISPPARAMS();
             pars.cArgs = args.Length;
-            IntPtr[] a = new IntPtr[args.Length];
-            for (int i = 0; i < args.Length; i++)
-            {
-                object o = args[i];
-                IntPtr p = Marshal.AllocHGlobal(255);
-                Marshal.GetNativeVariantForObject(o, p);
+            
+           
 
-                a[i] = p;
-            }
+            pars.rgdispidNamedArgs = IntPtr.Zero;
+            pars.cNamedArgs = 0;
+            IntPtr arrPtr = VARIANT.ObjectArrayToVariantArrayPtr(args);
 
-            pars.rgdispidNamedArgs = new IntPtr(DISPATCH_PROPERTYPUT);
-            pars.cNamedArgs = args.Length;
-
-            pars.rgvarg = Marshal.AllocHGlobal(255);
-            Marshal.Copy(a, 0, pars.rgvarg, a.Length);
-
+            pars.rgvarg = arrPtr;
             Guid g = Guid.Empty;
 
             int[] ids = new int[3];
@@ -1038,9 +992,10 @@ public static class DispatchUtility
             if (!v.Failed)
             {
                 EXCEPINFO exInfo = new EXCEPINFO();
-                IntPtr[] agrError = new IntPtr[2];
+   
+                IntPtr[] argErr = new IntPtr[1];
 
-                HRESULT i = disp.Invoke(dispID, g, (uint)LOCALE_SYSTEM_DEFAULT, (ushort)DISPATCH_PROPERTYGET, pars, out object pRetVal, exInfo, agrError);
+                HRESULT i = disp.Invoke(dispID, g,(uint) Thread.CurrentThread.CurrentCulture.LCID,(ushort)DISPATCH_METHOD, pars, out object pRetVal, exInfo, argErr);
 
                 if (!i.Failed)
                 {
@@ -1048,7 +1003,8 @@ public static class DispatchUtility
                 }
             }
 
-
+            VARIANT.FreeVariantArrayPtr(arrPtr, args.Length );
+             
 
         }
 

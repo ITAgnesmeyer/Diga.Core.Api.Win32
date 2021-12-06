@@ -19,6 +19,7 @@
 		<PackageIcon>logo.png</PackageIcon>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>digaCoreApi.snk</AssemblyOriginatorKeyFile>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">

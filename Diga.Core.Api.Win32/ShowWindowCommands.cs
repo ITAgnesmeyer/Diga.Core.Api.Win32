@@ -24,14 +24,16 @@ namespace Diga.Core.Api.Win32
         ShowMinimized = 2,
 
         /// <summary>
+        /// Activates the window and displays it as a maximized window.
+        /// </summary>      
+        ShowMaximized = 3,
+
+        /// <summary>
         /// Maximizes the specified window.
         /// </summary>
         Maximize = 3, // is this the right value?
 
-        /// <summary>
-        /// Activates the window and displays it as a maximized window.
-        /// </summary>      
-        ShowMaximized = 3,
+        
 
         /// <summary>
         /// Displays a window in its most recent size and position. This value
@@ -84,6 +86,8 @@ namespace Diga.Core.Api.Win32
         /// that owns the window is not responding. This flag should only be
         /// used when minimizing windows from a different thread.
         /// </summary>
-        ForceMinimize = 11
+        ForceMinimize = 11,
+
+        Max = 11
     }
 }
