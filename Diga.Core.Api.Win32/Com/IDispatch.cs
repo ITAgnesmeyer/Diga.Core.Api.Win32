@@ -38,7 +38,7 @@ namespace Diga.Core.Api.Win32.Com
             uint lcid,
             ushort wFlags,
             [Out, In] ref System.Runtime.InteropServices.ComTypes.DISPPARAMS pDispParams,
-            [Out] out object pVarResult,
+            [Out, MarshalAs(UnmanagedType.LPArray)] object[] pVarResult,
             [Out, In] ref System.Runtime.InteropServices.ComTypes.EXCEPINFO pExcepInfo,
             [Out, MarshalAs(UnmanagedType.LPArray)] IntPtr[] pArgErr
         );

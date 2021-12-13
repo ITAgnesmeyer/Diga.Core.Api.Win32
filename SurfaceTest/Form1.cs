@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
 using System.Xml.XPath;
 using Diga.Core.Api.Win32.Com;
+using Diga.Core.Api.Win32.Com.ActiveScript;
 
 namespace SurfaceTest
 {
@@ -64,11 +65,10 @@ namespace SurfaceTest
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ComCallingInfo info = new ComCallingInfo();
-            info.DllPath = "C:\\Windows\\System32\\VBSCRIPT.DLL";
 
-            Guid clsId = new Guid("B54F3741-5B07-11CF-A4B0-00AA004A55E8");
-            Guid iid = new Guid("BB1A2AE1-A4F9-11cf-8F20-00805F2CD064");
+
+            Guid clsId = ActiveScriptIIDs.IID_VBScript;
+            Guid iid = typeof(IActiveScript).GUID;
 
 
             Ole32.CoCreateInstance(ref clsId , IntPtr.Zero,
@@ -81,7 +81,7 @@ namespace SurfaceTest
             IActiveScriptParse32 ap = (IActiveScriptParse32)scriptObject;
             DefaultScriptSite site = new DefaultScriptSite(this.Handle);
             ScriptObj so = new ScriptObj();
-            site.RefObj = so;
+            site.RefObj.Add("MyObject", so);
             ac.SetScriptSite(site);
             ac.AddNamedItem("MyObject",
                 ((uint)SCRIPTITEMFLAGS.SCRIPTITEM_ISVISIBLE | (uint)SCRIPTITEMFLAGS.SCRIPTITEM_ISSOURCE));

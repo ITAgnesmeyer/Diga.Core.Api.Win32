@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Diga.Core.Api.Win32.Com;
+using Diga.Core.Api.Win32.Com.ActiveScript;
 using SurfaceTest;
 
 namespace SurfaceTest
@@ -177,50 +178,7 @@ namespace SurfaceTest
     //    #endregion
     //}
 
-    [Guid("BB1A2AE1-A4F9-11CF-8F20-00805F2CD064")]
-    [InterfaceType(1)]
-    [ComImport]
-    public interface IActiveScript
-    {
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int SetScriptSite([MarshalAs(UnmanagedType.Interface), In] IActiveScriptSite pass);
 
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetScriptSite([In] ref Guid riid, out IntPtr ppvObject);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int SetScriptState([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTSTATE"), In] SCRIPTSTATE ss);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetScriptState([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTSTATE"), MarshalAs(UnmanagedType.LPArray), Out] SCRIPTSTATE[] pssState);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int Close();
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int AddNamedItem([MarshalAs(UnmanagedType.LPWStr), In] string pstrName, [In] uint dwFlags);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int AddTypeLib([In] ref Guid rguidTypeLib, [In] uint dwMajor, [In] uint dwMinor, [In] uint dwFlags);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetScriptDispatch([MarshalAs(UnmanagedType.LPWStr), In] string pstrItemName, [MarshalAs(UnmanagedType.IDispatch)] out object ppdisp);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetCurrentScriptThreadID([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTTHREADID")] out uint pstidThread);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetScriptThreadID([In] uint dwWin32ThreadId, [ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTTHREADID")] out uint pstidThread);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetScriptThreadState([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTTHREADID"), In] uint stidThread, [ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTTHREADSTATE"), MarshalAs(UnmanagedType.LPArray), Out] SCRIPTTHREADSTATE[] pstsState);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int InterruptScriptThread([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTTHREADID"), In] uint stidThread, [MarshalAs(UnmanagedType.LPArray), In] EXCEPINFO[] pexcepinfo, [In] uint dwFlags);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int Clone([MarshalAs(UnmanagedType.Interface)] out IActiveScript ppscript);
-    }
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -297,76 +255,7 @@ namespace SurfaceTest
     //    #endregion
     //}
 
-    [InterfaceType(1)]
-    [Guid("C7EF7658-E1EE-480E-97EA-D52CB4D76D17")]
-    [ComImport]
-    public interface IActiveScriptParse64
-    {
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int InitNew();
 
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int AddScriptlet(
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrDefaultName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrCode,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrItemName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrSubItemName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrEventName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrDelimiter,
-            [In] ulong dwSourceContextCookie,
-            [In] uint ulStartingLineNumber,
-            [In] uint dwFlags,
-            [MarshalAs(UnmanagedType.BStr)] out string pbstrName,
-            [MarshalAs(UnmanagedType.LPArray), Out] EXCEPINFO[] pexcepinfo);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int ParseScriptText(
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrCode,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrItemName,
-            [MarshalAs(UnmanagedType.IUnknown), In] object punkContext,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrDelimiter,
-            [In] ulong dwSourceContextCookie,
-            [In] uint ulStartingLineNumber,
-            [In] uint dwFlags,
-            [MarshalAs(UnmanagedType.Struct)] out object pvarResult,
-            [MarshalAs(UnmanagedType.LPArray), Out] EXCEPINFO[] pexcepinfo);
-    }
-
-
-    [Guid("BB1A2AE2-A4F9-11CF-8F20-00805F2CD064")]
-    [InterfaceType(1)]
-    [ComImport]
-    public interface IActiveScriptParse32
-    {
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int InitNew();
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int AddScriptlet(
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrDefaultName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrCode,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrItemName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrSubItemName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrEventName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrDelimiter,
-            [In] uint dwSourceContextCookie,
-            [In] uint ulStartingLineNumber,
-            [In] uint dwFlags,
-            [MarshalAs(UnmanagedType.BStr)] out string pbstrName,
-            [MarshalAs(UnmanagedType.LPArray), Out] EXCEPINFO[] pexcepinfo);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int ParseScriptText(
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrCode,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrItemName,
-            [MarshalAs(UnmanagedType.IUnknown), In] object punkContext,
-            [MarshalAs(UnmanagedType.LPWStr), In] string pstrDelimiter,
-            [In] uint dwSourceContextCookie,
-            [In] uint ulStartingLineNumber,
-            [In] uint dwFlags,
-            [MarshalAs(UnmanagedType.Struct)] out object pvarResult,
-            [MarshalAs(UnmanagedType.LPArray), Out] EXCEPINFO[] pexcepinfo);
-    }
     /////////////////////////////////////////////////////////////////////////
 
     ///// <summary>
@@ -453,35 +342,7 @@ namespace SurfaceTest
     //    // ------------------------------------------------------------------
     //    #endregion
     //}
-    [Guid("DB01A1E3-A42B-11CF-8F20-00805F2CD064")]
-    [InterfaceType(1)]
-    [ComImport]
-    public interface IActiveScriptSite
-    {
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetLCID(out uint plcid);
 
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetItemInfo([MarshalAs(UnmanagedType.LPWStr), In] string pstrName, [In] uint dwReturnMask, [MarshalAs(UnmanagedType.IUnknown)] out object ppiunkItem, [MarshalAs(UnmanagedType.Interface)] ITypeInfo ppti);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetDocVersionString([MarshalAs(UnmanagedType.BStr)] out string pbstrVersion);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int OnScriptTerminate([MarshalAs(UnmanagedType.Struct), In] ref object pvarResult, [MarshalAs(UnmanagedType.LPArray), In] EXCEPINFO[] pexcepinfo);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int OnStateChange([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.SCRIPTSTATE"), In] SCRIPTSTATE ssScriptState);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int OnScriptError([MarshalAs(UnmanagedType.Interface), In] IActiveScriptError pscripterror);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int OnEnterScript();
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int OnLeaveScript();
-    }
     /////////////////////////////////////////////////////////////////////////
 
     ///// <summary>
@@ -530,216 +391,24 @@ namespace SurfaceTest
     //}
 
 
-    [Guid("EAE1BA61-A4ED-11CF-8F20-00805F2CD064")]
-    [InterfaceType(1)]
-    [ComImport]
-    public interface IActiveScriptError
-    {
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetExceptionInfo([MarshalAs(UnmanagedType.LPArray), Out] EXCEPINFO[] pexcepinfo);
 
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetSourcePosition(
-            out uint pdwSourceContext,
-            out uint pulLineNumber,
-            out int plCharacterPosition);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetSourceLineText([MarshalAs(UnmanagedType.BStr)] out string pbstrSourceLine);
-    }
 
     /////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    /// The script state.
-    /// </summary>
-    /// <see cref="http://msdn.microsoft.com/library/en-us/script56/html/5f5deb05-c4bb-4964-8077-e624c6b2a14e.asp"/>
-    public enum SCRIPTSTATE : uint
-    {
-        #region Enum members.
-        // ------------------------------------------------------------------
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTSTATE_UNINITIALIZED = 0,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTSTATE_INITIALIZED = 5,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTSTATE_STARTED = 1,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTSTATE_CONNECTED = 2,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTSTATE_DISCONNECTED = 3,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTSTATE_CLOSED = 4,
-
-        // ------------------------------------------------------------------
-        #endregion
-    }
-
     /////////////////////////////////////////////////////////////////////////
-    [Flags]
-    public enum SCRIPTTEXT : uint
-    {
-        SCRIPTTEXT_DELAYEXECUTION = 0x00000001,
-        SCRIPTTEXT_ISVISIBLE = 0x00000002,
-        SCRIPTTEXT_ISEXPRESSION = 0x00000020,
-        SCRIPTTEXT_ISPERSISTENT = 0x00000040,
-        SCRIPTTEXT_HOSTMANAGESSOURCE = 0x00000080,
-        SCRIPTTEXT_ISXDOMAIN = 0x00000100,
-        SCRIPTTEXT_ISNONUSERCODE = 0x00000200,
-        SCRIPTTEXT_ALL_FLAGS = (SCRIPTTEXT_DELAYEXECUTION | SCRIPTTEXT_ISVISIBLE | SCRIPTTEXT_ISEXPRESSION | SCRIPTTEXT_ISPERSISTENT | SCRIPTTEXT_HOSTMANAGESSOURCE | SCRIPTTEXT_ISXDOMAIN | SCRIPTTEXT_ISNONUSERCODE)
-    }
 
-    /// <summary>
-    /// The script thread state.
-    /// </summary>
-    /// <see cref="http://msdn.microsoft.com/library/en-us/script56/html/975ec66b-c095-40ac-8ba9-631adb97b589.asp"/>
-    public enum SCRIPTTHREADSTATE : uint
-    {
-        #region Enum members.
-        // ------------------------------------------------------------------
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTTHREADSTATE_NOTINSCRIPT = 0,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTTHREADSTATE_RUNNING = 1,
-
-        // ------------------------------------------------------------------
-        #endregion
-    }
 
     /////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    /// The script item flags when adding.
-    /// </summary>
-    /// <see cref="http://msdn.microsoft.com/library/en-us/script56/html/a7c6317d-948f-4bb3-b169-1bbe5b7c7cc5.asp"/>
-    [Flags]
-    public enum SCRIPTITEMFLAGS : uint
-    {
-        #region Enum members.
-        // ------------------------------------------------------------------
 
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_ISVISIBLE = 0x00000002,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_ISSOURCE = 0x00000004,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_GLOBALMEMBERS = 0x00000008,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_ISPERSISTENT = 0x00000040,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_CODEONLY = 0x00000200,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_NOCODE = 0x00000400,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTITEM_ALL_FLAGS =
-            SCRIPTITEM_ISSOURCE |
-            SCRIPTITEM_ISVISIBLE |
-            SCRIPTITEM_ISPERSISTENT |
-            SCRIPTITEM_GLOBALMEMBERS |
-            SCRIPTITEM_NOCODE |
-            SCRIPTITEM_CODEONLY
-
-        // ------------------------------------------------------------------
-        #endregion
-    }
 
     /////////////////////////////////////////////////////////////////////////
 
-    /// <summary>
-    /// The IActiveScriptSite.GetItemInfo() input flags.
-    /// </summary>
-    /// <see cref="http://msdn.microsoft.com/library/en-us/script56/html/f859ed3b-02c1-4924-99f8-5f5bf1bf8405.asp"/>
-    [Flags]
-    public enum SCRIPTINFOFLAGS : uint
-    {
-        #region Enum members.
-        // ------------------------------------------------------------------
 
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTINFO_IUNKNOWN = 0x00000001,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTINFO_ITYPEINFO = 0x00000002,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        SCRIPTINFO_ALL_FLAGS =
-            SCRIPTINFO_IUNKNOWN |
-            SCRIPTINFO_ITYPEINFO
 
-        // ------------------------------------------------------------------
-        #endregion
-    }
 
-    [ComConversionLoss]
-    [InterfaceType(1)]
-    [Guid("D10F6761-83E9-11CF-8F20-00805F2CD064")]
-    [ComImport]
-    public interface IActiveScriptSiteWindow
-    {
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int GetWindow([ComAliasName("Microsoft.VisualStudio.Debugger.Interop.wireHWND")] out IntPtr phwnd);
-
-        [MethodImpl(MethodImplOptions.PreserveSig | MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        int EnableModeless([In] int fEnable);
-    }
-
-    [ComConversionLoss]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("AC206021-8D2D-31D8-8CD1-A5B92AD4A2B6")]
-    public interface INameing
-    {
-        public string Name { get; set; }
-    }
     [ComVisible(true)]
     [ClassInterface(ClassInterfaceType.AutoDual)]
     public class ScriptObj
@@ -747,362 +416,25 @@ namespace SurfaceTest
         public void Log(ref object value)
         {
 
-
-            Dictionary<int, string> nemese = DispatchUtility.GetType(value, false);
-            foreach (var item in nemese)
-            {
-                if (item.Value == "GetName")
-                {
-                    object o = DispatchUtility.Invoke(value, item.Value, new object[] { });
+	        DispatchObjectWrapper wrapper = new DispatchObjectWrapper(value);
 
 
-                }
+            object o  = wrapper.InvokeFunction("GetName");
 
-                if (item.Value == "SetName")
-                {
-                    DispatchUtility.InvokeSet(value, item.Value, new object[] { "hallo" });
-                }
+            wrapper.InvokeAction("SetName", "hallo");
 
-            }
-        }
-    }
-    public class DefaultScriptSite : IActiveScriptSite, IActiveScriptSiteWindow
-    {
-        public object RefObj { get; set; }
-
-        private IntPtr _Handle = IntPtr.Zero;
-
-        public DefaultScriptSite(IntPtr handle)
-        {
-            this._Handle = handle;
-        }
-
-        public int GetItemInfo(string pstrName, uint dwReturnMask, out object ppiunkItem, ITypeInfo ppti)
-        {
-
-            ppiunkItem = default(object);
-            ppti = null;
-            if (pstrName == "MyObject")
-            {
-                ppiunkItem = this.RefObj;
-                //IDispatch dp = (IDispatch)this.RefObj;
-                //dp.GetTypeInfo(0, 0, out ppti);
-
-                return HRESULT.S_OK;
-            }
-
-            return HRESULT.S_FALSE;
-        }
-
-        public int GetDocVersionString(out string v)
-        {
-            v = default(string);
-            return HRESULT.S_FALSE;
-        }
-
-        public int OnScriptTerminate(ref object pvarResult, EXCEPINFO[] pexcepinfo)
-        {
-            if (pvarResult != null)
-                Debug.Print(pvarResult.ToString());
-            if (pexcepinfo != null)
-            {
-                foreach (var info in pexcepinfo)
-                {
-                    Debug.Print(info.bstrDescription);
-                }
-            }
-
-
-            return HRESULT.S_OK;
-
-
-        }
-
-
-
-        public int GetLCID(out uint id)
-        {
-
-
-            id = default(uint);
-            return HRESULT.S_FALSE;
-        }
-
-        public int OnScriptError(IActiveScriptError pscripterror)
-        {
-            IActiveScriptError e = pscripterror;
-            if (e != null)
-            {
-                EXCEPINFO[] errors = new EXCEPINFO[10];
-
-                e.GetExceptionInfo(errors);
-
-                foreach (var info in errors)
-                {
-                    if (info.bstrDescription != null)
-                    {
-                        Debug.Print(info.bstrDescription);
-                        Debug.Print(info.scode.ToString());
-                        e.GetSourcePosition(out uint sourceContext, out uint lineNumber, out int charPos);
-                        Debug.Print($"SourceContext={sourceContext}, line={lineNumber}, col={charPos}");
-                        Debug.Print(info.bstrSource);
-                        try
-                        {
-                            e.GetSourceLineText(out string errorLineText);
-                            Debug.Print(errorLineText);
-
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-
-                    }
-                }
-
-
-                return HRESULT.S_OK;
-            }
-
-            return HRESULT.S_FALSE;
-        }
-
-        public int OnEnterScript()
-        {
-            //OnEnterScript
-            Debug.Print("OnEnterScript");
-            return HRESULT.S_OK;
-        }
-
-        public int OnLeaveScript()
-        {
-            //OnLeaveScript
-            Debug.Print("OnLeaveScript");
-            return HRESULT.S_OK;
-        }
-
-
-
-
-        public int OnStateChange(SCRIPTSTATE state)
-        {
-            Debug.Print("STate Change:" + state);
-            return HRESULT.S_OK;
-        }
-
-        public int GetWindow(out IntPtr phwnd)
-        {
-
-            phwnd = this._Handle;
-            if (phwnd == IntPtr.Zero)
-            {
-                return HRESULT.S_FALSE;
-            }
-            return HRESULT.S_OK;
-        }
-
-        public int EnableModeless([In] int fEnable)
-        {
-            return HRESULT.S_FALSE;
-        }
-    }
-
-
-
-
-    
-}
-
-
-public static class DispatchUtility
-{
-    private const int S_OK = 0; //From WinError.h
-    private const int LOCALE_SYSTEM_DEFAULT = 2 << 10; //From WinNT.h == 2048 == 0x800
-
-    public static bool ImplementsIDispatch(object obj)
-    {
-        bool result = obj is IDispatchInfo;
-        return result;
-    }
-
-    public static Dictionary<int, string> GetType(object obj, bool throwIfNotFound)
-    {
-        RequireReference(obj, "obj");
-
-
-        Dictionary<int, string> result = GetType((IDispatchInfo)obj, throwIfNotFound);
-        return result;
-    }
-
-    public static bool TryGetDispId(object obj, string name, out int dispId)
-    {
-        RequireReference(obj, "obj");
-        bool result = TryGetDispId((IDispatchInfo)obj, name, out dispId);
-        return result;
-    }
-
-    public static object Invoke(object obj, int dispId, object[] args)
-    {
-        string memberName = "[DispId=" + dispId + "]";
-        object result = Invoke(obj, memberName, args);
-        return result;
-    }
-
-    private static int DISPATCH_METHOD = 0x1;
-    private static int DISPATCH_PROPERTYGET = 0x2;
-    private static int DISPATCH_PROPERTYPUT = 0x4;
-    private static int DISPATCH_PROPERTYPUTREF = 0x8;
-
-
-    public static object Invoke(object obj, string memberName, object[] args)
-    {
-        RequireReference(obj, "obj");
-        Type type = obj.GetType();
-
-
-
-
-        object result = type.InvokeMember(memberName,
-            BindingFlags.InvokeMethod | BindingFlags.GetProperty | BindingFlags.GetField, null, obj, args, null);
-        return result;
-    }
-
-    public static void InvokeSet(object obj, string memberName, object[] args)
-    {
-        RequireReference(obj, "obj");
-
-
-        if (TryGetDispId(obj, memberName, out int dispID))
-        {
-            IDispatch disp = (IDispatch)obj;
-            DISPPARAMS pars = new DISPPARAMS();
-            pars.cArgs = args.Length;
+            object result = wrapper.InvokeGet("Name");
             
-           
-
-            pars.rgdispidNamedArgs = IntPtr.Zero;
-            pars.cNamedArgs = 0;
-            IntPtr arrPtr = VARIANT.ObjectArrayToVariantArrayPtr(args);
-
-            pars.rgvarg = arrPtr;
-            Guid g = Guid.Empty;
-
-            int[] ids = new int[3];
-            HRESULT v = disp.GetIDsOfNames(g, new string[] { memberName }, 1, LOCALE_SYSTEM_DEFAULT, ids);
-            if (!v.Failed)
-            {
-                EXCEPINFO exInfo = new EXCEPINFO();
-   
-                IntPtr[] argErr = new IntPtr[1];
-
-                HRESULT i = disp.Invoke(dispID, g,(uint) Thread.CurrentThread.CurrentCulture.LCID,(ushort)DISPATCH_METHOD, pars, out object pRetVal, exInfo, argErr);
-
-                if (!i.Failed)
-                {
-
-                }
-            }
-
-            VARIANT.FreeVariantArrayPtr(arrPtr, args.Length );
-             
-
-        }
-
-    }
-
-    private static void RequireReference<T>(T value, string name) where T : class
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(name);
+            wrapper.InvokePut("Name", "hallooXyz");
+            
         }
     }
+    
 
-    private static Dictionary<int, string> GetType(IDispatchInfo dispatch, bool throwIfNotFound)
-    {
-        RequireReference(dispatch, "dispatch");
 
-        Dictionary<int, string> result = new Dictionary<int, string>();
-        int typeInfoCount;
-        int hr = dispatch.GetTypeInfoCount(out typeInfoCount);
-        if (hr == S_OK && typeInfoCount > 0)
-        {
-            dispatch.GetTypeInfo(0, LOCALE_SYSTEM_DEFAULT, out IntPtr p);
-            ITypeInfo tInfo = (ITypeInfo)Marshal.GetObjectForIUnknown(p);
-            tInfo.GetTypeAttr(out IntPtr attr);
-            TYPEATTR typeAttr = Marshal.PtrToStructure<TYPEATTR>(attr);
-            for (int i = 0; i < typeAttr.cFuncs; i++)
-            {
-                tInfo.GetFuncDesc(i, out IntPtr pfuncDesc);
-                if (pfuncDesc != IntPtr.Zero)
-                {
-                    FUNCDESC funcDesc = Marshal.PtrToStructure<FUNCDESC>(pfuncDesc);
 
-                    tInfo.GetDocumentation(funcDesc.memid, out string name, out string docString, out int helContext, out string helpFile);
-                    if (!string.IsNullOrEmpty(name))
-                    {
-                        result.Add(funcDesc.memid, name);
-                    }
-                    tInfo.ReleaseFuncDesc(pfuncDesc);
-                }
-            }
 
-            tInfo.ReleaseTypeAttr(attr);
-
-        }
-
-        if (result == null && throwIfNotFound)
-        {
-            // If the GetTypeInfoCount called failed, throw an exception for that.
-            Marshal.ThrowExceptionForHR(hr);
-
-            // Otherwise, throw the same exception that Type.GetType would throw.
-            throw new TypeLoadException();
-        }
-
-        return result;
-    }
-
-    private static bool TryGetDispId(IDispatchInfo dispatch, string name, out int dispId)
-    {
-        RequireReference(dispatch, "dispatch");
-        RequireReference(name, "name");
-
-        bool result = false;
-        Guid iidNull = Guid.Empty;
-        int hr = dispatch.GetDispId(ref iidNull, ref name, 1, LOCALE_SYSTEM_DEFAULT, out dispId);
-
-        const int DISP_E_UNKNOWNNAME = unchecked((int)0x80020006); //From WinError.h
-        const int DISPID_UNKNOWN = -1; //From OAIdl.idl
-        if (hr == S_OK)
-        {
-            result = true;
-        }
-        else if (hr == DISP_E_UNKNOWNNAME && dispId == DISPID_UNKNOWN)
-        {
-            result = false;
-        }
-        else
-        {
-            Marshal.ThrowExceptionForHR(hr);
-        }
-
-        return result;
-    }
-
-    [ComImport]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("00020400-0000-0000-C000-000000000046")]
-    private interface IDispatchInfo
-    {
-        [PreserveSig]
-        int GetTypeInfoCount(out int typeInfoCount);
-
-        void GetTypeInfo(int typeInfoIndex, int lcid, out IntPtr typeInfo);
-
-        [PreserveSig]
-        int GetDispId(ref Guid riid, ref string name, int nameCount, int lcid, out int dispId);
-
-        // NOTE: The real IDispatch also has an Invoke method next, but we don't need it.
-    }
 }
+
+
+
