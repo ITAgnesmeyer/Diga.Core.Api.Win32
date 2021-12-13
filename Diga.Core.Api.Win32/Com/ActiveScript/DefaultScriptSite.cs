@@ -7,12 +7,19 @@ using EXCEPINFO = System.Runtime.InteropServices.ComTypes.EXCEPINFO;
 
 namespace Diga.Core.Api.Win32.Com.ActiveScript
 {
-    public class DefaultScriptSite : IActiveScriptSite, IActiveScriptSiteWindow
+    public class DefaultScriptSite : IScriptSite
     {
         public  Dictionary<string,object> RefObj { get; }
 
         private readonly IntPtr _Handle;
+        public event EventHandler<ScriptExceptionEventArgs> ScriptError;
+        public event EventHandler<ScriptTerminateEventArgs> ScriptTerminate;
+        public event EventHandler EnterScript;
+        public event EventHandler LeaveScript;
+        public DefaultScriptSite() : this(IntPtr.Zero)
+        {
 
+        }
         public DefaultScriptSite(IntPtr handle)
         {
             this._Handle = handle;
@@ -42,28 +49,21 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
 
         public int OnScriptTerminate(ref object pvarResult, EXCEPINFO[] pexcepinfo)
         {
-            if (pvarResult != null)
-                Debug.Print(pvarResult.ToString());
-            if (pexcepinfo != null)
+            EXCEPINFO firstExInfo = new EXCEPINFO();
+            if (pexcepinfo.Length > 0)
             {
-                foreach (var info in pexcepinfo)
-                {
-                    Debug.Print(info.bstrDescription);
-                }
+                firstExInfo = pexcepinfo[0];
             }
 
-
+            ScriptTerminateEventArgs eventArgs = new ScriptTerminateEventArgs(pvarResult, firstExInfo);
+            OnScriptTerminateInvoke(eventArgs);
             return HRESULT.S_OK;
 
 
         }
 
-
-
         public int GetLCID(out uint id)
         {
-
-
             id = default(uint);
             return HRESULT.S_FALSE;
         }
@@ -76,30 +76,16 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
                 EXCEPINFO[] errors = new EXCEPINFO[10];
 
                 e.GetExceptionInfo(errors);
-
+                
                 foreach (var info in errors)
                 {
                     if (info.bstrDescription != null)
                     {
-                        Debug.Print(info.bstrDescription);
-                        Debug.Print(info.scode.ToString());
-                        e.GetSourcePosition(out uint sourceContext, out uint lineNumber, out int charPos);
-                        Debug.Print($"SourceContext={sourceContext}, line={lineNumber}, col={charPos}");
-                        Debug.Print(info.bstrSource);
-                        try
-                        {
-                            e.GetSourceLineText(out string errorLineText);
-                            Debug.Print(errorLineText);
-
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-
+                        ScriptExceptionEventArgs exArgs = new ScriptExceptionEventArgs(info,e);
+                       
+                        OnScriptErrorInvoke(exArgs);
                     }
                 }
-
 
                 return HRESULT.S_OK;
             }
@@ -110,19 +96,16 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
         public int OnEnterScript()
         {
             //OnEnterScript
-            Debug.Print("OnEnterScript");
+            OnEnterScriptInvoke();
             return HRESULT.S_OK;
         }
 
         public int OnLeaveScript()
         {
             //OnLeaveScript
-            Debug.Print("OnLeaveScript");
+            OnLeaveScriptInvoke();
             return HRESULT.S_OK;
         }
-
-
-
 
         public int OnStateChange(SCRIPTSTATE state)
         {
@@ -144,6 +127,26 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
         public int EnableModeless([In] int fEnable)
         {
             return HRESULT.S_FALSE;
+        }
+
+        protected virtual void OnScriptErrorInvoke(ScriptExceptionEventArgs e)
+        {
+            ScriptError?.Invoke(this, e);
+        }
+
+        protected virtual void OnScriptTerminateInvoke(ScriptTerminateEventArgs e)
+        {
+            ScriptTerminate?.Invoke(this, e);
+        }
+
+        protected virtual void OnEnterScriptInvoke()
+        {
+            EnterScript?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnLeaveScriptInvoke()
+        {
+            LeaveScript?.Invoke(this, EventArgs.Empty);
         }
     }
 }

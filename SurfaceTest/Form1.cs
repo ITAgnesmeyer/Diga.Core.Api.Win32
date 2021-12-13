@@ -66,39 +66,23 @@ namespace SurfaceTest
         private void button3_Click(object sender, EventArgs e)
         {
 
-
-            Guid clsId = ActiveScriptIIDs.IID_VBScript;
-            Guid iid = typeof(IActiveScript).GUID;
-
-
-            Ole32.CoCreateInstance(ref clsId , IntPtr.Zero,
-                (int)CLSCTX.CLSCTX_INPROC_SERVER, ref iid, out object scriptObject);
-
-            //object scriptObject = ComLoader.GetObject(info, new Guid("B54F3741-5B07-11CF-A4B0-00AA004A55E8"),
-            //    new Guid("BB1A2AE1-A4F9-11cf-8F20-00805F2CD064"));
-
-            IActiveScript ac = (IActiveScript)scriptObject;
-            IActiveScriptParse32 ap = (IActiveScriptParse32)scriptObject;
-            DefaultScriptSite site = new DefaultScriptSite(this.Handle);
+            string str = this.textBox1.Text;
             ScriptObj so = new ScriptObj();
+            DefaultScriptSite site = new DefaultScriptSite(this.Handle);
+            site.ScriptError += (o, e) =>
+            {
+                MessageBox.Show(this, e.ToString(), "Script Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
             site.RefObj.Add("MyObject", so);
-            ac.SetScriptSite(site);
-            ac.AddNamedItem("MyObject",
-                ((uint)SCRIPTITEMFLAGS.SCRIPTITEM_ISVISIBLE | (uint)SCRIPTITEMFLAGS.SCRIPTITEM_ISSOURCE));
+
             
             
-            ap.InitNew();
+            
             try
             {
-                EXCEPINFO[] infoArr = new EXCEPINFO[10];
-                string str = this.textBox1.Text;
-                ap.ParseScriptText(str, "MyObject", so, "\r\n", 0, 0,
-                    (uint)SCRIPTTEXT.SCRIPTTEXT_ISVISIBLE, out var result, infoArr);
-                if (result != null)
-                {
-                    Debug.Print(result.ToString());
-                }
-
+                ScriptEngine engine = new ScriptEngine(ScriptEngineType.VBScript, site);
+                
+                object obj = engine.Run(str);
             }
             catch (COMException exception)
             {
