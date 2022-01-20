@@ -42,11 +42,7 @@ namespace Diga.Core.Api.Win32.Com
 
         public object InvokeGet(string name)
         {
-            DispatchMemberInfo info = GetMember(name);
-            if (info.FunctionDescription.invkind != INVOKEKIND.INVOKE_PROPERTYGET)
-            {
-
-            }
+           
             return this.Invoke(name, DispatchCallingConventions.PropertyGet);
         }
 

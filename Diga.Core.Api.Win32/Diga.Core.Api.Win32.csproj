@@ -4,13 +4,13 @@
 		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net461;net472</TargetFrameworks>
 		<AssemblyName>Diga.Core.Api.Win32</AssemblyName>
 		<RootNamespace>Diga.Core.Api.Win32</RootNamespace>
-		<Version>2.0.1</Version>
+		<Version>2.0.3</Version>
 		<PackageId>Diga.Core.Api.Win32</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
 		<Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
-		<Copyright>Copyright 2021 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+		<Copyright>Copyright 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
 		<Description>Win32 - Api Imports</Description>
 		<PackageTags>Win32,Win32 Api</PackageTags>
 		<Product>Diga.Core.Api.Win32</Product>

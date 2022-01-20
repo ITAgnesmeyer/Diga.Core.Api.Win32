@@ -6,7 +6,6 @@ using System.Text;
 
 namespace Diga.Core.Api.Win32.Tools
 {
-
     public class ByteReader
     {
         

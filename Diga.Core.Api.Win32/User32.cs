@@ -47,6 +47,21 @@ namespace Diga.Core.Api.Win32
             uint dwStyle, int X, int Y, int nWidth, int nHeight, [In] IntPtr hWndParent, [In] IntPtr hMenu,
             [In] IntPtr hInstance, [In] IntPtr lpParam);
 
+        [DllImport(USER32, EntryPoint = "CreateWindowEx", CharSet = CHARSET, SetLastError = true)]
+        private static extern IntPtr CreateWindowEx(
+            int dwExStyle,
+            uint lpClassName,
+            string lpWindowName,
+            uint dwStyle,
+            int x,
+            int y,
+            int nWidth,
+            int nHeight,
+            IntPtr hWndParent,
+            IntPtr hMenu,
+            IntPtr hInstance,
+            IntPtr lpParam);
+
         [DllImport(USER32, EntryPoint = "CreateWindowEx", SetLastError = true, CharSet = CHARSET)]
         public static extern IntPtr CreateWindowEx(int dwExStyle, string lpClassName, string lpWindowName, uint dwStyle,
             int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
@@ -313,8 +328,16 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "GetSubMenu")]
         public static extern IntPtr GetSubMenu([In] IntPtr hMenu, int nPos);
 
+        [DllImport(USER32, EntryPoint = "GetShellWindow")]
+        public static extern IntPtr GetShellWindow();
+
         [DllImport(USER32, EntryPoint = "GetMenuItemID")]
         public static extern uint GetMenuItemID([In] IntPtr hMenu, int nPos);
+      
+        [DllImport(USER32, EntryPoint="GetWindowInfo")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool GetWindowInfo([In] IntPtr hWnd, ref WindowInfo pwi) ;
+
 
         [DllImport(USER32, EntryPoint = "CreatePopupMenu")]
         public static extern IntPtr CreatePopupMenu();

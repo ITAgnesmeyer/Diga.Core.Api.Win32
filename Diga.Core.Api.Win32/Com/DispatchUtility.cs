@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
@@ -84,7 +85,7 @@ namespace Diga.Core.Api.Win32.Com
             }
 
             object result = type.InvokeMember(memberName,
-                flags, null, obj, args, null);
+                flags, null, obj, args, CultureInfo.CurrentCulture);
             return result;
         }
 
