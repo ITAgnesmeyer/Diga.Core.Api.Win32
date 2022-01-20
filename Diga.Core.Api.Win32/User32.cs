@@ -48,7 +48,7 @@ namespace Diga.Core.Api.Win32
             [In] IntPtr hInstance, [In] IntPtr lpParam);
 
         [DllImport(USER32, EntryPoint = "CreateWindowEx", CharSet = CHARSET, SetLastError = true)]
-        private static extern IntPtr CreateWindowEx(
+        public static extern IntPtr CreateWindowEx(
             int dwExStyle,
             uint lpClassName,
             string lpWindowName,
@@ -507,7 +507,7 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy,
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy,
             SetWindowPosFlags uFlags);
 
         [DllImport(USER32, EntryPoint = "SetLayeredWindowAttributes", SetLastError = true)]
