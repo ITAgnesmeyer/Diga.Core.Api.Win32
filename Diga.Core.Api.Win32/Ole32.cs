@@ -14,6 +14,15 @@ namespace Diga.Core.Api.Win32
         [DllImport(OLE32, EntryPoint = "OleUninitialize", CallingConvention = CallingConvention.StdCall)]
         public static extern void OleUninitialize();
 
+        
+        [DllImport(OLE32, PreserveSig = false)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+        public static extern object CoGetObjectContext([In] ref Guid riid);
+
+        [DllImport(OLE32, EntryPoint="CoGetCallerTID", CallingConvention=CallingConvention.StdCall)]
+        public static extern  int CoGetCallerTID(out uint lpdwTID) ;
+
+
         [DllImport(OLE32, EntryPoint = "CoLockObjectExternal", CallingConvention = CallingConvention.StdCall, PreserveSig = true)]
         public static extern int CoLockObjectExternal([MarshalAs(UnmanagedType.IUnknown)] object pUnk, [MarshalAs(UnmanagedType.Bool)] bool fLock, [MarshalAs(UnmanagedType.Bool)] bool fLastUnlockReleases);
 

@@ -59,12 +59,12 @@ namespace ResourceTest
                             ", WindowClassId=" + dlgItemTemplateEx.WindowClassId);
             }
             int ret;
-            while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) != 0)
+            while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) >0 )
             {
-                if (ret == -1)
-                {
-                    return;
-                }
+                //if (ret == -1)
+                //{
+                //    return;
+                //}
 
                 if (!User32.IsDialogMessage(_hDlg, ref msg))
                 {
