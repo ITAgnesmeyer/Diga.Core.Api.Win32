@@ -9,8 +9,12 @@ namespace Diga.Core.Api.Win32
 {
     public static class Kernel32
     {
+
         private const string KERNEL32 = "kernel32.dll";
         private const CharSet CHARSET = CharSet.Auto;
+        
+        public static readonly IntPtr NoFileHandle = new IntPtr(-1);
+        
         [DllImport(KERNEL32)]
         public static extern uint GetLastError();
 
@@ -181,7 +185,28 @@ namespace Diga.Core.Api.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FileTimeToSystemTime([In] ref FileTime lpFileTime, [Out] out SystemTime lpSystemTime);
 
+        
+        [DllImport(KERNEL32, EntryPoint="MapViewOfFile",SetLastError = true)]
+        public static extern  IntPtr MapViewOfFile([In] IntPtr hFileMappingObject, uint dwDesiredAccess, uint dwFileOffsetHigh, uint dwFileOffsetLow, uint dwNumberOfBytesToMap) ;
 
+        [DllImport(KERNEL32, EntryPoint="UnmapViewOfFile")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern  bool UnmapViewOfFile([In] IntPtr lpBaseAddress) ;
+
+
+      
+        [DllImport(KERNEL32,EntryPoint = "CreateFileMapping", CharSet= CharSet.Auto,SetLastError = true)]
+        public  static extern IntPtr CreateFileMapping(IntPtr hFile,
+            int lpAttributes,
+            FileProtection flProtect,
+            uint dwMaximumSizeHigh,
+            uint dwMaximumSizeLow,
+            string lpName);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr OpenFileMapping(FileRights dwDesiredAccess,
+            bool bInheritHandle,
+            string lpName);
     }
 }
 
