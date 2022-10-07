@@ -1,5 +1,6 @@
 ﻿using Diga.Core.Api.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
@@ -45,7 +46,7 @@ namespace SurfaceTest
 
                     MyMessageBoxW mW = handler.GetDelegate<MyMessageBoxW>("MessageBoxW");
 
-                    mW(this.Handle, "TEST", "TEST", MessageBoxOptionsConst.OkOnly);
+                    mW(this.Handle, "TEST", "TEST", MessageBoxOptionsConst.OkOnly | MessageBoxOptionsConst.IconError);
                     MyMessageBoxA mA = handler.GetDelegate<MyMessageBoxA>("MessageBoxA");
                     mA(this.Handle, "TEST", "TEST", MessageBoxOptionsConst.OkOnly);
                 }
@@ -99,6 +100,40 @@ namespace SurfaceTest
             //ac.SetScriptState(SCRIPTSTATE.SCRIPTSTATE_CONNECTED);
 
 
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            IBindCtx context = RunningObjectTableUtility.GetBindContext();
+            IRunningObjectTable rotTable = RunningObjectTableUtility.GetRunningObjectTable(context);
+            IEnumMoniker enumerator = RunningObjectTableUtility.GetMonikerEnumerator(rotTable);
+            List<MonikerInfo> infos = RunningObjectTableUtility.GetMonikerInfos(context, enumerator);
+            foreach (MonikerInfo monikerInfo in infos)
+            {
+                Debug.Print($"DisplayName:{monikerInfo.GetDisplayName}");
+                Debug.Print($"ClassID:{monikerInfo.ClassId}");
+                Debug.Print($"IsSystem:{monikerInfo.IsSystemMoniker}");
+
+            }
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            object obj =
+                RunningObjectTableUtility.GetRotObject("VisualStudio.DTE.17.0:", RotDisplayNameSearchType.Contains);
+
+            DispatchObjectWrapper dispatch = new DispatchObjectWrapper(obj);
+            var mem = dispatch.Members;
+            foreach (DispatchMemberInfo dispatchMemberInfo in mem)
+            {
+                if (dispatchMemberInfo.FunctionDescription.invkind == INVOKEKIND.INVOKE_PROPERTYGET)
+                {
+                    Debug.Print(dispatchMemberInfo.Name);
+                }
+                
+            }
 
         }
     }

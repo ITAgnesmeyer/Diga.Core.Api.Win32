@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.Core.Api.Win32
 {
@@ -14,6 +15,8 @@ namespace Diga.Core.Api.Win32
         [DllImport(OLE32, EntryPoint = "OleUninitialize", CallingConvention = CallingConvention.StdCall)]
         public static extern void OleUninitialize();
 
+        [DllImport(OLE32, EntryPoint = "CreateBindCtx")]
+        public static extern int CreateBindCtx(uint reserved, out IBindCtx ppbc);
         
         [DllImport(OLE32, PreserveSig = false)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
