@@ -70,9 +70,9 @@ namespace SurfaceTest
             string str = this.textBox1.Text;
             ScriptObj so = new ScriptObj();
             DefaultScriptSite site = new DefaultScriptSite(this.Handle);
-            site.ScriptError += (o, e) =>
+            site.ScriptError += (o, xe) =>
             {
-                MessageBox.Show(this, e.ToString(), "Script Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, xe.ToString(), "Script Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
             site.RefObj.Add("MyObject", so);
 

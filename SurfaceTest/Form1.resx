@@ -76,11 +76,16 @@
  
 end class
 
+sub OnLog()
+MsgBox("OnLog clled")
+end sub
 set ab = new h
 
 ab.Name = "Hallo Welt"
+on error resume next
 
-MyObject.log(ab)
+MyObject.log(GetRef("OnLog"))
+on error goto 0
 
 MsgBox(ab.Name)</value>
   </data>

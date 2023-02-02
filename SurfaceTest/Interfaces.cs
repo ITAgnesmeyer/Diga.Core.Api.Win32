@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Diga.Core.Api.Win32.Com;
 
 namespace SurfaceTest
@@ -6,7 +8,7 @@ namespace SurfaceTest
 
 
 
-  
+
 
 
 
@@ -18,20 +20,38 @@ namespace SurfaceTest
         public void Log(ref object value)
         {
 
-	        DispatchObjectWrapper wrapper = new DispatchObjectWrapper(value);
+            DispatchObjectWrapper wrapper = new DispatchObjectWrapper(value);
+
+            bool continas = wrapper.Members.Count == 0;
 
 
-            object o  = wrapper.InvokeFunction("GetName");
+            if (!continas)
+            {
 
-            wrapper.InvokeAction("SetName", "hallo");
 
-            object result = wrapper.InvokeGet("Name");
-            
-            wrapper.InvokePut("Name", "hallooXyz");
-            
+                object o = wrapper.InvokeFunction("GetName");
+
+                wrapper.InvokeAction("SetName", "hallo");
+
+                object result = wrapper.InvokeGet("Name");
+
+                wrapper.InvokePut("Name", "hallooXyz");
+            }
+            else
+            {
+                try
+                {
+                    wrapper.InvokeAction("OnLog");
+                }
+                catch (Exception e)
+                {
+                    Debug.Print(e.Message);
+                }
+                
+            }
         }
     }
-    
+
 
 
 
