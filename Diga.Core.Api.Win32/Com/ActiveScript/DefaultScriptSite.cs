@@ -31,9 +31,9 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
 
             ppiunkItem = default(object);
             ppti = null;
-            if (this.RefObj.ContainsKey(pstrName))
+            if (this.RefObj.TryGetValue(pstrName, out var value))
             {
-                ppiunkItem = this.RefObj[pstrName];
+                ppiunkItem = value;
                
                 return HRESULT.S_OK;
             }

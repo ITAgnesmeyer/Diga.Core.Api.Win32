@@ -42,6 +42,14 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
 
         }
 
+        public ScriptProcedure GetProcdure()
+        {
+            return new ScriptProcedure(this._ActiveScript);
+        }
+        public bool AddProcedure(ScriptProcedure proc)
+        {
+            return proc.Parse();
+        }
         public object Run(string scriptText)
         {
             if (IntPtr.Size == 8)

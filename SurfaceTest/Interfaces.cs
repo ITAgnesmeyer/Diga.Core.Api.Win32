@@ -17,6 +17,23 @@ namespace SurfaceTest
     [ClassInterface(ClassInterfaceType.AutoDual)]
     public class ScriptObj
     {
+        private object _FuncObject;
+        private string _FuncName;
+
+        public void InvokeFunc(string name)
+        {
+            if (this._FuncName == "OnLog" && this._FuncObject != null)
+            {
+                DispatchObjectWrapper w = new DispatchObjectWrapper(this._FuncObject);
+                w.InvokeAction("OnLog");
+                var x = w.InvokeGet("Herbert");
+            }
+        }
+        public void RetisterFuncObj(ref object obj, string name)
+        {
+            this._FuncObject = obj;
+            this._FuncName = name;
+        }
         public void Log(ref object value)
         {
 
@@ -24,6 +41,20 @@ namespace SurfaceTest
 
             bool continas = wrapper.Members.Count == 0;
 
+            dynamic v = value;
+
+            try
+            {
+                string name = v.GetName();
+
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.Message);
+            }
+
+            Type t = value.GetType();
+            Type t2 = v.GetType();
 
             if (!continas)
             {

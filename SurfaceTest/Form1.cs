@@ -64,26 +64,36 @@ namespace SurfaceTest
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         private delegate int MyMessageBoxA(IntPtr hWnd,  string lpText, string lpCaption, uint uType);
 
+        private ScriptEngine _ScriptEngine;
+        private ScriptObj _ScriptObj;
         private void button3_Click(object sender, EventArgs e)
         {
 
             string str = this.textBox1.Text;
-            ScriptObj so = new ScriptObj();
+            this._ScriptObj = new ScriptObj();
             DefaultScriptSite site = new DefaultScriptSite(this.Handle);
             site.ScriptError += (o, xe) =>
             {
                 MessageBox.Show(this, xe.ToString(), "Script Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             };
-            site.RefObj.Add("MyObject", so);
+            site.RefObj.Add("MyObject", this._ScriptObj);
+
+
+           
 
             
-            
-            
+
             try
             {
-                ScriptEngine engine = new ScriptEngine(ScriptEngineType.VBScript, site);
-                
-                object obj = engine.Run(str);
+                this._ScriptEngine = new ScriptEngine(ScriptEngineType.VBScript, site);
+                ScriptProcedure s = this._ScriptEngine.GetProcdure();
+                s.Name = "Test";
+                s.ScriptText = "1+2";
+                s.Namespace = "Global";
+                s.Prams = "arg";
+                this._ScriptEngine.AddProcedure(s);
+
+                object obj = this._ScriptEngine.Run(str);
             }
             catch (COMException exception)
             {
@@ -135,6 +145,13 @@ namespace SurfaceTest
                 
             }
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (this._ScriptObj == null) return;
+            if (this._ScriptEngine == null) return;
+            this._ScriptObj.InvokeFunc("OnLog");
         }
     }
 }
