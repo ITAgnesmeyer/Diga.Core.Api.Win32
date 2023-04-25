@@ -6,6 +6,301 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
+    public class ListViewNotfiyConst
+    {
+        /// LVN_FIRST -> (0U-100U)
+        public const uint LVN_FIRST = (unchecked(0U - 100U));
+
+        /// LVN_LAST -> (0U-199U)
+        public const uint LVN_LAST = (unchecked(0U - 199U));
+
+        /// LVN_ITEMCHANGING -> (LVN_FIRST-0)
+        public const uint LVN_ITEMCHANGING = (LVN_FIRST - 0);
+
+        /// LVN_ITEMCHANGED -> (LVN_FIRST-1)
+        public const uint LVN_ITEMCHANGED = (LVN_FIRST - 1);
+
+        /// LVN_INSERTITEM -> (LVN_FIRST-2)
+        public const uint LVN_INSERTITEM = (LVN_FIRST - 2);
+
+        /// LVN_DELETEITEM -> (LVN_FIRST-3)
+        public const uint LVN_DELETEITEM = (LVN_FIRST - 3);
+
+        /// LVN_DELETEALLITEMS -> (LVN_FIRST-4)
+        public const uint LVN_DELETEALLITEMS = (LVN_FIRST - 4);
+
+        /// LVN_BEGINLABELEDITA -> (LVN_FIRST-5)
+        public const uint LVN_BEGINLABELEDITA = (LVN_FIRST - 5);
+
+        /// LVN_BEGINLABELEDITW -> (LVN_FIRST-75)
+        public const uint LVN_BEGINLABELEDITW = (LVN_FIRST - 75);
+
+        /// LVN_ENDLABELEDITA -> (LVN_FIRST-6)
+        public const uint LVN_ENDLABELEDITA = (LVN_FIRST - 6);
+
+        /// LVN_ENDLABELEDITW -> (LVN_FIRST-76)
+        public const uint LVN_ENDLABELEDITW = (LVN_FIRST - 76);
+
+        /// LVN_COLUMNCLICK -> (LVN_FIRST-8)
+        public const uint LVN_COLUMNCLICK = (LVN_FIRST - 8);
+
+        /// LVN_BEGINDRAG -> (LVN_FIRST-9)
+        public const uint LVN_BEGINDRAG = (LVN_FIRST - 9);
+
+        /// LVN_BEGINRDRAG -> (LVN_FIRST-11)
+        public const uint LVN_BEGINRDRAG = (LVN_FIRST - 11);
+
+        /// LVN_ODCACHEHINT -> (LVN_FIRST-13)
+        public const uint LVN_ODCACHEHINT = (LVN_FIRST - 13);
+
+        /// LVN_ODFINDITEMA -> (LVN_FIRST-52)
+        public const uint LVN_ODFINDITEMA = (LVN_FIRST - 52);
+
+        /// LVN_ODFINDITEMW -> (LVN_FIRST-79)
+        public const uint LVN_ODFINDITEMW = (LVN_FIRST - 79);
+
+        /// LVN_ITEMACTIVATE -> (LVN_FIRST-14)
+        public const uint LVN_ITEMACTIVATE = (LVN_FIRST - 14);
+
+        /// LVN_ODSTATECHANGED -> (LVN_FIRST-15)
+        public const uint LVN_ODSTATECHANGED = (LVN_FIRST - 15);
+
+        /// LVN_HOTTRACK -> (LVN_FIRST-21)
+        public const uint LVN_HOTTRACK = (LVN_FIRST - 21);
+
+        /// LVN_GETDISPINFOA -> (LVN_FIRST-50)
+        public const uint LVN_GETDISPINFOA = (LVN_FIRST - 50);
+
+        /// LVN_GETDISPINFOW -> (LVN_FIRST-77)
+        public const uint LVN_GETDISPINFOW = (LVN_FIRST - 77);
+
+        /// LVN_SETDISPINFOA -> (LVN_FIRST-51)
+        public const uint LVN_SETDISPINFOA = (LVN_FIRST - 51);
+
+    }
+    public class ListViewViewConst
+    {
+
+        /// LV_VIEW_ICON -> 0x0000
+        public const int LV_VIEW_ICON = 0;
+
+        /// LV_VIEW_DETAILS -> 0x0001
+        public const int LV_VIEW_DETAILS = 1;
+
+        /// LV_VIEW_SMALLICON -> 0x0002
+        public const int LV_VIEW_SMALLICON = 2;
+
+        /// LV_VIEW_LIST -> 0x0003
+        public const int LV_VIEW_LIST = 3;
+
+        /// LV_VIEW_TILE -> 0x0004
+        public const int LV_VIEW_TILE = 4;
+
+        /// LV_VIEW_MAX -> 0x0004
+        public const int LV_VIEW_MAX = 4;
+
+    }
+    public class ListViewColumnHeaderAlignConst
+    {
+        /// LVCFMT_LEFT -> 0x0000
+        public const int LVCFMT_LEFT = 0;
+
+        /// LVCFMT_RIGHT -> 0x0001
+        public const int LVCFMT_RIGHT = 1;
+
+        /// LVCFMT_CENTER -> 0x0002
+        public const int LVCFMT_CENTER = 2;
+
+        /// LVCFMT_JUSTIFYMASK -> 0x0003
+        public const int LVCFMT_JUSTIFYMASK = 3;
+
+        /// LVCFMT_IMAGE -> 0x0800
+        public const int LVCFMT_IMAGE = 2048;
+
+        /// LVCFMT_BITMAP_ON_RIGHT -> 0x1000
+        public const int LVCFMT_BITMAP_ON_RIGHT = 4096;
+
+        /// LVCFMT_COL_HAS_IMAGES -> 0x8000
+        public const int LVCFMT_COL_HAS_IMAGES = 32768;
+
+        /// LVCFMT_FIXED_WIDTH -> 0x00100
+        public const int LVCFMT_FIXED_WIDTH = 256;
+
+        /// LVCFMT_NO_DPI_SCALE -> 0x40000
+        public const int LVCFMT_NO_DPI_SCALE = 262144;
+
+        /// LVCFMT_FIXED_RATIO -> 0x80000
+        public const int LVCFMT_FIXED_RATIO = 524288;
+
+        /// LVCFMT_LINE_BREAK -> 0x100000
+        public const int LVCFMT_LINE_BREAK = 1048576;
+
+        /// LVCFMT_FILL -> 0x200000
+        public const int LVCFMT_FILL = 2097152;
+
+        /// LVCFMT_WRAP -> 0x400000
+        public const int LVCFMT_WRAP = 4194304;
+
+        /// LVCFMT_NO_TITLE -> 0x800000
+        public const int LVCFMT_NO_TITLE = 8388608;
+
+        /// LVCFMT_TILE_PLACEMENTMASK -> (LVCFMT_LINE_BREAK | LVCFMT_FILL)
+        public const int LVCFMT_TILE_PLACEMENTMASK = (LVCFMT_LINE_BREAK | LVCFMT_FILL);
+
+        /// LVCFMT_SPLITBUTTON -> 0x1000000
+        public const int LVCFMT_SPLITBUTTON = 16777216;
+    }
+
+    public class ListViewItemMemberValidInfoConst
+    {
+
+        /// LVIF_TEXT -> 0x00000001
+        public const int LVIF_TEXT = 1;
+
+        /// LVIF_IMAGE -> 0x00000002
+        public const int LVIF_IMAGE = 2;
+
+        /// LVIF_PARAM -> 0x00000004
+        public const int LVIF_PARAM = 4;
+
+        /// LVIF_STATE -> 0x00000008
+        public const int LVIF_STATE = 8;
+
+        /// LVIF_INDENT -> 0x00000010
+        public const int LVIF_INDENT = 16;
+
+        /// LVIF_NORECOMPUTE -> 0x00000800
+        public const int LVIF_NORECOMPUTE = 2048;
+
+        /// LVIF_GROUPID -> 0x00000100
+        public const int LVIF_GROUPID = 256;
+
+        /// LVIF_COLUMNS -> 0x00000200
+        public const int LVIF_COLUMNS = 512;
+
+        /// LVIF_COLFMT -> 0x00010000
+        public const int LVIF_COLFMT = 65536;
+
+    }
+    public class ListViewColumnMemeberValidInfoConst
+    {
+
+        /// LVCF_FMT -> 0x0001
+        public const int LVCF_FMT = 1;
+
+        /// LVCF_WIDTH -> 0x0002
+        public const int LVCF_WIDTH = 2;
+
+        /// LVCF_TEXT -> 0x0004
+        public const int LVCF_TEXT = 4;
+
+        /// LVCF_SUBITEM -> 0x0008
+        public const int LVCF_SUBITEM = 8;
+
+        /// LVCF_IMAGE -> 0x0010
+        public const int LVCF_IMAGE = 16;
+
+        /// LVCF_ORDER -> 0x0020
+        public const int LVCF_ORDER = 32;
+
+        /// LVCF_MINWIDTH -> 0x0040
+        public const int LVCF_MINWIDTH = 64;
+
+        /// LVCF_DEFAULTWIDTH -> 0x0080
+        public const int LVCF_DEFAULTWIDTH = 128;
+
+        /// LVCF_IDEALWIDTH -> 0x0100
+        public const int LVCF_IDEALWIDTH = 256;
+
+
+
+
+
+
+    }
+
+
+
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public struct tagLVCOLUMNA
+    {
+
+        /// UINT->unsigned int
+        public uint mask;
+
+        /// int
+        public int fmt;
+
+        /// int
+        public int cx;
+
+        /// LPSTR->CHAR*
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+        public string pszText;
+
+        /// int
+        public int cchTextMax;
+
+        /// int
+        public int iSubItem;
+
+        /// int
+        public int iImage;
+
+        /// int
+        public int iOrder;
+
+        /// int
+        public int cxMin;
+
+        /// int
+        public int cxDefault;
+
+        /// int
+        public int cxIdeal;
+    }
+
+
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public struct tagLVCOLUMNW
+    {
+
+        /// UINT->unsigned int
+        public uint mask;
+
+        /// int
+        public int fmt;
+
+        /// int
+        public int cx;
+
+        /// LPWSTR->WCHAR*
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+        public string pszText;
+
+        /// int
+        public int cchTextMax;
+
+        /// int
+        public int iSubItem;
+
+        /// int
+        public int iImage;
+
+        /// int
+        public int iOrder;
+
+        /// int
+        public int cxMin;
+
+        /// int
+        public int cxDefault;
+
+        /// int
+        public int cxIdeal;
+    }
+
+
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public struct tagLVITEMINDEX
@@ -123,7 +418,27 @@ namespace Diga.Core.Api.Win32
         public int iGroup;
     }
 
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public class tagLVDISPINFOW
+    {
 
+        /// NMHDR->tagNMHDR
+        public NmHdr hdr;
+
+        /// NMHDR->tagNMHDR
+        public tagLVITEMW item;
+    }
+
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public struct tagLVDISPINFOA
+    {
+
+        /// NMHDR->tagNMHDR
+        public NmHdr hdr;
+
+        /// NMHDR->tagNMHDR
+        public tagLVITEMA item;
+    }
 
     [Flags]
     public enum CommonControlsMessage : uint
@@ -469,7 +784,7 @@ namespace Diga.Core.Api.Win32
         public const uint CCM_DPISCALE = (CCM_FIRST + 0xc);// wParam == Awareness
     }
     [Flags]
-    public enum ListViewNextItem:uint
+    public enum ListViewNextItem : uint
     {
 
         LVNI_ALL = 0x0000,
@@ -508,42 +823,44 @@ namespace Diga.Core.Api.Win32
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public struct tagLVFINDINFOA {
-    
+    public struct tagLVFINDINFOA
+    {
+
         /// UINT->unsigned int
         public uint flags;
-    
+
         /// LPCSTR->CHAR*
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
         public string psz;
-    
+
         /// LPARAM->LONG_PTR->int
         public int lParam;
-    
+
         /// POINT->tagPOINT
         public Point pt;
-    
+
         /// UINT->unsigned int
         public uint vkDirection;
     }
 
-    
+
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public struct tagLVFINDINFOW {
-    
+    public struct tagLVFINDINFOW
+    {
+
         /// UINT->unsigned int
         public uint flags;
-    
+
         /// LPCWSTR->WCHAR*
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
         public string psz;
-    
+
         /// LPARAM->LONG_PTR->int
         public int lParam;
-    
+
         /// POINT->tagPOINT
         public Point pt;
-    
+
         /// UINT->unsigned int
         public uint vkDirection;
     }
@@ -551,7 +868,7 @@ namespace Diga.Core.Api.Win32
 
     public static class ListViewMacros
     {
-        
+
         public static ApiBool ListView_GetItemW(IntPtr hwnd, out tagLVITEMW pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
@@ -560,10 +877,17 @@ namespace Diga.Core.Api.Win32
 
             IntPtr result = User32.SendMessage(hwnd, (int)ListViewMessageConst.LVM_GETITEMW, IntPtr.Zero, p);
             int r = result.ToInt32();
-
-            pItem = Marshal.PtrToStructure<tagLVITEMW>(p);
+            ApiBool ok = r;
+            if (ok)
+            {
+                pItem = Marshal.PtrToStructure<tagLVITEMW>(p);
+            }
+            else
+            {
+                pItem = default(tagLVITEMW);
+            }
             Marshal.FreeHGlobal(p);
-            return r;
+            return ok;
         }
 
 
@@ -581,7 +905,7 @@ namespace Diga.Core.Api.Win32
         public static ApiBool ListView_SetItemW(IntPtr hWnd, tagLVITEMW pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
-            Marshal.StructureToPtr(pItem, p,true);
+            Marshal.StructureToPtr(pItem, p, false);
             IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMW, IntPtr.Zero, p);
             int r = result.ToInt32();
             Marshal.FreeHGlobal(p);
@@ -593,7 +917,7 @@ namespace Diga.Core.Api.Win32
         public static ApiBool ListView_SetItemA(IntPtr hWnd, tagLVITEMA pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
-            Marshal.StructureToPtr(pItem, p,true);
+            Marshal.StructureToPtr(pItem, p, true);
             IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMA, IntPtr.Zero, p);
             int r = result.ToInt32();
             Marshal.FreeHGlobal(p);
@@ -604,7 +928,7 @@ namespace Diga.Core.Api.Win32
         public static int ListView_InsertItemW(IntPtr hWnd, tagLVITEMW pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
-            Marshal.StructureToPtr(pItem, p,true);
+            Marshal.StructureToPtr(pItem, p, false);
             IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMW, IntPtr.Zero, p);
             int r = result.ToInt32();
             Marshal.FreeHGlobal(p);
@@ -614,7 +938,7 @@ namespace Diga.Core.Api.Win32
         public static int ListView_InsertItemA(IntPtr hWnd, tagLVITEMA pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
-            Marshal.StructureToPtr(pItem, p,true);
+            Marshal.StructureToPtr(pItem, p, false);
             IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMA, IntPtr.Zero, p);
             int r = result.ToInt32();
             Marshal.FreeHGlobal(p);
@@ -642,21 +966,82 @@ namespace Diga.Core.Api.Win32
             return r;
         }
 
+        public static int ListView_InsertColumnW(IntPtr hWnd, int index, tagLVCOLUMNW col)
+        {
+            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVCOLUMNW)));
+            Marshal.StructureToPtr(col, p, false);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNW, index, p);
+            int r = result.ToInt32();
+            Marshal.FreeHGlobal(p);
+            return r;
+        }
+        public static int ListView_InsertColumnA(IntPtr hWnd, int index, tagLVCOLUMNA col)
+        {
+            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVCOLUMNA)));
+            Marshal.StructureToPtr(col, p, false);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNA, index, p);
+            int r = result.ToInt32();
+            Marshal.FreeHGlobal(p);
+            return r;
+        }
         public static ApiBool ListView_SetCallbackMask(IntPtr hWnd, out uint mask)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(uint)));
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_DELETEALLITEMS,p, IntPtr.Size);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_DELETEALLITEMS, p, IntPtr.Size);
             mask = (uint)p.ToInt64();
             int r = result.ToInt32();
             return r;
         }
-        public static int ListView_GetNextItem(IntPtr hWnd,int i,  uint flag)
+        public static int ListView_GetNextItem(IntPtr hWnd, int i, uint flag)
         {
 
             IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_GETNEXTITEM, i, Win32Api.MakeLParam((int)flag, 0));
             return result.ToInt32();
         }
 
+        public static int ListView_SetItemCount(IntPtr hWnd, int i)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMCOUNT, i, 0);
+            return result.ToInt32();
+        }
+
+        public static int ListView_SetItemTextW(IntPtr hWnd, int itemIndex, int subItemIndex, string text)
+        {
+            tagLVITEMW item = new tagLVITEMW
+            {
+                mask = ListViewItemMemberValidInfoConst.LVIF_TEXT,
+                iSubItem = subItemIndex,
+                pszText = text
+            };
+            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
+            Marshal.StructureToPtr(item, p, false);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTW, itemIndex, p);
+            int r = result.ToInt32();
+            Marshal.FreeHGlobal(p);
+            return r;
+        }
+        public static int ListView_SetItemTextA(IntPtr hWnd, int itemIndex, int subItemIndex, string text)
+        {
+            tagLVITEMA item = new tagLVITEMA
+            {
+                mask = ListViewItemMemberValidInfoConst.LVIF_TEXT,
+                iSubItem = subItemIndex,
+                pszText = text
+            };
+            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
+            Marshal.StructureToPtr(item, p, false);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTA, itemIndex, p);
+            int r = result.ToInt32();
+            Marshal.FreeHGlobal(p);
+            return r;
+        }
+
+        public static int ListView_SetView(IntPtr hWnd, uint viewType)
+        {
+            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETVIEW, viewType);
+            int r = result.ToInt32();
+            return r;
+        }
     }
     public enum CommonControls : uint
     {
