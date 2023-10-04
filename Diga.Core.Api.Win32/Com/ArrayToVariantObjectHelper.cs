@@ -24,7 +24,9 @@ namespace Diga.Core.Api.Win32.Com
                     byte* a = (byte*)(void*)mem;
                     for (i = 0; i < len; ++i)
                     {
+
                         Marshal.GetNativeVariantForObject(args[i], (IntPtr)(a + VariantSize * i));
+
                     }
                 }
             }

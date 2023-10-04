@@ -8,24 +8,28 @@ namespace Diga.Core.Api.Win32.Com
     [CoClass(typeof(FileOpenDialogRCW))]
     public interface NativeFileOpenDialog : IFileOpenDialog
     { }
- 
+
     [ComImport]
     [Guid("84bccd23-5fde-4cdb-aea4-af64b83d78ab")]
     [CoClass(typeof(FileSaveDialogRCW))]
     public interface NativeFileSaveDialog : IFileSaveDialog
     { }
- 
+
     [ComImport]
     [ClassInterface(ClassInterfaceType.None)]
+#if NETCOREAPP2_1_OR_GREATER
     [TypeLibType(TypeLibTypeFlags.FCanCreate)]
+#endif
     [Guid("DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7")]
     public class FileOpenDialogRCW
     { }
- 
+
     [ComImport]
     [ClassInterface(ClassInterfaceType.None)]
+#if NETCOREAPP2_1_OR_GREATER
     [TypeLibType(TypeLibTypeFlags.FCanCreate)]
-    [Guid( "C0B4E2F3-BA21-4773-8DBA-335EC946EB8B")]
+#endif
+    [Guid("C0B4E2F3-BA21-4773-8DBA-335EC946EB8B")]
     public class FileSaveDialogRCW
     { }
 

@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netcoreapp3.1;net6.0;net7.0;net461;net472</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
 		<AssemblyName>Diga.Core.Api.Win32</AssemblyName>
 		<RootNamespace>Diga.Core.Api.Win32</RootNamespace>
-		<Version>2.0.6</Version>
+		<Version>2.0.7</Version>
 		<PackageId>Diga.Core.Api.Win32</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -39,11 +39,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
-	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032;CS0618</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032;CS0618</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
@@ -60,6 +60,30 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
 	  <NoWarn>1701;1702;CA1416;SYSLIB0032</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032;CS0618</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1416;SYSLIB0032;CS0618</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+	  <NoWarn>1701;1702;CS0618</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+	  <NoWarn>1701;1702;CS0618</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+	  <NoWarn>1701;1702;CS0618</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+	  <NoWarn>1701;1702;CS0618</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
