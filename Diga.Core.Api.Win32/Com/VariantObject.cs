@@ -168,7 +168,9 @@ namespace Diga.Core.Api.Win32.Com
                 else if (t == typeof(object) || t == typeof(IDispatch) || t.IsCOMObject)
                 {
                     v.vt = (t == typeof(IDispatch) ? (short)VariantTypes.VT_DISPATCH : (short)VariantTypes.VT_UNKNOWN);
+#pragma warning disable CA1416
                     v.data1 = Marshal.GetIUnknownForObject(var);
+#pragma warning restore CA1416
                 }
                 else
                 {
@@ -308,7 +310,9 @@ namespace Diga.Core.Api.Win32.Com
                 case (int)VariantTypes.VT_DISPATCH:
                 case (int)VariantTypes.VT_UNKNOWN:
                 {
+#pragma warning disable CA1416
                     return Marshal.GetObjectForIUnknown(val);
+#pragma warning restore CA1416
                 }
 
                 case (int)VariantTypes.VT_HRESULT:

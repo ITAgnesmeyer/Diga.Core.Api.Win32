@@ -134,7 +134,9 @@ namespace Diga.Core.Api.Win32
                 hr = CoSetProxyBlanket(amqi[0].pItf, RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr, 0);
                 if (hr < 0)
                     Marshal.ThrowExceptionForHR(hr);
+#pragma warning disable CA1416
                 return Marshal.GetObjectForIUnknown(amqi[0].pItf);
+#pragma warning restore CA1416
             }
             finally
             {
@@ -197,7 +199,9 @@ namespace Diga.Core.Api.Win32
                 hr = CoSetProxyBlanket(amqi[0].pItf, RpcAuthent.WinNT, RpcAuthor.None, null, RpcLevel.Default, RpcImpers.Impersonate, ciptr, 0);
                 if (hr < 0)
                     Marshal.ThrowExceptionForHR(hr);
+#pragma warning disable CA1416
                 return Marshal.GetObjectForIUnknown(amqi[0].pItf);
+#pragma warning restore CA1416
             }
             finally
             {

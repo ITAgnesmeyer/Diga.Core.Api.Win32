@@ -26,7 +26,7 @@ namespace SurfaceTest
             {
                 DispatchObjectWrapper w = new DispatchObjectWrapper(this._FuncObject);
                 w.InvokeAction("OnLog");
-                var x = w.InvokeGet("Herbert");
+                //var x = w.InvokeGet("Herbert");
             }
         }
         public void RetisterFuncObj(ref object obj, string name)

@@ -221,7 +221,7 @@ namespace Diga.Core.Api.Win32
 
 
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVCOLUMNA
     {
 
@@ -235,7 +235,7 @@ namespace Diga.Core.Api.Win32
         public int cx;
 
         /// LPSTR->CHAR*
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPStr)]
         public string pszText;
 
         /// int
@@ -261,7 +261,7 @@ namespace Diga.Core.Api.Win32
     }
 
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVCOLUMNW
     {
 
@@ -275,7 +275,7 @@ namespace Diga.Core.Api.Win32
         public int cx;
 
         /// LPWSTR->WCHAR*
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+        [MarshalAs(UnmanagedType.LPWStr)]
         public string pszText;
 
         /// int
@@ -302,7 +302,7 @@ namespace Diga.Core.Api.Win32
 
 
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVITEMINDEX
     {
 
@@ -314,7 +314,7 @@ namespace Diga.Core.Api.Win32
     }
 
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVITEMW
     {
 
@@ -334,7 +334,7 @@ namespace Diga.Core.Api.Win32
         public uint stateMask;
 
         /// LPWSTR->WCHAR*
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+        [MarshalAs(UnmanagedType.LPWStr)]
         public string pszText;
 
         /// int
@@ -367,7 +367,7 @@ namespace Diga.Core.Api.Win32
 
 
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVITEMA
     {
 
@@ -387,7 +387,7 @@ namespace Diga.Core.Api.Win32
         public uint stateMask;
 
         /// LPSTR->CHAR*
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPStr)]
         public string pszText;
 
         /// int
@@ -418,7 +418,7 @@ namespace Diga.Core.Api.Win32
         public int iGroup;
     }
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public class tagLVDISPINFOW
     {
 
@@ -429,7 +429,7 @@ namespace Diga.Core.Api.Win32
         public tagLVITEMW item;
     }
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVDISPINFOA
     {
 
@@ -438,6 +438,15 @@ namespace Diga.Core.Api.Win32
 
         /// NMHDR->tagNMHDR
         public tagLVITEMA item;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct tagLVHITTESTINFO
+    {
+        public Point pt;
+        public uint flags;
+        public int item;
+        public int iSubItem;
+        public int iGroup;
     }
 
     [Flags]
@@ -822,7 +831,7 @@ namespace Diga.Core.Api.Win32
         public const uint LVNI_DIRECTIONMASK = (LVNI_ABOVE | LVNI_BELOW | LVNI_TOLEFT | LVNI_TORIGHT);
     }
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVFINDINFOA
     {
 
@@ -830,7 +839,7 @@ namespace Diga.Core.Api.Win32
         public uint flags;
 
         /// LPCSTR->CHAR*
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPStr)]
         public string psz;
 
         /// LPARAM->LONG_PTR->int
@@ -844,7 +853,7 @@ namespace Diga.Core.Api.Win32
     }
 
 
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagLVFINDINFOW
     {
 
@@ -852,7 +861,7 @@ namespace Diga.Core.Api.Win32
         public uint flags;
 
         /// LPCWSTR->WCHAR*
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPWStr)]
+        [MarshalAs(UnmanagedType.LPWStr)]
         public string psz;
 
         /// LPARAM->LONG_PTR->int
@@ -872,9 +881,8 @@ namespace Diga.Core.Api.Win32
         public static ApiBool ListView_GetItemW(IntPtr hwnd, out tagLVITEMW pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
-
-
-
+            tagLVITEMW tmpTag = new tagLVITEMW();
+            Marshal.StructureToPtr(tmpTag , p, false);
             IntPtr result = User32.SendMessage(hwnd, (int)ListViewMessageConst.LVM_GETITEMW, IntPtr.Zero, p);
             int r = result.ToInt32();
             ApiBool ok = r;
@@ -894,12 +902,21 @@ namespace Diga.Core.Api.Win32
         public static ApiBool ListView_GetItemA(IntPtr hWnd, out tagLVITEMA pItem)
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
-
+            tagLVITEMA tmpTag = new tagLVITEMA();
+            Marshal.StructureToPtr (tmpTag , p, false);
             IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_GETITEMA, IntPtr.Zero, p);
             int r = result.ToInt32();
-            pItem = Marshal.PtrToStructure<tagLVITEMA>(p);
+            ApiBool ok = r;
+            if (ok)
+            {
+                pItem = Marshal.PtrToStructure<tagLVITEMA>(p);
+            }
+            else
+            {
+                pItem= default(tagLVITEMA);
+            }
             Marshal.FreeHGlobal(p);
-            return r;
+            return ok;
         }
 
         public static ApiBool ListView_SetItemW(IntPtr hWnd, tagLVITEMW pItem)
@@ -1042,6 +1059,51 @@ namespace Diga.Core.Api.Win32
             int r = result.ToInt32();
             return r;
         }
+
+        public static ApiBool ListView_HitTest(IntPtr hWend, out tagLVHITTESTINFO hitTestInfo)
+        {
+            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVHITTESTINFO)));
+            tagLVHITTESTINFO tmpTag = new tagLVHITTESTINFO();
+            Marshal.StructureToPtr(tmpTag, p, false);
+
+            IntPtr result = User32.SendMessage(hWend, (int)ListViewMessageConst.LVM_HITTEST, (int)0, p);
+            int r = result.ToInt32();
+            ApiBool ok = r;
+            if(ok)
+            {
+                hitTestInfo = Marshal.PtrToStructure<tagLVHITTESTINFO>(p);
+            }
+            else
+            {
+                hitTestInfo = default(tagLVHITTESTINFO);
+            }
+
+            Marshal.FreeHGlobal(p);
+            return ok;
+        }
+        public static ApiBool ListView_HitTestEx(IntPtr hWend, out tagLVHITTESTINFO hitTestInfo)
+        {
+            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVHITTESTINFO)));
+            tagLVHITTESTINFO tmpTag = new tagLVHITTESTINFO();
+            Marshal.StructureToPtr(tmpTag, p, false  );
+
+            IntPtr result = User32.SendMessage(hWend,(int) ListViewMessageConst.LVM_HITTEST, (int)-1, p);
+            int r = result.ToInt32();
+            ApiBool ok = r;
+            if (ok)
+            {
+                hitTestInfo = Marshal.PtrToStructure<tagLVHITTESTINFO>(p);
+            }
+            else
+            {
+                hitTestInfo = default(tagLVHITTESTINFO);
+            }
+
+            Marshal.FreeHGlobal(p);
+            return ok;
+        }
+
+
     }
     public enum CommonControls : uint
     {

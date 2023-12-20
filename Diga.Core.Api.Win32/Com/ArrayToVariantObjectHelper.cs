@@ -24,9 +24,9 @@ namespace Diga.Core.Api.Win32.Com
                     byte* a = (byte*)(void*)mem;
                     for (i = 0; i < len; ++i)
                     {
-
+#pragma warning disable CA1416
                         Marshal.GetNativeVariantForObject(args[i], (IntPtr)(a + VariantSize * i));
-
+#pragma warning restore CA1416
                     }
                 }
             }

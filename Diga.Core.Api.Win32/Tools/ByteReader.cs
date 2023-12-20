@@ -220,7 +220,9 @@ namespace Diga.Core.Api.Win32.Tools
         /// Get The current Bye
         /// </summary>
         /// <returns>Byte</returns>
+#if NETSTANDARD
         [HandleProcessCorruptedStateExceptions]
+#endif
         [SecurityCritical]
         public byte GetCurrentByte()
         {

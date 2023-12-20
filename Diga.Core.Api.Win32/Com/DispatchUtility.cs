@@ -227,8 +227,9 @@ namespace Diga.Core.Api.Win32.Com
                 dispatch.GetTypeInfo(0, (int)Thread.CurrentThread.CurrentCulture.LCID, out IntPtr p);
                 if (p != IntPtr.Zero)
                 {
+#pragma warning disable CA1416
                     ITypeInfo tInfo = (ITypeInfo)Marshal.GetObjectForIUnknown(p);
-                
+#pragma warning restore CA1416                
                     tInfo.GetTypeAttr(out IntPtr attr);
                     if (attr != IntPtr.Zero)
                     {

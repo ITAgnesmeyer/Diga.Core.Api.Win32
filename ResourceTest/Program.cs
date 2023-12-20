@@ -23,7 +23,7 @@ namespace ResourceTest
         static void Main()
         {
             Module mod = typeof(Program).Module;
-            _hInsance = Marshal.GetHINSTANCE(mod);
+            _hInsance = Kernel32.GetModuleHandle(null); //Marshal.GetHINSTANCE(mod);
             InitCommonControlsEx cex = new InitCommonControlsEx(CommonControls.ICC_WIN95_CLASSES);
             ComCtl32.InitCommonControlsEx(ref cex);
 
@@ -38,6 +38,11 @@ namespace ResourceTest
                 Debug.Print("id=>" + u);
             }
 
+            
+            StringBuilder buff = new StringBuilder(5000);
+            User32.LoadString(_hInsance, 101, buff,5000);
+            string v = buff.ToString();
+            
 
             _hDlg = User32.CreateDialog(_hInsance, 101, IntPtr.Zero, DProc);
 
@@ -118,7 +123,7 @@ namespace ResourceTest
                             {
                                 case ListViewNotfiyConst.LVN_BEGINLABELEDITW:
                                     return (ApiBool)false;
-                                    break;
+                                    /*break*/;
                                 case ListViewNotfiyConst.LVN_ENDLABELEDITW:
                                     tagLVDISPINFOW dispInfo = null;
                                     try
@@ -223,6 +228,7 @@ namespace ResourceTest
                                         }
 
                                         ListViewMacros.ListView_InsertColumnW(lv, i, col);
+                                        
                                     }
                                   
                                     LVWasCreated = true;
@@ -237,8 +243,10 @@ namespace ResourceTest
                                 int index = ListViewMacros.ListView_InsertItemW(lv, itemo);
                                 ListViewMacros.ListView_GetItemW(lv, out tagLVITEMW item);
 
-                                ListViewMacros.ListView_SetItemTextW(lv, index, 1, "hallo"+index);
-                                ListViewMacros.ListView_SetItemTextW(lv, index, 2, "hallo" + index);
+                                ListViewMacros.ListView_SetItemTextW(lv, index, 1, "hallo"+0);
+                                ListViewMacros.ListView_SetItemTextW(lv, index, 2, "hallo" + 1);
+                                ListViewMacros.ListView_SetItemTextW(lv, index, 3, "hallo" + 2);
+                                ListViewMacros.ListView_SetItemTextW(lv, index, 4, "hallo" + 3);
 
                             }
                             else
