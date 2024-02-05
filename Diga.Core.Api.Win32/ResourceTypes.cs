@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.NetworkInformation;
+
 // ReSharper disable InconsistentNaming
 
 namespace Diga.Core.Api.Win32

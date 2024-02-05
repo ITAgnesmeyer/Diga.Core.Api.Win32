@@ -97,7 +97,7 @@ namespace Diga.Core.Api.Win32
         {
             return CreateDialogIndirectParam(hInstance, ref lpTemplate, hWndParent, dlgFunc, 0);
         }
-
+        [Obsolete("do not use this function anymore")]
         public static IntPtr CreateDialogIndirectEx(IntPtr hInstance, DlgTemplateEx lpTemplate, IntPtr hWndParent,
             DlgProc dlgFunc)
         {

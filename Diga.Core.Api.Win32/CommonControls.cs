@@ -1102,6 +1102,27 @@ namespace Diga.Core.Api.Win32
             Marshal.FreeHGlobal(p);
             return ok;
         }
+        public static uint ListView_SetExtendedListViewStyle(IntPtr hWnd, uint style) 
+        {
+            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETEXTENDEDLISTVIEWSTYLE, 0, style);
+            uint res = (uint)Marshal.ReadInt64(result);
+            return res;
+        }
+
+        public static uint ListView_SetExtendedListViewStyleEx(IntPtr hWnd, uint mask,uint style) 
+        { 
+            IntPtr result = User32.SendMessage(hWnd , ListViewMessageConst.LVM_SETEXTENDEDLISTVIEWSTYLE, mask, style);
+            uint res = (uint)Marshal.ReadInt64(result);
+            return res;
+        }
+
+        public static uint ListView_GetExtendedListViewStyle(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_GETEXTENDEDLISTVIEWSTYLE, 0,0);
+            uint res =(uint)Marshal.ReadInt64(result);
+            
+            return res;
+        }
 
 
     }

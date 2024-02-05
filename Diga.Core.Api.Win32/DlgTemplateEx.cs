@@ -4,6 +4,7 @@ using Diga.Core.Api.Win32.Tools;
 
 namespace Diga.Core.Api.Win32
 {
+    [Obsolete("do not use this class Will be removed=> use DlgTemplateLoader and Template and items property")]
     public class DlgTemplateEx
     {
      

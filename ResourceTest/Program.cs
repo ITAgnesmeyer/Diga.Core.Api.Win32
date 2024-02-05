@@ -1,11 +1,11 @@
 ﻿using Diga.Core.Api.Win32;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 using Diga.Core.Api.Win32.GDI;
 
 namespace ResourceTest
@@ -27,18 +27,28 @@ namespace ResourceTest
             InitCommonControlsEx cex = new InitCommonControlsEx(CommonControls.ICC_WIN95_CLASSES);
             ComCtl32.InitCommonControlsEx(ref cex);
 
-            DlgTemplateEx dlgTemplateEx = DlgTemplateExLoader.LoadDialog(_hInsance, 101);
-            Debug.Print(dlgTemplateEx.IsDialogEx().ToString());
-            int count = 0;
-            foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
+            //DlgTemplateEx dlgTemplateEx = DlgTemplateExLoader.LoadDialog(_hInsance, 101);
+            //Debug.Print(dlgTemplateEx.IsDialogEx().ToString());
+            //int count = 0;
+            //foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
+            //{
+            //    count += 1;
+            //    Debug.Print(dlgItemTemplateEx.Id.ToString());
+            //    int u = (int)0x40 + count;
+            //    Debug.Print("id=>" + u);
+            //}
+            var loader = new DlgTemplateLoader();
+
+            loader.LoadTemplates(_hInsance, 101);
+            DLGTEMPLATEALL t = loader.Template;
+            List<DLGITEMTEMPLATEALL> items = loader.Items;
+            foreach (DLGITEMTEMPLATEALL dlgitemtemplateall in items)
             {
-                count += 1;
-                Debug.Print(dlgItemTemplateEx.Id.ToString());
-                int u = (int)0x40 + count;
-                Debug.Print("id=>" + u);
+                Debug.Print("ClassID" + dlgitemtemplateall.ClassID);
+                Debug.Print("ClassName" + dlgitemtemplateall.ClassName);
+
             }
 
-            
             StringBuilder buff = new StringBuilder(5000);
             User32.LoadString(_hInsance, 101, buff,5000);
             string v = buff.ToString();
@@ -56,14 +66,14 @@ namespace ResourceTest
 
 
             User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
-            foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
-            {
-                IntPtr hwnd = User32.GetDlgItem(_hDlg, (int)dlgItemTemplateEx.Id);
+            //foreach (DlgItemTemplateEx dlgItemTemplateEx in dlgTemplateEx.Items)
+            //{
+            //    IntPtr hwnd = User32.GetDlgItem(_hDlg, (int)dlgItemTemplateEx.Id);
 
-                dlgItemTemplateEx.WindowClass = User32.GetClassName(hwnd);
-                Debug.Print("ID=" + dlgItemTemplateEx.Id + ",WindClass=" + dlgItemTemplateEx.WindowClass +
-                            ", WindowClassId=" + dlgItemTemplateEx.WindowClassId);
-            }
+            //    dlgItemTemplateEx.WindowClass = User32.GetClassName(hwnd);
+            //    Debug.Print("ID=" + dlgItemTemplateEx.Id + ",WindClass=" + dlgItemTemplateEx.WindowClass +
+            //                ", WindowClassId=" + dlgItemTemplateEx.WindowClassId);
+            //}
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) > 0)
             {
