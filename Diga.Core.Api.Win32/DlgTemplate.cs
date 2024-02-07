@@ -6,7 +6,7 @@ namespace Diga.Core.Api.Win32
 
     // ReSharper disable once IdentifierTypo
     // ReSharper disable once InconsistentNaming
-    public struct DLGITEMTEMPLATEALL
+    public struct DlgItemTemplateAll
     {
         public uint HelpID;
         public uint ExStyle;
@@ -26,7 +26,7 @@ namespace Diga.Core.Api.Win32
 
     // ReSharper disable once IdentifierTypo
     // ReSharper disable once InconsistentNaming
-    public struct DLGTEMPLATEALL
+    public struct DlgTemplateAll
     {
         // ReSharper disable once InconsistentNaming
         public ushort Version;
@@ -51,17 +51,17 @@ namespace Diga.Core.Api.Win32
         public string TypeFace;
 
     };
-
-    public struct BYTESPLIT
+#pragma warning disable CS0649
+    internal struct BYTESPLIT
     {
         public byte First;
         public byte Second;
     }
-
+#pragma warning restore CS0649
     [StructLayout(LayoutKind.Sequential,Pack = 1)]
     // ReSharper disable once InconsistentNaming
     // ReSharper disable once IdentifierTypo
-    public struct DLGTEMPLATE_API
+    public struct DlgTemplate
     {
 
         /// DWORD->unsigned int
@@ -89,7 +89,7 @@ namespace Diga.Core.Api.Win32
     [StructLayout(LayoutKind.Sequential,Pack = 1)]
     // ReSharper disable once InconsistentNaming
     // ReSharper disable once IdentifierTypo
-    public struct DLGITEMTEMPLATE_API
+    public struct DlgItemTemplate
     {
 
         /// DWORD->unsigned int
@@ -118,7 +118,7 @@ namespace Diga.Core.Api.Win32
     [StructLayout(LayoutKind.Sequential,Pack = 1)]
     // ReSharper disable once InconsistentNaming
     // ReSharper disable once IdentifierTypo
-    public struct DLGTEMPLATEEX_API
+    public struct DlgTemplateEx
     {
         //word
         public ushort dlgVer;
@@ -147,7 +147,7 @@ namespace Diga.Core.Api.Win32
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     // ReSharper disable once InconsistentNaming
     // ReSharper disable once IdentifierTypo
-    public struct DLGITEMTEMPLATEEX_API
+    public struct DlgItemTemplateEx
     {
         public uint helpID;
         public uint exStyle;
@@ -211,29 +211,29 @@ namespace Diga.Core.Api.Win32
        };
      */
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct DlgTemplate 
-    {
+    //[StructLayout(LayoutKind.Sequential)]
+    //public struct DlgTemplate 
+    //{
     
-        /// DWORD->unsigned int
-        public uint style;
+    //    /// DWORD->unsigned int
+    //    public uint style;
     
-        /// DWORD->unsigned int
-        public uint dwExtendedStyle;
+    //    /// DWORD->unsigned int
+    //    public uint dwExtendedStyle;
     
-        /// WORD->unsigned short
-        public ushort cdit;
+    //    /// WORD->unsigned short
+    //    public ushort cdit;
     
-        /// short
-        public short x;
+    //    /// short
+    //    public short x;
     
-        /// short
-        public short y;
+    //    /// short
+    //    public short y;
     
-        /// short
-        public short cx;
+    //    /// short
+    //    public short cx;
     
-        /// short
-        public short cy;
-    }
+    //    /// short
+    //    public short cy;
+    //}
 }

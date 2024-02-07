@@ -10,7 +10,7 @@ namespace Diga.Core.Api.Win32
     [Obsolete("do not use this class Will be removed=> use DlgTemplateLoader and Template and items property")]
     public static class DlgTemplateExLoader
     {
-        public static DlgTemplateEx LoadDialog(IntPtr hInstance, int id)
+        public static DlgTemplateExOld LoadDialog(IntPtr hInstance, int id)
         {
             IntPtr hres = Kernel32.FindResource(hInstance, Win32Api.MakeInterSource(id), ResourceTypes.RT_DIALOG);
             if (hres == IntPtr.Zero)
@@ -26,7 +26,7 @@ namespace Diga.Core.Api.Win32
 
             IntPtr lockedPtr = Kernel32.LockResource(res);
             ByteReader reader = new ByteReader(lockedPtr);
-            DlgTemplateEx templateEx = new DlgTemplateEx(reader);
+            DlgTemplateExOld templateEx = new DlgTemplateExOld(reader);
             templateEx.Read();
             return templateEx;
         }

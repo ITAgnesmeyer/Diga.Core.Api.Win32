@@ -7,40 +7,49 @@ namespace Diga.Core.Api.Win32
 {
     public  class DlgTemplateLoader
     {
-        private  DLGTEMPLATEALL _Template;
-        private  List<DLGITEMTEMPLATEALL> _Items;
+        private  DlgTemplateAll _Head;
+        private  List<DlgItemTemplateAll> _Items;
+        private ResourceLoader _ResourceLoader;
 
         public DlgTemplateLoader()
         {
-            _Template = new DLGTEMPLATEALL();
-            _Items = new List<DLGITEMTEMPLATEALL>();
+            _Head = new DlgTemplateAll();
+            _Items = new List<DlgItemTemplateAll>();
+            _ResourceLoader = null;
         }
 
-        private  unsafe bool IsDialogEx(DLGTEMPLATE_API* pTemplate)
+        public DlgTemplateLoader(ResourceLoader resourceLoader)
         {
-            return ((DLGTEMPLATEEX_API*)pTemplate)->signature == 0xFFFF;
+            _Head = new DlgTemplateAll();
+            _Items = new List<DlgItemTemplateAll>();
+            _ResourceLoader = resourceLoader;
         }
 
-        private unsafe ushort DlgTemplateItemCount(DLGTEMPLATE_API* pTemplate)
+        private  unsafe bool IsDialogEx(DlgTemplate* pTemplate)
+        {
+            return ((DlgTemplateEx*)pTemplate)->signature == 0xFFFF;
+        }
+
+        private unsafe ushort DlgTemplateItemCount(DlgTemplate* pTemplate)
         {
             if (IsDialogEx(pTemplate))
             {
-                return ((DLGTEMPLATEEX_API*)pTemplate)->cDlgItems;
+                return ((DlgTemplateEx*)pTemplate)->cDlgItems;
             }
 
             return pTemplate->cdit;
         }
 
 
-        private unsafe DLGITEMTEMPLATE_API* FindFirstDlgItem(DLGTEMPLATE_API* pTemplate)
+        private unsafe DlgItemTemplate* FindFirstDlgItem(DlgTemplate* pTemplate)
         {
             bool isDialogEx = IsDialogEx(pTemplate);
             ushort* pw;
             uint dwStyle;
             if (isDialogEx)
             {
-                pw = (ushort*)((DLGTEMPLATEEX_API*)pTemplate + 1);
-                dwStyle = ((DLGTEMPLATEEX_API*)pTemplate)->style;
+                pw = (ushort*)((DlgTemplateEx*)pTemplate + 1);
+                dwStyle = ((DlgTemplateEx*)pTemplate)->style;
             }
             else
             {
@@ -106,15 +115,15 @@ namespace Diga.Core.Api.Win32
 
 
             }
-            return (DLGITEMTEMPLATE_API*)(((long)pw + 3) & ~3);
+            return (DlgItemTemplate*)(((long)pw + 3) & ~3);
         }
 
-        private unsafe DLGITEMTEMPLATE_API* FindNextDlgItem(DLGITEMTEMPLATE_API* pItem, bool isDialogEx)
+        private unsafe DlgItemTemplate* FindNextDlgItem(DlgItemTemplate* pItem, bool isDialogEx)
         {
             ushort* pw;
             if (isDialogEx)
             {
-                pw = (ushort*)((DLGITEMTEMPLATEEX_API*)pItem + 1);
+                pw = (ushort*)((DlgItemTemplateEx*)pItem + 1);
             }
             else
             {
@@ -156,18 +165,18 @@ namespace Diga.Core.Api.Win32
             pw++;
             if (cbExtra != 0 && !isDialogEx)
                 cbExtra -= 2;
-            return (DLGITEMTEMPLATE_API*)(((long)pw + cbExtra + 3) & ~3);
+            return (DlgItemTemplate*)(((long)pw + cbExtra + 3) & ~3);
         }
 
-        private unsafe DLGTEMPLATEALL GetTemplateAllFromDlgTemplate(DLGTEMPLATE_API* pTemplate)
+        private unsafe DlgTemplateAll GetTemplateAllFromDlgTemplate(DlgTemplate* pTemplate)
         {
             ushort* pw;
             uint dwStyle;
-            DLGTEMPLATEALL all  = new DLGTEMPLATEALL();
+            DlgTemplateAll all  = new DlgTemplateAll();
             bool isEx = IsDialogEx(pTemplate);
             if (isEx)
             {
-                DLGTEMPLATEEX_API* exp = (DLGTEMPLATEEX_API*)pTemplate;
+                DlgTemplateEx* exp = (DlgTemplateEx*)pTemplate;
                 all.Version = exp->dlgVer;
                 all.IsExtended = true;
                 all.HelpID = exp->helpID;
@@ -178,7 +187,7 @@ namespace Diga.Core.Api.Win32
                 all.y = exp->y;
                 all.cx = exp->cx;
                 all.cy = exp->cy;
-                pw = (ushort*)((DLGTEMPLATEEX_API*)pTemplate + 1);
+                pw = (ushort*)((DlgTemplateEx*)pTemplate + 1);
                 dwStyle = exp->style;
             }
             else
@@ -286,14 +295,35 @@ namespace Diga.Core.Api.Win32
             return all;
         }
 
-        private unsafe DLGITEMTEMPLATEALL GetDlgItemTemplateAllForDlgItemTemplate(DLGITEMTEMPLATE_API* pTemplate,
+        private string ExtractClassNameFromClassId(ushort classId)
+        {
+            switch (classId)
+            {
+                case 0x0080:
+                    return "Button";
+                case 0x0081:
+                    return "Edit";
+                case 0x0082:
+                    return "Static";
+                case 0x0083:
+                    return "ListBox";
+                case 0x0084:
+                    return "ScrollBar";
+                case 0x0085:
+                    return "ComboBox";
+                default:
+                    return null;
+            }
+
+        }
+        private unsafe DlgItemTemplateAll GetDlgItemTemplateAllForDlgItemTemplate(DlgItemTemplate* pTemplate,
             bool isEx)
         {
             ushort* pw;
-            DLGITEMTEMPLATEALL all = new DLGITEMTEMPLATEALL();
+            DlgItemTemplateAll all = new DlgItemTemplateAll();
             if (isEx)
             {
-                DLGITEMTEMPLATEEX_API* ext = (DLGITEMTEMPLATEEX_API*)pTemplate;
+                DlgItemTemplateEx* ext = (DlgItemTemplateEx*)pTemplate;
                 all.HelpID = ext->helpID;
                 all.ExStyle = ext->exStyle;
                 all.Style = ext->style;
@@ -302,7 +332,7 @@ namespace Diga.Core.Api.Win32
                 all.cx = ext->cx;
                 all.cy = ext->cy;
                 all.Id = ext->id;
-                pw = (ushort*)((DLGITEMTEMPLATEEX_API*)pTemplate +1);
+                pw = (ushort*)((DlgItemTemplateEx*)pTemplate +1);
 
             }
             else
@@ -322,6 +352,7 @@ namespace Diga.Core.Api.Win32
             {
                 pw += 1;
                 all.ClassID = *pw;
+                all.ClassName = ExtractClassNameFromClassId(all.ClassID);
                 pw += 1;
             }
             else
@@ -387,38 +418,47 @@ namespace Diga.Core.Api.Win32
             return all;
         }
 
-        public DLGTEMPLATEALL Template => _Template;
-        public List<DLGITEMTEMPLATEALL> Items => _Items;
-        public unsafe void LoadTemplates(IntPtr hInstance, int id)
+        public DlgTemplateAll Head => _Head;
+        public List<DlgItemTemplateAll> Items => _Items;
+
+        public unsafe void LoadTemplates(IntPtr hRes)
         {
-            IntPtr hres = Kernel32.FindResource(hInstance, Win32Api.MakeInterSource(id), ResourceTypes.RT_DIALOG);
-            if (hres == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
-            IntPtr res = Kernel32.LoadResource(hInstance, hres);
-            if (res == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
-            DLGTEMPLATE_API* lockedPtr = (DLGTEMPLATE_API*)Kernel32.LockResource(res);
-            DLGTEMPLATEALL tempalte = GetTemplateAllFromDlgTemplate(lockedPtr);
-            _Template = tempalte;
-            int anz = tempalte.ItemsCount;
-            bool isExtended = tempalte.IsExtended;
-            DLGITEMTEMPLATE_API* first = FindFirstDlgItem(lockedPtr);
-            DLGITEMTEMPLATE_API* pItem = first;
+            DlgTemplate* lockedPtr = (DlgTemplate*)hRes;
+            _Head = GetTemplateAllFromDlgTemplate(lockedPtr);
+
+            int anz = _Head.ItemsCount;
+            bool isExtended = _Head.IsExtended;
+            DlgItemTemplate* first = FindFirstDlgItem(lockedPtr);
+            DlgItemTemplate* pItem = first;
             // ReSharper disable once RedundantAssignment
-            DLGITEMTEMPLATE_API* pNextItem = pItem;
+            DlgItemTemplate* pNextItem = pItem;
 
             for (int i = 0; i < anz; i++)
             {
                 pNextItem = FindNextDlgItem(pItem, isExtended);
-                DLGITEMTEMPLATEALL item = GetDlgItemTemplateAllForDlgItemTemplate(pItem, isExtended);
+                DlgItemTemplateAll item = GetDlgItemTemplateAllForDlgItemTemplate(pItem, isExtended);
                 _Items.Add(item);
                 pItem = pNextItem;
             }
         }
+        public void LoadTemplates(IntPtr hInstance, int id)
+        {
+            ResourceLoader resLoader = new ResourceLoader(hInstance);
+            
+            IntPtr lockedPtr = resLoader.LoadResource(Win32Api.MakeInterSource(id), ResourceTypes.RT_DIALOG); //(DLGTEMPLATE_API*)Kernel32.LockResource(res);
+            LoadTemplates(lockedPtr);
+            
+        }
+
+        public void LoadTemplates(int id)
+        {
+            if (_ResourceLoader == null)
+                throw new Exception("No ResourceLoader available");
+
+            IntPtr lockedPtr = _ResourceLoader.LoadResource(Win32Api.MakeInterSource(id), ResourceTypes.RT_DIALOG);
+            LoadTemplates(lockedPtr);
+        }
+
 
     }
 }

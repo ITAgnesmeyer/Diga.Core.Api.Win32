@@ -3,21 +3,29 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using Diga.Core.Api.Win32.GDI;
 
 namespace Diga.Core.Api.Win32
 {
     public class ResourceLoader
     {
-        private IntPtr _HInstance;
+        private readonly IntPtr _hInstance;
+        private static ResourceLoader _Loader = null;
 
+        public static ResourceLoader Loader => _Loader ?? (_Loader = new ResourceLoader());
+
+        public ResourceLoader()
+        {
+            this._hInstance = Kernel32.GetModuleHandle(null);
+        }
         public ResourceLoader(IntPtr hInstance)
         {
-            this._HInstance = hInstance;
+            this._hInstance = hInstance;
         }
 
         public IntPtr FindResource(string resId, string type)
         {
-            IntPtr hRes = Kernel32.FindResource(this._HInstance, resId, type);
+            IntPtr hRes = Kernel32.FindResource(this._hInstance, resId, type);
             
             if (hRes == IntPtr.Zero)
             {
@@ -29,9 +37,30 @@ namespace Diga.Core.Api.Win32
             
         }
 
+        public IntPtr FindResource(IntPtr resId, IntPtr type, ushort language)
+        {
+            IntPtr hRes = Kernel32.FindResourceEx(this._hInstance, type, resId, language);
+            if (hRes == IntPtr.Zero)
+            {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
+
+            return hRes;
+        }
+
+        public IntPtr FindResource(string resId, string type, ushort language)
+        {
+            IntPtr hRes = Kernel32.FindResourceEx(this._hInstance, type, resId, language);
+            if (hRes == IntPtr.Zero)
+            {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
+            return hRes;
+        }
         public IntPtr FindResource(IntPtr resId, IntPtr type)
         {
-            IntPtr hRes = Kernel32.FindResource(this._HInstance, resId, type);
+            
+            IntPtr hRes = Kernel32.FindResource(this._hInstance, resId, type);
             if (hRes == IntPtr.Zero)
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -42,7 +71,7 @@ namespace Diga.Core.Api.Win32
 
         public IntPtr FindResource(int resId, int type)
         {
-            IntPtr hRes = Kernel32.FindResource(this._HInstance, Win32Api.MakeInterSource(resId),
+            IntPtr hRes = Kernel32.FindResource(this._hInstance, Win32Api.MakeInterSource(resId),
                 Win32Api.MakeInterSource(type));
             if (hRes == IntPtr.Zero)
             {
@@ -54,7 +83,7 @@ namespace Diga.Core.Api.Win32
 
         public IntPtr LoadResource(IntPtr hRes)
         {
-            IntPtr res = Kernel32.LoadResource(this._HInstance, hRes);
+            IntPtr res = Kernel32.LoadResource(this._hInstance, hRes);
             if (res == IntPtr.Zero)
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -90,16 +119,25 @@ namespace Diga.Core.Api.Win32
 
         public string LoadString(int id)
         {
-            StringBuilder sb = new StringBuilder(5000);
-            int len = User32.LoadString(this._HInstance, id, sb, sb.Length);
+            const int MAX_RES_SRING = 65535;
+            StringBuilder sb = new StringBuilder(MAX_RES_SRING);
+            int len = User32.LoadString(this._hInstance, id, sb, MAX_RES_SRING);
             if (len == 0)
                 Debug.Print("no data");
             return sb.ToString();
         }
 
+        public string LoadString(int id, int maxLen)
+        {
+            StringBuilder sb = new StringBuilder(maxLen);
+            int len = User32.LoadString(this._hInstance, id, sb, maxLen);
+            if (len == 0)
+                Debug.Print("no data");
+            return sb.ToString();
+        }
         public IntPtr LoadAccelerator(int id)
         {
-            IntPtr hAccel = User32.LoadAccelerators(this._HInstance, Win32Api.MakeInterSource(id));
+            IntPtr hAccel = User32.LoadAccelerators(this._hInstance, Win32Api.MakeInterSource(id));
             if (hAccel == IntPtr.Zero)
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -109,7 +147,7 @@ namespace Diga.Core.Api.Win32
 
         public IntPtr LoadIcon(int id)
         {
-            IntPtr hIcon = User32.LoadIcon(this._HInstance, Win32Api.MakeInterSource(id));
+            IntPtr hIcon = User32.LoadIcon(this._hInstance, Win32Api.MakeInterSource(id));
             if (hIcon == IntPtr.Zero)
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -119,7 +157,7 @@ namespace Diga.Core.Api.Win32
 
         public IntPtr LoadCursor(int id)
         {
-            IntPtr hCursor = User32.LoadCursor(this._HInstance, Win32Api.MakeInterSource(id));
+            IntPtr hCursor = User32.LoadCursor(this._hInstance, Win32Api.MakeInterSource(id));
             if (hCursor == IntPtr.Zero)
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -136,6 +174,31 @@ namespace Diga.Core.Api.Win32
             }
             return hCursor;
         }
+
+        public IntPtr LoadBitmap(int id)
+        {
+            IntPtr hBmp = User32.LoadBitmap(this._hInstance, Win32Api.MakeInterSource(id));
+            if (hBmp == IntPtr.Zero)
+            {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
+            return hBmp;
+        }
+
+        public IntPtr LoadImage(int id, uint type,int cx, int cy, uint fuLoad = 0 )
+        {
+            IntPtr hImage = User32.LoadImage(this._hInstance, Win32Api.MakeInterSource(id), type, cx, cy, fuLoad);
+            if (hImage == IntPtr.Zero)
+            {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
+            return hImage;
+        }
+        public bool DeleteBitmap(IntPtr hBitmap)
+        {
+            return Gdi32.DeleteObject(hBitmap);
+        }
+
 
     }
 }

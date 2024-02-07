@@ -98,7 +98,7 @@ namespace Diga.Core.Api.Win32
             return CreateDialogIndirectParam(hInstance, ref lpTemplate, hWndParent, dlgFunc, 0);
         }
         [Obsolete("do not use this function anymore")]
-        public static IntPtr CreateDialogIndirectEx(IntPtr hInstance, DlgTemplateEx lpTemplate, IntPtr hWndParent,
+        public static IntPtr CreateDialogIndirectEx(IntPtr hInstance, DlgTemplateExOld lpTemplate, IntPtr hWndParent,
             DlgProc dlgFunc)
         {
             using (ApiStructHandleRef<DialogTemplate> pt = new ApiStructHandleRef<DialogTemplate>(lpTemplate))
@@ -167,6 +167,12 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "LoadImage", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr LoadImage([In] IntPtr hInst, [In] IntPtr name, uint type, int cx, int cy,
             uint fuLoad);
+
+        [DllImport(USER32, EntryPoint = "LoadBitmap", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadBitmap(IntPtr hInstance, string lpCursorName);
+
+        [DllImport(USER32, EntryPoint = "LoadBitmap", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr LoadBitmap(IntPtr hInstance, IntPtr lpCursorName);
 
         [DllImport(USER32, EntryPoint = "LoadIcon", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr LoadIcon([In] IntPtr hInst, [In] IntPtr name);
@@ -286,7 +292,15 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "TranslateMessage")]
         public static extern bool TranslateMessage([In] ref MSG lpMsg);
 
-        [DllImport(USER32, EntryPoint = "DispatchMessage", CharSet = CharSet.Auto, SetLastError = true)]
+        /// Return Type: int
+        ///hWnd: HWND->HWND__*
+        ///hAccTable: HACCEL->HACCEL__*
+        ///lpMsg: LPMSG->tagMSG*
+        [DllImport(USER32, EntryPoint = "TranslateAccelerator", CharSet = CHARSET, SetLastError = true)]
+        public static extern int TranslateAccelerator([In] IntPtr hWnd, [In] IntPtr hAccTable, [In] ref MSG lpMsg);
+
+
+        [DllImport(USER32, EntryPoint = "DispatchMessage", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr DispatchMessage([In] ref MSG lpmsg);
 
         [DllImport(USER32, EntryPoint = "CallWindowProc", CharSet = CHARSET)]

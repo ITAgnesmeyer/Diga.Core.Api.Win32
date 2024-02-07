@@ -282,7 +282,7 @@ namespace Diga.Core.Api.Win32
         public const int LANG_INVARIANT = 127;
         // LOCALE_INVARIANT -> (MAKELCID(MAKELANGID(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT))
         // Error generating expression: Expression is not parsable.  Treating value as a raw string
-        public static int LOCALE_INVARIANT = (int)(Win32Api.MakeLcId((int)Win32Api.MakeLcId(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT));
+        public static int LOCALE_INVARIANT = (int)(Win32Api.MakeLcId((int)Win32Api.MakeLangId(LANG_INVARIANT, SUBLANG_NEUTRAL), SORT_DEFAULT));
 
         // LOCALE_IMONLZERO -> 0x00000027
         public const int LOCALE_IMONLZERO = 39;
@@ -325,7 +325,7 @@ namespace Diga.Core.Api.Win32
 
         // LOCALE_NEUTRAL -> (MAKELCID(MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), SORT_DEFAULT))
         // Error generating expression: Expression is not parsable.  Treating value as a raw string
-        public static int LOCALE_NEUTRAL => (int)Win32Api.MakeLcId((int)Win32Api.MakeLcId(LANG_NEUTRAL, SUBLANG_NEUTRAL), SORT_DEFAULT);
+        public static int LOCALE_NEUTRAL => (int)Win32Api.MakeLcId((int)Win32Api.MakeLangId(LANG_NEUTRAL, SUBLANG_NEUTRAL), SORT_DEFAULT);
 
         // LOCALE_ITLZERO -> 0x00000025
         public const int LOCALE_ITLZERO = 37;
@@ -362,17 +362,17 @@ namespace Diga.Core.Api.Win32
 
         // LANG_SYSTEM_DEFAULT -> (MAKELANGID(LANG_NEUTRAL, SUBLANG_SYS_DEFAULT))
         // Error generating expression: Error generating function call.  Operation not implemented
-        public static int LANG_SYSTEM_DEFAULT => (int)Win32Api.MakeLcId(LANG_NEUTRAL, SUBLANG_SYS_DEFAULT);
+        public static int LANG_SYSTEM_DEFAULT => (int)Win32Api.MakeLangId( LANG_NEUTRAL, SUBLANG_SYS_DEFAULT);
 
         // SORT_DEFAULT -> 0x0
         public const int SORT_DEFAULT = 0;
 
         // LANG_USER_DEFAULT -> (MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT))
         // Error generating expression: Error generating function call.  Operation not implemented
-        public static int LANG_USER_DEFAULT = (int)Win32Api.MakeLcId(LANG_NEUTRAL, SUBLANG_DEFAULT);
+        public static int LANG_USER_DEFAULT = (int)Win32Api.MakeLangId(LANG_NEUTRAL, SUBLANG_DEFAULT);
         // LOCALE_USER_DEFAULT -> (MAKELCID(LANG_USER_DEFAULT, SORT_DEFAULT))
         // Error generating expression: Error generating function call.  Operation not implemented
-        public static int LOCALE_USER_DEFAULT = (int)Win32Api.MakeLcId(LANG_USER_DEFAULT, SORT_DEFAULT);
+        public static int LOCALE_USER_DEFAULT = (int)Win32Api.MakeLangId(LANG_USER_DEFAULT, SORT_DEFAULT);
 
         // LANG_NEUTRAL -> 0x00
         public const int LANG_NEUTRAL = 0;

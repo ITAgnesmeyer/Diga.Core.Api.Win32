@@ -5,7 +5,7 @@ using Diga.Core.Api.Win32.Tools;
 namespace Diga.Core.Api.Win32
 {
     [Obsolete("do not use this class Will be removed=> use DlgTemplateLoader and Template and items property")]
-    public class DlgTemplateEx
+    public class DlgTemplateExOld
     {
      
         private ByteReader _Reader;
@@ -40,20 +40,20 @@ namespace Diga.Core.Api.Win32
         public string Typeface{get;set;}
         public int LastPosition{get;private set;}
 
-        public List<DlgItemTemplateEx> Items { get; } = new List<DlgItemTemplateEx>();
+        public List<DlgItemTemplateExOld> Items { get; } = new List<DlgItemTemplateExOld>();
 
         public bool IsDialogEx()
         {
             return this.Signature == 0xFFFF;
         }
-        public DlgTemplateEx(IntPtr ptr)
+        public DlgTemplateExOld(IntPtr ptr)
         {
           
             this._Reader = new ByteReader(ptr);
 
         }
 
-        public DlgTemplateEx(ByteReader reader)
+        public DlgTemplateExOld(ByteReader reader)
         {
             this._Reader = reader;
             
@@ -133,7 +133,7 @@ namespace Diga.Core.Api.Win32
         {
             for (int i = 0; i < this.CDlgItems; i++)
             {
-                DlgItemTemplateEx tItem = new DlgItemTemplateEx(this._Reader);
+                DlgItemTemplateExOld tItem = new DlgItemTemplateExOld(this._Reader);
                 tItem.Read();
                 this.Items.Add(tItem);
             }

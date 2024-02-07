@@ -8,6 +8,34 @@ using System.Text;
 namespace Diga.Core.Api.Win32
 {
     
+    
+    //using BOOL = bool;
+    //using BYTE = byte;
+    //using CHAR = byte;
+    //using DECIMAL = Decimal;
+    //using DOUBLE = double;
+    //using DWORD = uint;
+    //using FLOAT = float;
+    //using INT = int;
+    //using INT16 = short;
+    //using INT32 = int;
+    //using INT64 = long;
+    //using LONG = int;
+    //using LONG32 = int;
+    //using LONG64 = long;
+    //using LONGLONG = long;
+    //using SHORT = short;
+    //using UCHAR = byte;
+    //using UINT = uint;
+    //using UINT16 = ushort;
+    //using WORD = ushort;
+    //using UINT32 = uint;
+    //using UINT64 = ulong;
+    //using ULONG = uint;
+    //using ULONG32 = uint;
+    //using ULONG64 = ulong;
+    //using ULONGLONG = ulong;
+    //using DWORD_PTR = ulong;
 
     public static class Win32Api
     {
@@ -24,6 +52,15 @@ namespace Diga.Core.Api.Win32
             }
 
             return MakeInterSource(0);
+        }
+
+        public static bool IsIntResource(uint id)
+        {
+            return (ulong)(id) >> 16 == 0;
+        }
+        public static bool IsIntResource(IntPtr r)
+        {
+            return ((((ulong)r) >> 16) == 0);
         }
         public static IntPtr MakeInterSource(int id)
         {
@@ -169,6 +206,10 @@ namespace Diga.Core.Api.Win32
             return numArray;
         }
 
+        public static ushort MakeLangId(int lgId, int subId)
+        {
+            return ((ushort)((((ushort)(subId)) << 10) | (ushort)(lgId)));
+        }
         public static uint MakeLcId(int lgid, int srtid)
         {
             return ((uint)(ushort)srtid << 16) | (ushort)lgid;
@@ -178,7 +219,7 @@ namespace Diga.Core.Api.Win32
         {
             uint value = GetIntPtrUInt(r);
 
-            var retVal = (value >> 16) > 0;
+            var retVal = (ulong)value >> 16 == 0;
             return retVal;
         }
     }

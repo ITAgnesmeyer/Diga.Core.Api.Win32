@@ -140,6 +140,9 @@ namespace Diga.Core.Api.Win32
         [DllImport(KERNEL32, EntryPoint = "FindResourceEx", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr FindResourceEx([In] IntPtr hModule, [In] string lpType, [In] string lpName, uint wLanguage);
 
+        [DllImport(KERNEL32, EntryPoint = "FindResourceEx", CharSet = CHARSET, SetLastError = true)]
+        public static extern IntPtr FindResourceEx([In] IntPtr hModule, [In] IntPtr lpType, [In] IntPtr lpName, uint wLanguage);
+
 
         [DllImport(KERNEL32, EntryPoint = "UpdateResource", CharSet = CHARSET, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

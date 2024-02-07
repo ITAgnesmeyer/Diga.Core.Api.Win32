@@ -4,7 +4,7 @@ using Diga.Core.Api.Win32.Tools;
 namespace Diga.Core.Api.Win32
 {
     [Obsolete("do not use this class Will be removed=> use DlgTemplateLoader and Template and items property")]
-    public class DlgItemTemplateEx
+    public class DlgItemTemplateExOld
     {
         private ByteReader Reader{get;set;}
         public uint HelpId{get;set;}
@@ -28,12 +28,12 @@ namespace Diga.Core.Api.Win32
         public int LastPosition{get;private set;}
         
         
-        public DlgItemTemplateEx(ByteReader reader)
+        public DlgItemTemplateExOld(ByteReader reader)
         {
             this.Reader = reader;
         }
 
-        public DlgItemTemplateEx(IntPtr ptr, int position)
+        public DlgItemTemplateExOld(IntPtr ptr, int position)
         {
             this.Reader = new ByteReader(ptr, position);
         }

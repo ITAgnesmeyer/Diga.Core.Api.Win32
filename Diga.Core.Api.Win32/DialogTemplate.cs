@@ -7,7 +7,7 @@ namespace Diga.Core.Api.Win32
     public struct DialogTemplate
     {
         public DlgTemplate header;
-        [MarshalAs(UnmanagedType.ByValArray)]
+        //[MarshalAs(UnmanagedType.ByValArray)]
         public   DlgItemTemplate[] items;
 
         public DialogTemplate(DlgTemplate header, DlgItemTemplate[] items)
