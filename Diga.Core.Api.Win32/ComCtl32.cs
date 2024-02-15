@@ -4,6 +4,9 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace Diga.Core.Api.Win32
 {
+   
+    
+
     public static class ComCtl32
     {
         private const string COMCTL32 = "comctl32.dll";

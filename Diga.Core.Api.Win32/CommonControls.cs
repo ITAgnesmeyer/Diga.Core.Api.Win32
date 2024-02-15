@@ -1,12 +1,631 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System;
-using System.Drawing;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
+    [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.StdCall)]
+    public delegate int PFNTVCOMPARE(IntPtr lParam1, IntPtr lParam2, IntPtr lParamSort);
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMCUSTOMDRAW
+    {
+        public NmHdr hdr;
+        public uint dwDrawStage;
+        public IntPtr hdc;
+        public Rect rc;
+        public UIntPtr dwItemSpec;
+        public uint uItemState;
+        public IntPtr lItemlParam;
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVINSERTSTRUCTA_U
+    {
+        public TVITEMEXA itemex;
+        public TVITEMA item;
+    }
+    
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVINSERTSTRUCTA
+    {
+        public IntPtr hParent;
+        public IntPtr hInsertAfter;
+        public TVINSERTSTRUCTA_U u;        
+    }
+    
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVINSERTSTRUCTW_U
+    {
+        public TVITEMEXW itemex;
+        public TVITEMW item;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVINSERTSTRUCTW
+    {
+        public IntPtr hParent;
+        public IntPtr hInsertAfter;
+        public TVINSERTSTRUCTW_U u;
+    }
+
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct IMAGELISTDRAWPARAMS
+    {
+        public uint cbSize;
+        public IntPtr himl;
+        public int i;
+        public IntPtr hdcDst;
+        public int x;
+        public int y;
+        public int cx;
+        public int cy;
+        public int xBitmap;
+        public int yBitmap;
+        public uint rgbBk;
+        public uint rgbFg;
+        public uint fStyle;
+        public uint dwRop;
+        public uint fState;
+        public uint Frame;
+        public uint crEffect;
+    }
+    
+
+    public class TreeViewConst
+    {
+        public const uint TVN_FIRST = 0xfffffe70;
+        public const uint TV_FIRST = 0x1100;// TreeView messages
+        public const uint TVS_HASBUTTONS = 0x0001;
+        public const uint TVS_HASLINES = 0x0002;
+        public const uint TVS_LINESATROOT = 0x0004;
+        public const uint TVS_EDITLABELS = 0x0008;
+        public const uint TVS_DISABLEDRAGDROP = 0x0010;
+        public const uint TVS_SHOWSELALWAYS = 0x0020;
+        public const uint TVS_RTLREADING = 0x0040;
+        public const uint TVS_NOTOOLTIPS = 0x0080;
+        public const uint TVS_CHECKBOXES = 0x0100;
+        public const uint TVS_TRACKSELECT = 0x0200;
+        public const uint TVS_SINGLEEXPAND = 0x0400;
+        public const uint TVS_INFOTIP = 0x0800;
+        public const uint TVS_FULLROWSELECT = 0x1000;
+        public const uint TVS_NOSCROLL = 0x2000;
+        public const uint TVS_NONEVENHEIGHT = 0x4000;
+        public const uint TVS_NOHSCROLL = 0x8000;// TVS_NOSCROLL overrides this
+        public const uint TVS_EX_NOSINGLECOLLAPSE = 0x0001;
+        public const uint TVS_EX_MULTISELECT = 0x0002;
+        public const uint TVS_EX_DOUBLEBUFFER = 0x0004;
+        public const uint TVS_EX_NOINDENTSTATE = 0x0008;
+        public const uint TVS_EX_RICHTOOLTIP = 0x0010;
+        public const uint TVS_EX_AUTOHSCROLL = 0x0020;
+        public const uint TVS_EX_FADEINOUTEXPANDOS = 0x0040;
+        public const uint TVS_EX_PARTIALCHECKBOXES = 0x0080;
+        public const uint TVS_EX_EXCLUSIONCHECKBOXES = 0x0100;
+        public const uint TVS_EX_DIMMEDCHECKBOXES = 0x0200;
+        public const uint TVS_EX_DRAWIMAGEASYNC = 0x0400;
+        public const uint TVIF_TEXT = 0x0001;
+        public const uint TVIF_IMAGE = 0x0002;
+        public const uint TVIF_PARAM = 0x0004;
+        public const uint TVIF_STATE = 0x0008;
+        public const uint TVIF_HANDLE = 0x0010;
+        public const uint TVIF_SELECTEDIMAGE = 0x0020;
+        public const uint TVIF_CHILDREN = 0x0040;
+        public const uint TVIF_INTEGRAL = 0x0080;
+        public const uint TVIF_STATEEX = 0x0100;
+        public const uint TVIF_EXPANDEDIMAGE = 0x0200;
+        public const uint TVIS_SELECTED = 0x0002;
+        public const uint TVIS_CUT = 0x0004;
+        public const uint TVIS_DROPHILITED = 0x0008;
+        public const uint TVIS_BOLD = 0x0010;
+        public const uint TVIS_EXPANDED = 0x0020;
+        public const uint TVIS_EXPANDEDONCE = 0x0040;
+        public const uint TVIS_EXPANDPARTIAL = 0x0080;
+        public const uint TVIS_OVERLAYMASK = 0x0F00;
+        public const uint TVIS_STATEIMAGEMASK = 0xF000;
+        public const uint TVIS_USERMASK = 0xF000;
+        public const uint TVIS_EX_FLAT = 0x0001;
+        public const uint TVIS_EX_DISABLED = 0x0002;
+        public const uint TVIS_EX_ALL = 0x0002;
+        //public const uint TVI_ROOT = ((HTREEITEM)(ULONG_PTR) - 0x10000);
+        //public const uint TVI_FIRST = ((HTREEITEM)(ULONG_PTR) - 0x0FFFF);
+        //public const uint TVI_LAST = ((HTREEITEM)(ULONG_PTR) - 0x0FFFE);
+        //public const uint TVI_SORT = ((HTREEITEM)(ULONG_PTR) - 0x0FFFD);
+        public const uint TVM_INSERTITEMA = (TV_FIRST + 0);
+        public const uint TVM_INSERTITEMW = (TV_FIRST + 50);
+        public const uint TVM_DELETEITEM = (TV_FIRST + 1);
+        public const uint TVM_EXPAND = (TV_FIRST + 2);
+        public const uint TVE_COLLAPSE = 0x0001;
+        public const uint TVE_EXPAND = 0x0002;
+        public const uint TVE_TOGGLE = 0x0003;
+        public const uint TVE_EXPANDPARTIAL = 0x4000;
+        public const uint TVE_COLLAPSERESET = 0x8000;
+        public const uint TVM_GETITEMRECT = (TV_FIRST + 4);
+        public const uint TVM_GETCOUNT = (TV_FIRST + 5);
+        public const uint TVM_GETINDENT = (TV_FIRST + 6);
+        public const uint TVM_SETINDENT = (TV_FIRST + 7);
+        public const uint TVM_GETIMAGELIST = (TV_FIRST + 8);
+        public const uint TVSIL_NORMAL = 0;
+        public const uint TVSIL_STATE = 2;
+        public const uint TVM_SETIMAGELIST = (TV_FIRST + 9);
+        public const uint TVM_GETNEXTITEM = (TV_FIRST + 10);
+        public const uint TVGN_ROOT = 0x0000;
+        public const uint TVGN_NEXT = 0x0001;
+        public const uint TVGN_PREVIOUS = 0x0002;
+        public const uint TVGN_PARENT = 0x0003;
+        public const uint TVGN_CHILD = 0x0004;
+        public const uint TVGN_FIRSTVISIBLE = 0x0005;
+        public const uint TVGN_NEXTVISIBLE = 0x0006;
+        public const uint TVGN_PREVIOUSVISIBLE = 0x0007;
+        public const uint TVGN_DROPHILITE = 0x0008;
+        public const uint TVGN_CARET = 0x0009;
+        public const uint TVGN_LASTVISIBLE = 0x000A;
+        public const uint TVGN_NEXTSELECTED = 0x000B;
+        public const uint TVSI_NOSINGLEEXPAND = 0x8000;// Should not conflict with TVGN flags.
+        public const uint TVM_SELECTITEM = (TV_FIRST + 11);
+        public const uint TVM_GETITEMA = (TV_FIRST + 12);
+        public const uint TVM_GETITEMW = (TV_FIRST + 62);
+        public const uint TVM_SETITEMA = (TV_FIRST + 13);
+        public const uint TVM_SETITEMW = (TV_FIRST + 63);
+        public const uint TVM_EDITLABELA = (TV_FIRST + 14);
+        public const uint TVM_EDITLABELW = (TV_FIRST + 65);
+        public const uint TVM_GETEDITCONTROL = (TV_FIRST + 15);
+        public const uint TVM_GETVISIBLECOUNT = (TV_FIRST + 16);
+        public const uint TVM_HITTEST = (TV_FIRST + 17);
+        public const uint TVHT_NOWHERE = 0x0001;
+        public const uint TVHT_ONITEMICON = 0x0002;
+        public const uint TVHT_ONITEMLABEL = 0x0004;
+        public const uint TVHT_ONITEM = (TVHT_ONITEMICON | TVHT_ONITEMLABEL | TVHT_ONITEMSTATEICON);
+        public const uint TVHT_ONITEMINDENT = 0x0008;
+        public const uint TVHT_ONITEMBUTTON = 0x0010;
+        public const uint TVHT_ONITEMRIGHT = 0x0020;
+        public const uint TVHT_ONITEMSTATEICON = 0x0040;
+        public const uint TVHT_ABOVE = 0x0100;
+        public const uint TVHT_BELOW = 0x0200;
+        public const uint TVHT_TORIGHT = 0x0400;
+        public const uint TVHT_TOLEFT = 0x0800;
+        public const uint TVM_CREATEDRAGIMAGE = (TV_FIRST + 18);
+
+        public const uint TVM_SORTCHILDREN = (TV_FIRST + 19);
+        public const uint TVM_ENSUREVISIBLE = (TV_FIRST + 20);
+        public const uint TVM_SORTCHILDRENCB = (TV_FIRST + 21);
+        public const uint TVM_ENDEDITLABELNOW = (TV_FIRST + 22);
+        public const uint TVM_GETISEARCHSTRINGA = (TV_FIRST + 23);
+        public const uint TVM_GETISEARCHSTRINGW = (TV_FIRST + 64);
+        public const uint TVM_SETTOOLTIPS = (TV_FIRST + 24);
+        public const uint TVM_GETTOOLTIPS = (TV_FIRST + 25);
+        public const uint TVM_SETINSERTMARK = (TV_FIRST + 26);
+        public const uint TVM_SETUNICODEFORMAT = CommonControlsMessageConst.CCM_SETUNICODEFORMAT;
+        public const uint TVM_GETUNICODEFORMAT = CommonControlsMessageConst.CCM_GETUNICODEFORMAT;
+        public const uint TVM_SETITEMHEIGHT = (TV_FIRST + 27);
+        public const uint TVM_GETITEMHEIGHT = (TV_FIRST + 28);
+        public const uint TVM_SETBKCOLOR = (TV_FIRST + 29);
+        public const uint TVM_SETTEXTCOLOR = (TV_FIRST + 30);
+        public const uint TVM_GETBKCOLOR = (TV_FIRST + 31);
+        public const uint TVM_GETTEXTCOLOR = (TV_FIRST + 32);
+        public const uint TVM_SETSCROLLTIME = (TV_FIRST + 33);
+        public const uint TVM_GETSCROLLTIME = (TV_FIRST + 34);
+        public const uint TVM_SETINSERTMARKCOLOR = (TV_FIRST + 37);
+        public const uint TVM_GETINSERTMARKCOLOR = (TV_FIRST + 38);
+        public const uint TVM_SETBORDER = (TV_FIRST + 35);
+        public const uint TVSBF_XBORDER = 0x00000001;
+        public const uint TVSBF_YBORDER = 0x00000002;
+
+        public const uint TVM_GETITEMSTATE = (TV_FIRST + 39);
+        public const uint TVM_SETLINECOLOR = (TV_FIRST + 40);
+        public const uint TVM_GETLINECOLOR = (TV_FIRST + 41);
+        public const uint TVM_MAPACCIDTOHTREEITEM = (TV_FIRST + 42);
+        public const uint TVM_MAPHTREEITEMTOACCID = (TV_FIRST + 43);
+        public const uint TVM_SETEXTENDEDSTYLE = (TV_FIRST + 44);
+        public const uint TVM_GETEXTENDEDSTYLE = (TV_FIRST + 45);
+        public const uint TVM_SETAUTOSCROLLINFO = (TV_FIRST + 59);
+        public const uint TVM_SETHOT = (TV_FIRST + 58);
+        public const uint TVM_GETSELECTEDCOUNT = (TV_FIRST + 70);
+        public const uint TVM_SHOWINFOTIP = (TV_FIRST + 71);
+        public const uint TVM_GETITEMPARTRECT = (TV_FIRST + 72);
+        public const uint TVN_SELCHANGINGA = (TVN_FIRST - 1);
+        public const uint TVN_SELCHANGINGW = (TVN_FIRST - 50);
+        public const uint TVN_SELCHANGEDA = (TVN_FIRST - 2);
+        public const uint TVN_SELCHANGEDW = (TVN_FIRST - 51);
+        public const uint TVC_UNKNOWN = 0x0000;
+        public const uint TVC_BYMOUSE = 0x0001;
+        public const uint TVC_BYKEYBOARD = 0x0002;
+        public const uint TVN_GETDISPINFOA = (TVN_FIRST - 3);
+        public const uint TVN_GETDISPINFOW = (TVN_FIRST - 52);
+        public const uint TVN_SETDISPINFOA = (TVN_FIRST - 4);
+        public const uint TVN_SETDISPINFOW = (TVN_FIRST - 53);
+        public const uint TVIF_DI_SETITEM = 0x1000;
+        public const uint TVN_ITEMEXPANDINGA = (TVN_FIRST - 5);
+        public const uint TVN_ITEMEXPANDINGW = (TVN_FIRST - 54);
+        public const uint TVN_ITEMEXPANDEDA = (TVN_FIRST - 6);
+        public const uint TVN_ITEMEXPANDEDW = (TVN_FIRST - 55);
+        public const uint TVN_BEGINDRAGA = (TVN_FIRST - 7);
+        public const uint TVN_BEGINDRAGW = (TVN_FIRST - 56);
+        public const uint TVN_BEGINRDRAGA = (TVN_FIRST - 8);
+        public const uint TVN_BEGINRDRAGW = (TVN_FIRST - 57);
+        public const uint TVN_DELETEITEMA = (TVN_FIRST - 9);
+        public const uint TVN_DELETEITEMW = (TVN_FIRST - 58);
+        public const uint TVN_BEGINLABELEDITA = (TVN_FIRST - 10);
+        public const uint TVN_BEGINLABELEDITW = (TVN_FIRST - 59);
+        public const uint TVN_ENDLABELEDITA = (TVN_FIRST - 11);
+        public const uint TVN_ENDLABELEDITW = (TVN_FIRST - 60);
+        public const uint TVN_KEYDOWN = (TVN_FIRST - 12);
+        public const uint TVN_GETINFOTIPA = (TVN_FIRST - 13);
+        public const uint TVN_GETINFOTIPW = (TVN_FIRST - 14);
+        public const uint TVN_SINGLEEXPAND = (TVN_FIRST - 15);
+        public const uint TVNRET_DEFAULT = 0;
+        public const uint TVNRET_SKIPOLD = 1;
+        public const uint TVNRET_SKIPNEW = 2;
+        public const uint TVN_ITEMCHANGINGA = (TVN_FIRST - 16);
+        public const uint TVN_ITEMCHANGINGW = (TVN_FIRST - 17);
+        public const uint TVN_ITEMCHANGEDA = (TVN_FIRST - 18);
+        public const uint TVN_ITEMCHANGEDW = (TVN_FIRST - 19);
+        public const uint TVN_ASYNCDRAW = (TVN_FIRST - 20);
+        public const uint TVN_SELCHANGING = TVN_SELCHANGINGW;
+        public const uint TVN_SELCHANGED = TVN_SELCHANGEDW;
+        public const uint TVN_GETDISPINFO = TVN_GETDISPINFOW;
+        public const uint TVN_SETDISPINFO = TVN_SETDISPINFOW;
+        public const uint TVN_ITEMEXPANDING = TVN_ITEMEXPANDINGW;
+        public const uint TVN_ITEMEXPANDED = TVN_ITEMEXPANDEDW;
+        public const uint TVN_BEGINDRAG = TVN_BEGINDRAGW;
+        public const uint TVN_BEGINRDRAG = TVN_BEGINRDRAGW;
+        public const uint TVN_DELETEITEM = TVN_DELETEITEMW;
+        public const uint TVN_BEGINLABELEDIT = TVN_BEGINLABELEDITW;
+        public const uint TVN_ENDLABELEDIT = TVN_ENDLABELEDITW;
+        public const uint TVN_GETINFOTIP = TVN_GETINFOTIPW;
+        public const uint TVCDRF_NOIMAGES = 0x00010000;
+        public const uint TVN_ITEMCHANGING = TVN_ITEMCHANGINGW;
+        public const uint TVN_ITEMCHANGED = TVN_ITEMCHANGEDW;
+
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVSTATEIMAGECHANGING
+    {
+        public NmHdr hdr;
+        public IntPtr hti;
+        public int iOldStateImageIndex;
+        public int iNewStateImageIndex;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVITEMA
+    {
+        public uint mask;
+        public IntPtr hItem;
+        public uint state;
+        public uint stateMask;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+        public int iSelectedImage;
+        public int cChildren;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVITEMW
+    {
+        public uint mask;
+        public IntPtr hItem;
+        public uint state;
+        public uint stateMask;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+        public int iSelectedImage;
+        public int cChildren;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVITEMEXA
+    {
+        public uint mask;
+        public IntPtr hItem;
+        public uint state;
+        public uint stateMask;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+        public int iSelectedImage;
+        public int cChildren;
+        public IntPtr lParam;
+        public int iIntegral;
+        public uint uStateEx;
+        public IntPtr hwnd;
+        public int iExpandedImage;
+        public int iReserved;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVITEMEXW
+    {
+        public uint mask;
+        public IntPtr hItem;
+        public uint state;
+        public uint stateMask;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+        public int iSelectedImage;
+        public int cChildren;
+        public IntPtr lParam;
+        public int iIntegral;
+        public uint uStateEx;
+        public IntPtr hwnd;
+        public int iExpandedImage;
+        public int iReserved;
+    }
+    [Flags]
+    public enum TVITEMPART : uint
+    {
+        TVGIPR_BUTTON = 0x0001,
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVHITTESTINFO
+    {
+        public Point pt;
+        public uint flags;
+        public IntPtr hItem;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVGETITEMPARTRECTINFO
+    {
+        public IntPtr hti;
+        [MarshalAs(UnmanagedType.LPStruct)]
+        public Rect prc;
+        public uint partID;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVSORTCB
+    {
+        public IntPtr hParent;
+        public PFNTVCOMPARE lpfnCompare;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTREEVIEWA
+    {
+        public NmHdr hdr;
+        public uint action;
+        public TVITEMA itemOld;
+        public TVITEMA itemNew;
+        public Point ptDrag;
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTREEVIEWW
+    {
+        public NmHdr hdr;
+        public uint action;
+        public TVITEMW itemOld;
+        public TVITEMW itemNew;
+        public Point ptDrag;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVDISPINFOA
+    {
+        public NmHdr hdr;
+        public TVITEMA item;
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct HDLAYOUT
+    {
+        public Rect prc;
+        [MarshalAs(UnmanagedType.LPStruct)]
+        public WINDOWPOS pwpos;
+
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVDISPINFOW
+    {
+        public NmHdr hdr;
+        public TVITEMW item;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVDISPINFOEXA
+    {
+        public NmHdr hdr;
+        public TVITEMEXA item;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVDISPINFOEXW
+    {
+        public NmHdr hdr;
+        public TVITEMEXW item;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVKEYDOWN
+    {
+        public NmHdr hdr;
+        public ushort wVKey;
+        public uint flags;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVCUSTOMDRAW
+    {
+        public NMCUSTOMDRAW nmcd;
+        public uint clrText;
+        public uint clrTextBk;
+        public int iLevel;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVGETINFOTIPA
+    {
+        public NmHdr hdr;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public int cchTextMax;
+        public IntPtr hItem;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVGETINFOTIPW
+    {
+        public NmHdr hdr;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public int cchTextMax;
+        public IntPtr hItem;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVITEMCHANGE
+    {
+        public NmHdr hdr;
+        public uint uChanged;
+        public IntPtr hItem;
+        public uint uStateNew;
+        public uint uStateOld;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct NMTVASYNCDRAW
+    {
+        public NmHdr hdr;
+        [MarshalAs(UnmanagedType.LPStruct)]
+        public IMAGELISTDRAWPARAMS pimldp;
+        public int hr;
+        public IntPtr hItem;
+        public IntPtr lParam;
+        public uint dwRetFlags;
+        public int iRetImageIndex;
+    }
+
+
+    public static class HeaderImageListType
+    {
+        public const int HDSIL_NORMAL = 0;
+        public const int HDSIL_STATE = 1;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct HDITEMA
+    {
+        public uint mask;
+        public int cxy;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public IntPtr hbm;
+        public int ccTextMax;
+        public int fmt;
+        public IntPtr lParam;
+        public int iImage;
+        public int iOrder;
+        public uint type;
+        public IntPtr pvFilter;
+        public uint state;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct HDITEMW
+    {
+        public uint mask;
+        public int cxy;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public IntPtr hbm;
+        public int ccTextMax;
+        public int fmt;
+        public IntPtr lParam;
+        public int iImage;
+        public int iOrder;
+        public uint type;
+        public IntPtr pvFilter;
+        public uint state;
+    }
+
+    public class HeaderItemMaskConst
+    {
+        public const uint HDI_WIDTH = 0x0001;
+        public const uint HDI_HEIGHT = HDI_WIDTH;
+        public const uint HDI_TEXT = 0x0002;
+        public const uint HDI_FORMAT = 0x0004;
+        public const uint HDI_LPARAM = 0x0008;
+        public const uint HDI_BITMAP = 0x0010;
+        public const uint HDI_IMAGE = 0x0020;
+        public const uint HDI_DI_SETITEM = 0x0040;
+        public const uint HDI_ORDER = 0x0080;
+        public const uint HDI_FILTER = 0x0100;
+        public const uint HDI_STATE = 0x0200;
+    }
+
+    public class HeaderStylesConst
+    {
+
+        public const uint HDS_HORZ = 0x0000;
+        public const uint HDS_BUTTONS = 0x0002;
+        public const uint HDS_HOTTRACK = 0x0004;
+        public const uint HDS_HIDDEN = 0x0008;
+        public const uint HDS_DRAGDROP = 0x0040;
+        public const uint HDS_FULLDRAG = 0x0080;
+        public const uint HDS_FILTERBAR = 0x0100;
+        public const uint HDS_FLAT = 0x0200;
+        public const uint HDS_CHECKBOXES = 0x0400;
+        public const uint HDS_NOSIZING = 0x0800;
+        public const uint HDS_OVERFLOW = 0x1000;
+    }
+    public class HeaderMessageConst
+    {
+        public const uint HDM_FIRST = 0x1200;      // Header messages
+        public const uint HDM_GETITEMCOUNT = (HDM_FIRST + 0);
+        public const uint HDM_INSERTITEMA = (HDM_FIRST + 1);
+        public const uint HDM_INSERTITEMW = (HDM_FIRST + 10);
+        public const uint HDM_DELETEITEM = (HDM_FIRST + 2);
+        public const uint HDM_GETITEMA = (HDM_FIRST + 3);
+        public const uint HDM_GETITEMW = (HDM_FIRST + 11);
+        public const uint HDM_SETITEMA = (HDM_FIRST + 4);
+        public const uint HDM_SETITEMW = (HDM_FIRST + 12);
+        public const uint HDM_LAYOUT = (HDM_FIRST + 5);
+        public const uint HDM_HITTEST = (HDM_FIRST + 6);
+        public const uint HDM_GETITEMRECT = (HDM_FIRST + 7);
+        public const uint HDM_SETIMAGELIST = (HDM_FIRST + 8);
+        public const uint HDM_GETIMAGELIST = (HDM_FIRST + 9);
+        public const uint HDM_ORDERTOINDEX = (HDM_FIRST + 15);
+        public const uint HDM_CREATEDRAGIMAGE = (HDM_FIRST + 16);  // wparam = which item (by index)
+        public const uint HDM_GETORDERARRAY = (HDM_FIRST + 17);
+        public const uint HDM_SETORDERARRAY = (HDM_FIRST + 18);
+        public const uint HDM_SETHOTDIVIDER = (HDM_FIRST + 19);
+        public const uint HDM_SETBITMAPMARGIN = (HDM_FIRST + 20);
+        public const uint HDM_GETBITMAPMARGIN = (HDM_FIRST + 21);
+        public const uint HDM_SETUNICODEFORMAT = CommonControlsMessageConst.CCM_SETUNICODEFORMAT;
+        public const uint HDM_GETUNICODEFORMAT = CommonControlsMessageConst.CCM_GETUNICODEFORMAT;
+        public const uint HDM_SETFILTERCHANGETIMEOUT = (HDM_FIRST + 22);
+        public const uint HDM_EDITFILTER = (HDM_FIRST + 23);
+        public const uint HDM_CLEARFILTER = (HDM_FIRST + 24);
+        //public static uint HDM_TRANSLATEACCELERATOR = CommonControlsMessage.CCM_TRANSLATEACCELERATOR;
+        public const uint HDM_GETITEMDROPDOWNRECT = (HDM_FIRST + 25);  // rect of item's drop down button
+        public const uint HDM_GETOVERFLOWRECT = (HDM_FIRST + 26);  // rect of overflow button
+        public const uint HDM_GETFOCUSEDITEM = (HDM_FIRST + 27);
+        public const uint HDM_SETFOCUSEDITEM = (HDM_FIRST + 28);
+    }
+    public class ListViewItemRectConst
+    {
+        public const int LVIR_BOUNDS = 0;
+        public const int LVIR_ICON = 1;
+        public const int LVIR_LABEL = 2;
+        public const int LVIR_SELECTBOUNDS = 3;
+    }
     public class ListViewNotifyConst
     {
         /// LVN_FIRST -> (0U-100U)
@@ -33,14 +652,8 @@ namespace Diga.Core.Api.Win32
         /// LVN_BEGINLABELEDITA -> (LVN_FIRST-5)
         public const uint LVN_BEGINLABELEDITA = (LVN_FIRST - 5);
 
-        /// LVN_BEGINLABELEDITW -> (LVN_FIRST-75)
-        public const uint LVN_BEGINLABELEDITW = (LVN_FIRST - 75);
-
         /// LVN_ENDLABELEDITA -> (LVN_FIRST-6)
         public const uint LVN_ENDLABELEDITA = (LVN_FIRST - 6);
-
-        /// LVN_ENDLABELEDITW -> (LVN_FIRST-76)
-        public const uint LVN_ENDLABELEDITW = (LVN_FIRST - 76);
 
         /// LVN_COLUMNCLICK -> (LVN_FIRST-8)
         public const uint LVN_COLUMNCLICK = (LVN_FIRST - 8);
@@ -54,20 +667,28 @@ namespace Diga.Core.Api.Win32
         /// LVN_ODCACHEHINT -> (LVN_FIRST-13)
         public const uint LVN_ODCACHEHINT = (LVN_FIRST - 13);
 
-        /// LVN_ODFINDITEMA -> (LVN_FIRST-52)
-        public const uint LVN_ODFINDITEMA = (LVN_FIRST - 52);
-
-        /// LVN_ODFINDITEMW -> (LVN_FIRST-79)
-        public const uint LVN_ODFINDITEMW = (LVN_FIRST - 79);
-
         /// LVN_ITEMACTIVATE -> (LVN_FIRST-14)
         public const uint LVN_ITEMACTIVATE = (LVN_FIRST - 14);
 
         /// LVN_ODSTATECHANGED -> (LVN_FIRST-15)
         public const uint LVN_ODSTATECHANGED = (LVN_FIRST - 15);
 
+
         /// LVN_HOTTRACK -> (LVN_FIRST-21)
         public const uint LVN_HOTTRACK = (LVN_FIRST - 21);
+
+
+        /// LVN_BEGINLABELEDITW -> (LVN_FIRST-75)
+        public const uint LVN_BEGINLABELEDITW = (LVN_FIRST - 75);
+
+        /// LVN_ENDLABELEDITW -> (LVN_FIRST-76)
+        public const uint LVN_ENDLABELEDITW = (LVN_FIRST - 76);
+
+        /// LVN_ODFINDITEMA -> (LVN_FIRST-52)
+        public const uint LVN_ODFINDITEMA = (LVN_FIRST - 52);
+
+        /// LVN_ODFINDITEMW -> (LVN_FIRST-79)
+        public const uint LVN_ODFINDITEMW = (LVN_FIRST - 79);
 
         /// LVN_GETDISPINFOA -> (LVN_FIRST-50)
         public const uint LVN_GETDISPINFOA = (LVN_FIRST - 50);
@@ -77,6 +698,19 @@ namespace Diga.Core.Api.Win32
 
         /// LVN_SETDISPINFOA -> (LVN_FIRST-51)
         public const uint LVN_SETDISPINFOA = (LVN_FIRST - 51);
+
+        public const uint LVN_KEYDOWN = (LVN_FIRST - 55);
+        public const uint LVN_MARQUEEBEGIN = (LVN_FIRST - 56);
+        public const uint LVN_GETINFOTIPA = (LVN_FIRST - 57);
+        public const uint LVN_GETINFOTIPW = (LVN_FIRST - 58);
+        public const uint LVN_INCREMENTALSEARCHA = (LVN_FIRST - 62);
+        public const uint LVN_INCREMENTALSEARCHW = (LVN_FIRST - 63);
+        public const uint LVN_COLUMNDROPDOWN = (LVN_FIRST - 64);
+        public const uint LVN_COLUMNOVERFLOWCLICK = (LVN_FIRST - 66);
+        public const uint LVN_BEGINSCROLL = (LVN_FIRST - 80);
+        public const uint LVN_ENDSCROLL = (LVN_FIRST - 81);
+        public const uint LVN_LINKCLICK = (LVN_FIRST - 84);
+        public const uint LVN_GETEMPTYMARKUP = (LVN_FIRST - 87);
 
     }
     public class ListViewViewConst
@@ -100,6 +734,66 @@ namespace Diga.Core.Api.Win32
         /// LV_VIEW_MAX -> 0x0004
         public const int LV_VIEW_MAX = 4;
 
+    }
+    public class HeaderFlagsConst
+    {
+        public const uint HDF_LEFT = 0x0000;// Same as LVCFMT_LEFT
+        public const uint HDF_RIGHT = 0x0001;// Same as LVCFMT_RIGHT
+        public const uint HDF_CENTER = 0x0002;// Same as LVCFMT_CENTER
+        public const uint HDF_JUSTIFYMASK = 0x0003;// Same as LVCFMT_JUSTIFYMASK
+        public const uint HDF_RTLREADING = 0x0004;// Same as LVCFMT_LEFT
+        public const uint HDF_BITMAP = 0x2000;
+        public const uint HDF_STRING = 0x4000;
+        public const uint HDF_OWNERDRAW = 0x8000;// Same as LVCFMT_COL_HAS_IMAGES
+        public const uint HDF_IMAGE = 0x0800;// Same as LVCFMT_IMAGE
+        public const uint HDF_BITMAP_ON_RIGHT = 0x1000;// Same as LVCFMT_BITMAP_ON_RIGHT
+        public const uint HDF_SORTUP = 0x0400;
+        public const uint HDF_SORTDOWN = 0x0200;
+        public const uint HDF_CHECKBOX = 0x0040;
+        public const uint HDF_CHECKED = 0x0080;
+        public const uint HDF_FIXEDWIDTH = 0x0100;// Can't resize the column; same as LVCFMT_FIXED_WIDTH
+        public const uint HDF_SPLITBUTTON = 0x1000000;// Column is a split button; same as LVCFMT_SPLITBUTTON
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct HD_TEXTFILTERA
+    {
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public int cchTextMax;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct HD_TEXTFILTERW
+    {
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public int cchTextMax;
+    }
+
+    public static class HeaderHitTestInfoFlags
+    {
+        public static uint HHT_NOWHERE = 0x0001;
+        public static uint HHT_ONHEADER = 0x0002;
+        public static uint HHT_ONDIVIDER = 0x0004;
+        public static uint HHT_ONDIVOPEN = 0x0008;
+        public static uint HHT_ONFILTER = 0x0010;
+        public static uint HHT_ONFILTERBUTTON = 0x0020;
+        public static uint HHT_ABOVE = 0x0100;
+        public static uint HHT_BELOW = 0x0200;
+        public static uint HHT_TORIGHT = 0x0400;
+        public static uint HHT_TOLEFT = 0x0800;
+        public static uint HHT_ONITEMSTATEICON = 0x1000;
+        public static uint HHT_ONDROPDOWN = 0x2000;
+        public static uint HHT_ONOVERFLOW = 0x4000;
+
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct HDHITTESTINFO
+    {
+        public Point pt;
+        public uint flags;
+        public int iItem;
     }
     public class ListViewColumnHeaderAlignConst
     {
@@ -345,7 +1039,7 @@ namespace Diga.Core.Api.Win32
         public int iImage;
 
         /// LPARAM->LONG_PTR->int
-        public int lParam;
+        public IntPtr lParam;
 
         /// int
         public int iIndent;
@@ -357,10 +1051,10 @@ namespace Diga.Core.Api.Win32
         public uint cColumns;
 
         /// PUINT->unsigned int*
-        public System.IntPtr puColumns;
+        public IntPtr puColumns;
 
         /// int*
-        public System.IntPtr piColFmt;
+        public IntPtr piColFmt;
 
         /// int
         public int iGroup;
@@ -410,10 +1104,10 @@ namespace Diga.Core.Api.Win32
         public uint cColumns;
 
         /// PUINT->unsigned int*
-        public System.IntPtr puColumns;
+        public IntPtr puColumns;
 
         /// int*
-        public System.IntPtr piColFmt;
+        public IntPtr piColFmt;
 
         /// int
         public int iGroup;
@@ -424,10 +1118,10 @@ namespace Diga.Core.Api.Win32
     {
 
         /// NMHDR->tagNMHDR
-        public NmHdr hdr;
+        public NmHdr hdr = new NmHdr();
 
         /// NMHDR->tagNMHDR
-        public tagLVITEMW item;
+        public tagLVITEMW item = new tagLVITEMW();
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -445,12 +1139,12 @@ namespace Diga.Core.Api.Win32
     {
         public Point pt;
         public uint flags;
-        public int item;
+        public int iItem;
         public int iSubItem;
         public int iGroup;
 
     }
-
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagNMLISTVIEW
     {
         public NmHdr hdr;
@@ -463,7 +1157,7 @@ namespace Diga.Core.Api.Win32
         public IntPtr lParam;
 
     }
-
+    [StructLayout(LayoutKind.Sequential)]
     public struct tagNMITEMACTIVATE
     {
         public NmHdr hdr;
@@ -503,6 +1197,32 @@ namespace Diga.Core.Api.Win32
         LVKF_SHIFT = 0x0004
     }
 
+    [Flags]
+    public enum ListViewStyles : uint
+    {
+        LVS_ICON = 0x0000,
+        LVS_REPORT = 0x0001,
+        LVS_SMALLICON = 0x0002,
+        LVS_LIST = 0x0003,
+        LVS_TYPEMASK = 0x0003,
+        LVS_SINGLESEL = 0x0004,
+        LVS_SHOWSELALWAYS = 0x0008,
+        LVS_SORTASCENDING = 0x0010,
+        LVS_SORTDESCENDING = 0x0020,
+        LVS_SHAREIMAGELISTS = 0x0040,
+        LVS_NOLABELWRAP = 0x0080,
+        LVS_AUTOARRANGE = 0x0100,
+        LVS_EDITLABELS = 0x0200,
+        LVS_OWNERDATA = 0x1000,
+        LVS_NOSCROLL = 0x2000,
+        LVS_TYPESTYLEMASK = 0xfc00,
+        LVS_ALIGNTOP = 0x0000,
+        LVS_ALIGNLEFT = 0x0800,
+        LVS_ALIGNMASK = 0x0c00,
+        LVS_OWNERDRAWFIXED = 0x0400,
+        LVS_NOCOLUMNHEADER = 0x4000,
+        LVS_NOSORTHEADER = 0x8000
+    }
     [Flags]
     public enum ListViewStylesEx : uint
     {
@@ -953,8 +1673,34 @@ namespace Diga.Core.Api.Win32
     public static class ListViewMacros
     {
 
+        public static int ListView_GeItemCount(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_GETITEMCOUNT, IntPtr.Zero, IntPtr.Zero);
+            return result.ToInt32();
+        }
+        public static void ListView_CancelEditLabel(IntPtr hWnd)
+        {
+            User32.SendMessage(hWnd, ListViewMessageConst.LVM_CANCELEDITLABEL, IntPtr.Zero, IntPtr.Zero);
+
+        }
+
+        public static IntPtr ListView_GetEditControl(IntPtr hWnd)
+        {
+            return User32.SendMessage(hWnd, ListViewMessageConst.LVM_GETEDITCONTROL, IntPtr.Zero, IntPtr.Zero);
+            
+        }
+
         public static ApiBool ListView_GetItemW(IntPtr hwnd, out tagLVITEMW pItem)
         {
+
+            //using(var p = new ApiStructHandleRef<tagLVITEMW>())
+            //{
+            //    IntPtr result = User32.SendMessage(hwnd, (int)ListViewMessageConst.LVM_GETITEMW, IntPtr.Zero, p);
+            //    ApiBool ok = result.ToInt32();
+            //    pItem = ok ? p.GetStruct() : default(tagLVITEMW);
+            //    return ok;
+            //}
+
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
             tagLVITEMW tmpTag = new tagLVITEMW();
             Marshal.StructureToPtr(tmpTag, p, false);
@@ -976,6 +1722,14 @@ namespace Diga.Core.Api.Win32
 
         public static ApiBool ListView_GetItemA(IntPtr hWnd, out tagLVITEMA pItem)
         {
+            //using (var p = new ApiStructHandleRef<tagLVITEMA>())
+            //{
+            //    IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_GETITEMA, IntPtr.Zero, p);
+            //    ApiBool ok = result.ToInt32();
+            //    pItem = ok ? p.GetStruct() : default(tagLVITEMA);
+            //    return ok;
+            //}
+
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
             tagLVITEMA tmpTag = new tagLVITEMA();
             Marshal.StructureToPtr(tmpTag, p, false);
@@ -1019,9 +1773,15 @@ namespace Diga.Core.Api.Win32
 
         public static int ListView_InsertItemW(IntPtr hWnd, tagLVITEMW pItem)
         {
+            //using (var p = new ApiStructHandleRef<tagLVITEMW>(pItem))
+            //{
+            //    IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMW, IntPtr.Zero, p);
+            //    int r = result.ToInt32();
+            //    return r;
+            //}
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
             Marshal.StructureToPtr(pItem, p, false);
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMW, IntPtr.Zero, p);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMW, 0, p);
             int r = result.ToInt32();
             Marshal.FreeHGlobal(p);
             return r;
@@ -1031,7 +1791,7 @@ namespace Diga.Core.Api.Win32
         {
             IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
             Marshal.StructureToPtr(pItem, p, false);
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMA, IntPtr.Zero, p);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTITEMA, 0, p);
             int r = result.ToInt32();
             Marshal.FreeHGlobal(p);
             return r;
@@ -1053,36 +1813,56 @@ namespace Diga.Core.Api.Win32
 
         public static ApiBool ListView_GetCallbackMask(IntPtr hWnd)
         {
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_DELETEALLITEMS, 0, 0);
+            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_GETCALLBACKMASK, 0, 0);
             int r = result.ToInt32();
             return r;
         }
 
         public static int ListView_InsertColumnW(IntPtr hWnd, int index, tagLVCOLUMNW col)
         {
-            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVCOLUMNW)));
-            Marshal.StructureToPtr(col, p, false);
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNW, index, p);
-            int r = result.ToInt32();
-            Marshal.FreeHGlobal(p);
-            return r;
+
+            using (var p = new ApiStructHandleRef<tagLVCOLUMNW>(col))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNW, index, p);
+                int r = result.ToInt32();
+                return r;
+            }
+            //IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVCOLUMNW)));
+            //Marshal.StructureToPtr(col, p, false);
+            //IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNW, index, p);
+            //int r = result.ToInt32();
+            //Marshal.FreeHGlobal(p);
+            //return r;
         }
         public static int ListView_InsertColumnA(IntPtr hWnd, int index, tagLVCOLUMNA col)
         {
-            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVCOLUMNA)));
-            Marshal.StructureToPtr(col, p, false);
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNA, index, p);
-            int r = result.ToInt32();
-            Marshal.FreeHGlobal(p);
-            return r;
+            using (var p = new ApiStructHandleRef<tagLVCOLUMNA>(col))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNW, index, p);
+                int r = result.ToInt32();
+                return r;
+            }
+
+            //IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVCOLUMNA)));
+            //Marshal.StructureToPtr(col, p, false);
+            //IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_INSERTCOLUMNA, index, p);
+            //int r = result.ToInt32();
+            //Marshal.FreeHGlobal(p);
+            //return r;
         }
-        public static ApiBool ListView_SetCallbackMask(IntPtr hWnd, out uint mask)
+        public static ApiBool ListView_SetCallbackMask(IntPtr hWnd, uint mask)
         {
-            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(uint)));
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_DELETEALLITEMS, p, IntPtr.Size);
-            mask = (uint)p.ToInt64();
+
+            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETCALLBACKMASK, mask, 0);
             int r = result.ToInt32();
             return r;
+
+
+            //IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETCALLBACKMASK, , IntPtr.Size);
+            //mask = (uint)p.ToInt64();
+            //int r = result.ToInt32();
+            //Marshal.FreeHGlobal(p);
+            //return r;
         }
         public static int ListView_GetNextItem(IntPtr hWnd, int i, uint flag)
         {
@@ -1105,12 +1885,50 @@ namespace Diga.Core.Api.Win32
                 iSubItem = subItemIndex,
                 pszText = text
             };
-            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
-            Marshal.StructureToPtr(item, p, false);
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTW, itemIndex, p);
-            int r = result.ToInt32();
-            Marshal.FreeHGlobal(p);
-            return r;
+            using (var p = new ApiStructHandleRef<tagLVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTW, itemIndex, p);
+                int r = result.ToInt32();
+                return r;
+            }
+            //IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMW)));
+            //Marshal.StructureToPtr(item, p, false);
+            //IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTW, itemIndex, p);
+            //int r = result.ToInt32();
+            //Marshal.FreeHGlobal(p);
+            //return r;
+        }
+
+        public static void ListView_GetItemTextW(IntPtr hWnd, int indexIndex, int SubItemIndex, out string text)
+        {
+            tagLVITEMW item = new tagLVITEMW
+            {
+
+
+                iSubItem = SubItemIndex,
+                cchTextMax = 255,
+                pszText = new string('\0', 255)
+
+            };
+
+            using (var p = new ApiStructHandleRef<tagLVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_GETITEMTEXTW, indexIndex, p);
+                int r = result.ToInt32();
+                if (r > 0)
+                {
+                    tagLVITEMW it = p.GetStruct();
+                    string txt = it.pszText;
+                    text = txt;
+                }
+                else
+                {
+                    text = "";
+                }
+
+
+            }
+
         }
         public static int ListView_SetItemTextA(IntPtr hWnd, int itemIndex, int subItemIndex, string text)
         {
@@ -1120,12 +1938,18 @@ namespace Diga.Core.Api.Win32
                 iSubItem = subItemIndex,
                 pszText = text
             };
-            IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
-            Marshal.StructureToPtr(item, p, false);
-            IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTA, itemIndex, p);
-            int r = result.ToInt32();
-            Marshal.FreeHGlobal(p);
-            return r;
+            using (var pp = new ApiStructHandleRef<tagLVITEMA>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTA, itemIndex, pp);
+                int r = result.ToInt32();
+                return r;
+            }
+            //IntPtr p = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(tagLVITEMA)));
+            //Marshal.StructureToPtr(item, p, false);
+            //IntPtr result = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SETITEMTEXTA, itemIndex, p);
+            //int r = result.ToInt32();
+            //Marshal.FreeHGlobal(p);
+            //return r;
         }
 
         public static int ListView_SetView(IntPtr hWnd, uint viewType)
@@ -1141,17 +1965,10 @@ namespace Diga.Core.Api.Win32
             tagLVHITTESTINFO tmpTag = new tagLVHITTESTINFO();
             Marshal.StructureToPtr(tmpTag, p, false);
 
-            IntPtr result = User32.SendMessage(hWend, (int)ListViewMessageConst.LVM_HITTEST, (int)0, p);
+            IntPtr result = User32.SendMessage(hWend, (int)ListViewMessageConst.LVM_HITTEST, 0, p);
             int r = result.ToInt32();
             ApiBool ok = r;
-            if (ok)
-            {
-                hitTestInfo = Marshal.PtrToStructure<tagLVHITTESTINFO>(p);
-            }
-            else
-            {
-                hitTestInfo = default(tagLVHITTESTINFO);
-            }
+            hitTestInfo = ok ? Marshal.PtrToStructure<tagLVHITTESTINFO>(p) : default(tagLVHITTESTINFO);
 
             Marshal.FreeHGlobal(p);
             return ok;
@@ -1162,31 +1979,61 @@ namespace Diga.Core.Api.Win32
             tagLVHITTESTINFO tmpTag = new tagLVHITTESTINFO();
             Marshal.StructureToPtr(tmpTag, p, false);
 
-            IntPtr result = User32.SendMessage(hWend, (int)ListViewMessageConst.LVM_HITTEST, (int)-1, p);
+            IntPtr result = User32.SendMessage(hWend, (int)ListViewMessageConst.LVM_HITTEST, -1, p);
             int r = result.ToInt32();
             ApiBool ok = r;
-            if (ok)
-            {
-                hitTestInfo = Marshal.PtrToStructure<tagLVHITTESTINFO>(p);
-            }
-            else
-            {
-                hitTestInfo = default(tagLVHITTESTINFO);
-            }
+            hitTestInfo = ok ? Marshal.PtrToStructure<tagLVHITTESTINFO>(p) : default(tagLVHITTESTINFO);
 
             Marshal.FreeHGlobal(p);
             return ok;
         }
+
+        public static int ListView_SubItemHitTest(IntPtr hWnd, ref tagLVHITTESTINFO hitTestInfo)
+        {
+            using (var p = new ApiStructHandleRef<tagLVHITTESTINFO>(hitTestInfo))
+            {
+                var r = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SUBITEMHITTEST, 0, p);
+                int r2 = r.ToInt32();
+                if (r2 != -1)
+                {
+                    hitTestInfo = p.GetStruct();
+                }
+                return r.ToInt32();
+            }
+        }
+
+        public static int ListView_SubItemHitTestEx(IntPtr hWnd, ref tagLVHITTESTINFO hitTestInfo)
+        {
+            using (var p = new ApiStructHandleRef<tagLVHITTESTINFO>(hitTestInfo))
+            {
+                var r = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SUBITEMHITTEST, -1, p);
+                return r.ToInt32();
+            }
+        }
+
+        public static bool ListView_GetSubItemRect(IntPtr hWnd, int iItem, int iSubItem, int code, out Rect rect)
+        {
+            Rect rc = new Rect();
+            rc.Top = iSubItem;
+            rc.Left = code;
+            using (var p = new ApiStructHandleRef<Rect>(rc))
+            {
+                var r = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_GETSUBITEMRECT, iItem, p);
+                ApiBool ok = r.ToInt32();
+                rect = ok ? p.GetStruct() : default(Rect);
+                return ok;
+            }
+        }
         public static uint ListView_SetExtendedListViewStyle(IntPtr hWnd, uint style)
         {
-            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETEXTENDEDLISTVIEWSTYLE, 0, style);
+            User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETEXTENDEDLISTVIEWSTYLE, 0, style);
             uint res = 0;//(uint)Marshal.ReadInt64(result);
             return res;
         }
 
         public static uint ListView_SetExtendedListViewStyleEx(IntPtr hWnd, uint mask, uint style)
         {
-            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETEXTENDEDLISTVIEWSTYLE, mask, style);
+            User32.SendMessage(hWnd, ListViewMessageConst.LVM_SETEXTENDEDLISTVIEWSTYLE, mask, style);
             uint res = 0;//(uint)Marshal.ReadInt64(result);
             return res;
         }

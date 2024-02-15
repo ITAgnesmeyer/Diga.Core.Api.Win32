@@ -17,21 +17,23 @@ namespace ResourceTest
         private static IntPtr _hDlg = IntPtr.Zero;
         private static IntPtr _hInsance;
         private static bool IsUnicode = false;
-        private static IntPtr _oldLvProc  = IntPtr.Zero;
+        private static IntPtr _oldLvProc = IntPtr.Zero;
+        private static IntPtr _oldEditProc = IntPtr.Zero;
+        private static IntPtr _EditControl = IntPtr.Zero;
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            
-            _hInsance = Kernel32.GetModuleHandle(null); 
+
+            _hInsance = Kernel32.GetModuleHandle(null);
             InitCommonControlsEx cex = new InitCommonControlsEx(CommonControls.ICC_WIN95_CLASSES);
             ComCtl32.InitCommonControlsEx(ref cex);
 
-           
+
             ResourceLoader resLoader = new ResourceLoader(_hInsance);
-            
+
             var loader = new DlgTemplateLoader(resLoader);
 
             loader.LoadTemplates(101);
@@ -65,15 +67,15 @@ namespace ResourceTest
             //    Debug.Print($"Class name(0x{dlgItemTemplateAll.ClassID.ToString("x4")}):{name}");
             //}
 
-            //IntPtr cLv = User32.GetDlgItem(_hDlg, 1003);
-            //_oldLvProc = User32.SetWindowLongPtr(cLv, GWL.GWL_WNDPROC,
-            //    Marshal.GetFunctionPointerForDelegate((WndProc)LVProc));
+            IntPtr cLv = User32.GetDlgItem(_hDlg, 1003);
+            _oldLvProc = User32.SetWindowLongPtr(cLv, GWL.GWL_WNDPROC,
+                Marshal.GetFunctionPointerForDelegate((WndProc)LVProc));
             IsUnicode = User32.IsWindowUnicode(_hDlg);
 
 
-                        
+
             User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
-           
+
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) > 0)
             {
@@ -85,7 +87,7 @@ namespace ResourceTest
                 {
 
 
-                    if (User32.TranslateAccelerator(_hDlg, hAccel , ref msg) == 0)
+                    if (User32.TranslateAccelerator(_hDlg, hAccel, ref msg) == 0)
                     {
                         User32.TranslateMessage(ref msg);
                         User32.DispatchMessage(ref msg);
@@ -187,15 +189,96 @@ case WM_NOTIFY:
 
         */
         /// <returns></returns>
+        /// 
+
+
+        private static int Last_iItem = 0;
+        private static int Last_iSubItem = 0;
+        private static IntPtr EditProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
+        {
+            switch (msg)
+            {
+                case WindowsMessages.WM_CHAR: 
+                    int keyCode = wparam.ToInt32();
+                    if(keyCode == 13 || keyCode == 10)
+                    {
+                        IntPtr hWndLV = User32.GetDlgItem(_hDlg, 1003);
+                        User32.SetFocus(hWndLV);
+                    }
+                    break;
+                case WindowsMessages.WM_KILLFOCUS:
+                    if (wparam != IntPtr.Zero)
+                    {
+                        tagLVDISPINFOW dispInfo = new tagLVDISPINFOW();
+                        dispInfo.hdr.hwndFrom = User32.GetDlgItem(_hDlg, 1003);
+                        dispInfo.hdr.idFrom = (uint)User32.GetDlgCtrlID(dispInfo.hdr.hwndFrom);
+                        dispInfo.hdr.code = new IntPtr(ListViewNotifyConst.LVN_ENDLABELEDITW);
+                        dispInfo.item.mask = ListViewItemMemberValidInfoConst.LVIF_TEXT;
+                        dispInfo.item.iItem = Last_iItem;
+                        dispInfo.item.iSubItem = Last_iSubItem;
+                        string txt = User32.GetWindowTextRaw(hwnd);
+                        dispInfo.item.pszText = txt;
+                        dispInfo.item.cchTextMax = txt.Length;
+                        using (var p = new ApiClassHandleRef<tagLVDISPINFOW>(dispInfo))
+                        {
+                            IntPtr hww = User32.GetParent(User32.GetDlgItem(_hDlg, 1003));
+                            User32.SendMessage(hww, (int)WindowsMessages.WM_NOTIFY, 1003, p);
+                        }
+
+                        User32.DestroyWindow(hwnd);
+
+                        return IntPtr.Zero;
+
+                    }
+                    break;
+            }
+            return User32.CallWindowProc(_oldEditProc, hwnd, (int)msg, wparam, lparam);
+        }
         private static IntPtr LVProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
         {
-            //switch (msg)
-            //{
-                
-            //    case WindowsMessages.WM_LBUTTONDOWN:
-            //        return new IntPtr(0);
-            //        //break;
-            //}
+            Debug.Print("LVProc:0x" + msg.ToString("x4"));
+            switch (msg)
+            {
+                case WindowsMessages.WM_CANCELMODE:
+                    return new IntPtr((ApiBool)false);
+                case WindowsMessages.WM_LBUTTONDBLCLK:
+                    if (_EditControl != IntPtr.Zero)
+                    {
+                        User32.SendMessage(_EditControl, WindowsMessages.WM_KILLFOCUS, 0, 0);
+                    }
+                    tagLVHITTESTINFO itemClicked = new tagLVHITTESTINFO();
+                    var hiLo = Win32Api.MakeHiLo(lparam);
+                    itemClicked.pt.X = hiLo.iLow;
+                    itemClicked.pt.Y = hiLo.iHigh;
+                    int lRect = ListViewMacros.ListView_SubItemHitTest(hwnd, ref itemClicked);
+                    if (lRect != -1)
+                    {
+                        ListViewMacros.ListView_GetSubItemRect(hwnd, itemClicked.iItem, itemClicked.iSubItem, ListViewItemRectConst.LVIR_BOUNDS, out Rect sutItemRect);
+                        int height = sutItemRect.Height;
+                        int width = sutItemRect.Width;
+                        if (itemClicked.iSubItem == 0)
+                        {
+                            width = width / 4;
+                           
+                        }
+                        ListViewMacros.ListView_GetItemTextW(hwnd, itemClicked.iItem, itemClicked.iSubItem, out string txt);
+
+                        _EditControl = User32.CreateWindowEx(0, "Edit", "", (uint)WindowStyles.WS_CHILD | (uint)WindowStyles.WS_VISIBLE | (uint)EditBoxStyles.ES_WANTRETURN, sutItemRect.Left, sutItemRect.Top, width, height, hwnd, IntPtr.Zero, _hInsance, IntPtr.Zero);
+                        if (_EditControl == null)
+                        {
+                            User32.MessageBox(hwnd, "Could not create edit box.", "Error", MessageBoxOptionsConst.OkOnly | MessageBoxOptionsConst.IconError);
+
+                        }
+                        User32.SetWindowText(_EditControl, txt);
+                        User32.SetFocus(_EditControl);
+                        User32.SendMessage(_EditControl, EditBoxMessages.EM_SETSEL, 0, -1);
+                        _oldEditProc = User32.SetWindowLongPtr(_EditControl, GWL.GWL_WNDPROC, Marshal.GetFunctionPointerForDelegate((WndProc)EditProc));
+                        Last_iItem = itemClicked.iItem;
+                        Last_iSubItem = itemClicked.iSubItem;
+                    }
+                    return new IntPtr(0);
+                    break;
+            }
             return User32.CallWindowProc(_oldLvProc, hwnd, (int)msg, wparam, lparam);
         }
 
@@ -224,33 +307,34 @@ case WM_NOTIFY:
                         {
                             switch (cNotify)
                             {
-                                case ListViewNotifyConst.LVN_ITEMACTIVATE:
-                                    tagNMITEMACTIVATE nmActivate = default;
-                                    try
-                                    {
-                                        nmActivate = Marshal.PtrToStructure<tagNMITEMACTIVATE>(lparam);
+                                //case ListViewNotifyConst.LVN_ITEMACTIVATE:
+                                //    tagNMITEMACTIVATE nmActivate = default;
+                                //    try
+                                //    {
+                                //        nmActivate = Marshal.PtrToStructure<tagNMITEMACTIVATE>(lparam);
 
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        Debug.Print(e.Message);
-                                    }
+                                //    }
+                                //    catch (Exception e)
+                                //    {
+                                //        Debug.Print(e.Message);
+                                //    }
 
-                                    if (nmActivate.iItem > -1)
-                                    {
-                                       
-                                    }
+                                //    if (nmActivate.iItem > -1)
+                                //    {
 
-                                    break;
-                                case ListViewNotifyConst.LVN_COLUMNCLICK:
-                                    
-                                    break;
+                                //    }
+
+                                //    break;
+                                //case ListViewNotifyConst.LVN_COLUMNCLICK:
+
+                                //    break;
                                 case ListViewNotifyConst.LVN_BEGINLABELEDITW:
-                                    return (ApiBool)false;
-                                    /*break*/
-                                    ;
+                                    ListViewMacros.ListView_CancelEditLabel(hdr.hwndFrom);
+                                    return 0;
+                                //    /*break*/
+                                //    ;
                                 case ListViewNotifyConst.LVN_ENDLABELEDITW:
-                                    tagLVDISPINFOW dispInfo = null;
+                                    tagLVDISPINFOW dispInfo = default;
                                     try
                                     {
                                         dispInfo = Marshal.PtrToStructure<tagLVDISPINFOW>(lparam);
@@ -286,7 +370,7 @@ case WM_NOTIFY:
                     }
                     break;
                 case WindowsMessages.WM_CREATE:
-                   
+
                     break;
                 case WindowsMessages.WM_INITDIALOG:
                     //IntPtr hIcon = User32.LoadIcon(_hInsance, Win32Api.MakeInterSource(102));
@@ -300,7 +384,7 @@ case WM_NOTIFY:
                     }
 
 
-                    IFileOpenDialogNativeClass dlg = new IFileOpenDialogNativeClass();
+                    NativeFileOpenDialogClass dlg = new NativeFileOpenDialogClass();
                     dlg.SetOptions(FOS.FOS_PICKFOLDERS);
                     dlg.SetOkButtonLabel("Annehmen");
                     HRESULT hr = dlg.Show(hwnd);
@@ -316,38 +400,14 @@ case WM_NOTIFY:
                             }
                         }
                     }
-                    //Debug.Print(CLSID.FileOpenDialog.ToString());
-                    //Guid iid = typeof(IFileOpenDialog).GUID;
-                    //Ole32.CoCreateInstance(ref CLSID.FileOpenDialog, IntPtr.Zero,
-                    //    (int)(CLSCTX.CLSCTX_INPROC_SERVER | CLSCTX.CLSCTX_LOCAL_SERVER | CLSCTX.CLSCTX_REMOTE_SERVER),
-                    //    ref iid, out object o);
 
-                    //IFileOpenDialog iofd = (IFileOpenDialog)o;
-                    //iofd.SetOptions(FOS.FOS_PICKFOLDERS);
-                    //iofd.SetOkButtonLabel("Annehmen");
-
-                    //HRESULT hr = iofd.Show(hwnd);
-                    //if (hr.Succeeded)
-                    //{
-
-                    //    iofd.GetResult(out IShellItem pItem);
-                    //    if (pItem != null)
-                    //    {
-                    //        pItem.GetDisplayName(SIGDN.SIGDN_FILESYSPATH, out string pName);
-                    //        if (pName != null)
-                    //        {
-                    //            User32.MessageBox(hwnd, pName, "File Path", MessageBoxOptionsConst.OkOnly);
-                    //        }
-                    //    }
-
-                    //}
                     break;
                 case WindowsMessages.WM_COMMAND:
                     int id = Win32Api.LoWord(wparam.ToInt32());
                     int cmdInt = Win32Api.HiWord(wparam.ToInt32());
                     switch (id)
                     {
-                        
+
                         case 1:
                             if (cmdInt == ButtonMessages.BN_CLICKED)
                             {
@@ -373,7 +433,6 @@ case WM_NOTIFY:
                                     ListViewMacros.ListView_SetExtendedListViewStyle(lv,
                                         ((uint)ListViewStylesEx.LVS_EX_FULLROWSELECT |
                                                (uint)ListViewStylesEx.LVS_EX_DOUBLEBUFFER |
-                                               (uint)ListViewStylesEx.LVS_EX_AUTOSIZECOLUMNS |
                                                (uint)ListViewStylesEx.LVS_EX_GRIDLINES));
 
                                     tagLVCOLUMNW col = new tagLVCOLUMNW
@@ -381,14 +440,14 @@ case WM_NOTIFY:
                                         mask = ListViewColumnMemberValidInfoConst.LVCF_FMT |
                                                ListViewColumnMemberValidInfoConst.LVCF_WIDTH |
                                                ListViewColumnMemberValidInfoConst.LVCF_TEXT //|
-                                               //ListViewColumnMemberValidInfoConst.LVCF_SUBITEM
+                                                                                            //ListViewColumnMemberValidInfoConst.LVCF_SUBITEM
                                     };
 
                                     for (int i = 0; i < 5; i++)
                                     {
                                         col.iSubItem = i;
                                         col.pszText = "column" + i;
-                                        col.cx = 100;
+                                        col.cx = 250;
                                         if (i < 2)
                                         {
                                             col.fmt = ListViewColumnHeaderAlignConst.LVCFMT_LEFT;
@@ -405,15 +464,17 @@ case WM_NOTIFY:
                                     LVWasCreated = true;
                                 }
 
+                                int anz = ListViewMacros.ListView_GeItemCount(lv);
                                 tagLVITEMW itemo = new tagLVITEMW
                                 {
                                     mask = ListViewItemMemberValidInfoConst.LVIF_TEXT,
+                                    iItem = anz,
                                     pszText = "WErt",
                                     iSubItem = 0
                                 };
                                 int index = ListViewMacros.ListView_InsertItemW(lv, itemo);
-                                ListViewMacros.ListView_GetItemW(lv, out tagLVITEMW item);
-
+                                //ListViewMacros.ListView_GetItemW(lv, out tagLVITEMW item);
+                                
                                 ListViewMacros.ListView_SetItemTextW(lv, index, 1, "hallo" + 0);
                                 ListViewMacros.ListView_SetItemTextW(lv, index, 2, "hallo" + 1);
                                 ListViewMacros.ListView_SetItemTextW(lv, index, 3, "hallo" + 2);

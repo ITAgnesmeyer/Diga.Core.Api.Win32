@@ -3,6 +3,26 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
 {
+    public static class DateTimePickerNotifications
+    {
+        public const uint DTN_FIRST = 0xfffffd1c;
+        public const uint DTN_LAST = 0xfffffd17;
+        public const uint DTN_FIRST2 = 0xfffffd0f;
+        public const uint DTN_LAST2 = 0xfffffce1;
+        public const uint DTN_DATETIMECHANGE = (DTN_FIRST2 - 6);
+        public const uint DTN_USERSTRINGA = (DTN_FIRST2 - 5);
+        public const uint DTN_USERSTRINGW = (DTN_FIRST - 5);
+        public const uint DTN_WMKEYDOWNA = (DTN_FIRST2 - 4);
+        public const uint DTN_WMKEYDOWNW = (DTN_FIRST - 4);
+        public const uint DTN_FORMATA = (DTN_FIRST2 - 3);
+        public const uint DTN_FORMATW = (DTN_FIRST - 3);
+        public const uint DTN_FORMATQUERYA = (DTN_FIRST2 - 2);
+        public const uint DTN_FORMATQUERYW = (DTN_FIRST - 2);
+        public const uint DTN_DROPDOWN = (DTN_FIRST2 - 1);
+        public const uint DTN_CLOSEUP = (DTN_FIRST2);
+
+
+    }
     public static class DateTimePickerMessages
     {
         public const uint DTM_FIRST = 0x1000;

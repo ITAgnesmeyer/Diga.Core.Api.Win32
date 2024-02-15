@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Diga.Core.Api.Win32</AssemblyName>
     <RootNamespace>Diga.Core.Api.Win32</RootNamespace>
-    <Version>2.0.7</Version>
+    <Version>2.0.8</Version>
     <PackageId>Diga.Core.Api.Win32</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Dipl.-Ing.(FH) Guido Agnesmeyer</Authors>
     <Company>Dipl.-Ing.(FH) Guido Agnesmeyer</Company>
-    <Copyright>Copyright 2022 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
+    <Copyright>Copyright 2024 Dipl.-Ing.(FH) Guido Agnesmeyer</Copyright>
     <Description>Win32 - Api Imports</Description>
     <PackageTags>Win32,Win32 Api</PackageTags>
     <Product>Diga.Core.Api.Win32</Product>

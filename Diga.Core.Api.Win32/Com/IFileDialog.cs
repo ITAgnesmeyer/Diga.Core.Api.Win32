@@ -3,19 +3,18 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32.Com
 {
-    public class IFileOpenDialogNativeClass:IFileOpenDialog
+    public class NativeFileOpenDialogClass //:IFileOpenDialog
     {
         private IFileOpenDialog _FileDialog;
  
 
-        public IFileOpenDialogNativeClass()
+        public NativeFileOpenDialogClass()
         {
             Guid iid = typeof(IFileOpenDialog).GUID;
             Ole32.CoCreateInstance(ref CLSID.FileOpenDialog, IntPtr.Zero,
                 (int)(CLSCTX.CLSCTX_INPROC_SERVER | CLSCTX.CLSCTX_LOCAL_SERVER | CLSCTX.CLSCTX_REMOTE_SERVER),
                 ref iid, out object o);
-
-            this._FileDialog = (IFileOpenDialog)o;
+            this._FileDialog = (IFileOpenDialog)o ?? throw new COMException("FileOpenDialog could not be created!");
 
         }
 
