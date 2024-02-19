@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Diga.Core.Api.Win32.Com;
 using Diga.Core.Api.Win32.GDI;
+using System.Runtime.CompilerServices;
 
 namespace ResourceTest
 {
@@ -20,6 +21,7 @@ namespace ResourceTest
         private static IntPtr _oldLvProc = IntPtr.Zero;
         private static IntPtr _oldEditProc = IntPtr.Zero;
         private static IntPtr _EditControl = IntPtr.Zero;
+        private static IntPtr _IimageList = IntPtr.Zero;
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -32,7 +34,18 @@ namespace ResourceTest
             ComCtl32.InitCommonControlsEx(ref cex);
 
 
+            
+            
+
             ResourceLoader resLoader = new ResourceLoader(_hInsance);
+
+            _IimageList = ComCtl32.ImageList_Create(16, 16, ImageListConst.ILC_COLOR32, 3, 3);
+            IntPtr ico0 = resLoader.LoadIcon(103);
+            ComCtl32.ImageList_AddIcon(_IimageList, ico0);
+            IntPtr ico1 = resLoader.LoadIcon(106);
+            ComCtl32.ImageList_AddIcon(_IimageList, ico1 );
+            IntPtr ico2 = resLoader.LoadIcon(108);
+            ComCtl32.ImageList_AddIcon(_IimageList, ico2 );
 
             var loader = new DlgTemplateLoader(resLoader);
 
@@ -72,7 +85,8 @@ namespace ResourceTest
                 Marshal.GetFunctionPointerForDelegate((WndProc)LVProc));
             IsUnicode = User32.IsWindowUnicode(_hDlg);
 
-
+            IntPtr htv = User32.GetDlgItem(_hDlg, 1014);
+            TreeViewMacros.TreeView_SetImageList(htv, _IimageList);
 
             User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
 
@@ -94,6 +108,8 @@ namespace ResourceTest
                     }
                 }
             }
+
+            ComCtl32.ImageList_Destroy(_IimageList);
         }
 
 
@@ -110,86 +126,7 @@ namespace ResourceTest
 
             return 0;
         }
-        /*
-    long _stdcall ListViewProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-           {
-               switch(message){
-                   case WM_LBUTTONDOWN:
-                   {
-                       if (hEdit != NULL){SendMessage(hEdit,WM_KILLFOCUS,0,0);};
-                       LVHITTESTINFO itemclicked;
-                       long x, y;
-                       x = (long)LOWORD(lParam);
-                       y = (long)HIWORD(lParam);
-                       itemclicked.pt.x = x;
-                       itemclicked.pt.y = y;
-                       int lResult = ListView_SubItemHitTest(hwnd,&itemclicked);
-                       if (lResult!=-1){
-                           RECT subitemrect;
-                           ListView_GetSubItemRect(hwnd,itemclicado.iItem,itemclicado.iSubItem,LVIR_BOUNDS,&subitemrect);
-                           int altura = subitemrect.bottom - subitemrect.top;
-                           int largura = subitemrect.right - subitemrect.left;
-                           if (itemclicado.iSubItem==0){largura=largura/4;};
-                           hEdit = CreateWindowEx(WS_EX_CLIENTEDGE, "EDIT", "", 
-                           WS_CHILD|WS_VISIBLE|ES_WANTRETURN, 
-                           subitemrect.left, subitemrect.top, largura, 1.5*altura, hwnd, 0, GetModuleHandle(NULL), NULL);
-                           if(hEdit == NULL)
-                           MessageBox(hwnd, "Could not create edit box.", "Error", MB_OK | MB_ICONERROR);
-                           SetFocus(hEdit);
-                           EOldProc = (WNDPROC)SetWindowLong(hEdit, GWL_WNDPROC, (LONG)EditProc);
-                           iItem = itemclicked.iItem;
-                           iSubItem = itemclicked.iSubItem;
-                       }
-                       return 0;
-                       break;
-                   }
-               }
-               return CallWindowProc(LVOldProc, hwnd, message, wParam, lParam);
-           }
-long _stdcall EditProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-           {
-               switch(message){
-                   case WM_KILLFOCUS:
-                   {
-                       LV_DISPINFO lvDispinfo;
-                       ZeroMemory(&lvDispinfo,sizeof(LV_DISPINFO));
-                       lvDispinfo.hdr.hwndFrom = hwnd;
-                       lvDispinfo.hdr.idFrom = GetDlgCtrlID(hwnd);
-                       lvDispinfo.hdr.code = LVN_ENDLABELEDIT;
-                       lvDispinfo.item.mask = LVIF_TEXT;
-                       lvDispinfo.item.iItem = iItem;
-                       lvDispinfo.item.iSubItem = iSubItem;
-                       lvDispinfo.item.pszText = NULL;
-                       char szEditText[10];
-                       GetWindowText(hwnd,szEditText,10);
-                       lvDispinfo.item.pszText = szEditText;
-                       lvDispinfo.item.cchTextMax = lstrlen(szEditText);
-                       SendMessage(GetParent(GetDlgItem(b,MATRIZ)),WM_NOTIFY,(WPARAM)MATRIZ,(LPARAM)&lvDispinfo); //the LV ID and the LVs Parent window's HWND
-                       DestroyWindow(hwnd);
-                       break;
-                   }
-               }
-            
-               return CallWindowProc(EOldProc, hwnd, message, wParam, lParam);
-           }
 
-case WM_NOTIFY:
-           {
-               if(((LPNMHDR)z)->code == LVN_ENDLABELEDIT){
-                   LVITEM LvItem;
-                   LV_DISPINFO* dispinfo = (LV_DISPINFO*)z;
-                   char text[10]="";
-                   LvItem.iItem = dispinfo->item.iItem;
-                   LvItem.iSubItem = dispinfo->item.iSubItem;
-                   LvItem.pszText = dispinfo->item.pszText;
-                   SendDlgItemMessage(w,MATRIZ,LVM_SETITEMTEXT,(WPARAM)LvItem.iItem,(LPARAM)&LvItem); // put new text
-               }
-               break;
-           }
-
-        */
-        /// <returns></returns>
-        /// 
 
 
         private static int Last_iItem = 0;
@@ -198,9 +135,9 @@ case WM_NOTIFY:
         {
             switch (msg)
             {
-                case WindowsMessages.WM_CHAR: 
+                case WindowsMessages.WM_CHAR:
                     int keyCode = wparam.ToInt32();
-                    if(keyCode == 13 || keyCode == 10)
+                    if (keyCode == 13 || keyCode == 10)
                     {
                         IntPtr hWndLV = User32.GetDlgItem(_hDlg, 1003);
                         User32.SetFocus(hWndLV);
@@ -259,7 +196,7 @@ case WM_NOTIFY:
                         if (itemClicked.iSubItem == 0)
                         {
                             width = width / 4;
-                           
+
                         }
                         ListViewMacros.ListView_GetItemTextW(hwnd, itemClicked.iItem, itemClicked.iSubItem, out string txt);
 
@@ -283,6 +220,77 @@ case WM_NOTIFY:
         }
 
         private static bool LVWasCreated = false;
+
+        private static IntPtr hPrev = TreeViewConst.TVI_FIRST;
+        private static IntPtr hPrevRootItem = IntPtr.Zero;
+        private static IntPtr hPrevLevel2Item = IntPtr.Zero;
+        private static IntPtr AddTreeItem(IntPtr hTreeView, string text, IntPtr parent)
+        {
+            TVITEMEXW tvi = new TVITEMEXW();
+            TVINSERTSTRUCTEXW tvins = new TVINSERTSTRUCTEXW();
+            tvi.mask = TreeViewConst.TVIF_TEXT|TreeViewConst.TVIF_IMAGE|TreeViewConst.TVIF_EXPANDEDIMAGE|TreeViewConst.TVIF_SELECTEDIMAGE;//| TreeViewConst.TVIF_PARAM;
+            tvi.pszText = text;
+            tvi.cchTextMax = text.Length;
+            tvi.iImage = 2;
+            tvi.iSelectedImage = 1;
+            tvi.iExpandedImage = 0;
+            tvins.item = tvi;
+            tvins.hParent = parent;
+            tvins.hInsertAfter = parent;
+            return TreeViewMacros.TreeView_InsertItem(hTreeView, tvins);
+        }
+        private static IntPtr AddItemToTree(IntPtr hwndTV, string lpszItem, int nlevel)
+        {
+            TVITEMW tvi = new TVITEMW();
+            TVINSERTSTRUCTW tvins = new TVINSERTSTRUCTW();
+            IntPtr hti;
+            tvi.mask = TreeViewConst.TVIF_TEXT | TreeViewConst.TVIF_PARAM;
+            tvi.pszText = lpszItem;
+            tvi.cchTextMax = lpszItem.Length;
+            tvi.iImage = 0;
+            tvi.iSelectedImage = 0;
+            tvi.lParam = new IntPtr(nlevel);
+            //tvins.u = new TVINSERTSTRUCTW_U();
+            tvins.item = tvi;
+            tvins.hInsertAfter = hPrev;
+
+            if (nlevel == 1)
+            {
+                tvins.hParent = TreeViewConst.TVI_ROOT;
+            }
+            else if (nlevel == 2)
+            {
+                tvins.hParent = hPrevRootItem;
+            }
+            else
+            {
+                tvins.hParent = hPrevLevel2Item;
+            }
+
+            hPrev = TreeViewMacros.TreeView_InsertItem(hwndTV, tvins);
+            if (hPrev == IntPtr.Zero)
+                return IntPtr.Zero;
+
+            if (nlevel == 1)
+            {
+                hPrevRootItem = hPrev;
+            }
+            else if (nlevel == 2)
+            {
+                hPrevLevel2Item = hPrev;
+            }
+
+            if (nlevel > 1)
+            {
+                hti = TreeViewMacros.TreeView_GetParentPtr(hwndTV, hPrev);
+                tvi.mask = TreeViewConst.TVIF_IMAGE | TreeViewConst.TVIF_SELECTEDIMAGE;
+                tvi.hItem = hti;
+                tvi.iImage = 0;
+                tvi.iSelectedImage = 0;
+                TreeViewMacros.TreeView_SetItem(hwndTV, tvi);
+            }
+            return hPrev;
+        }
         private static int DProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
         {
             switch (msg)
@@ -474,7 +482,7 @@ case WM_NOTIFY:
                                 };
                                 int index = ListViewMacros.ListView_InsertItemW(lv, itemo);
                                 //ListViewMacros.ListView_GetItemW(lv, out tagLVITEMW item);
-                                
+
                                 ListViewMacros.ListView_SetItemTextW(lv, index, 1, "hallo" + 0);
                                 ListViewMacros.ListView_SetItemTextW(lv, index, 2, "hallo" + 1);
                                 ListViewMacros.ListView_SetItemTextW(lv, index, 3, "hallo" + 2);
@@ -488,6 +496,38 @@ case WM_NOTIFY:
                             break;
                         case 1003:
 
+                            break;
+                        case 1015:
+                            IntPtr hWndTreeView = User32.GetDlgItem(hwnd, 1014);
+                            if (hWndTreeView != IntPtr.Zero)
+                            {
+                                //IntPtr hti = AddItemToTree(hWndTreeView, "First", 1);
+                                //if (hti == IntPtr.Zero)
+                                //    break;
+
+                                //hti = AddItemToTree(hWndTreeView, "Second", 2);
+                                //if (hti == IntPtr.Zero)
+                                //    break;
+                                //hti = AddItemToTree(hWndTreeView, "Value", 3);
+                                //if (hti == IntPtr.Zero)
+                                //    break;
+                                //hti = AddItemToTree(hWndTreeView, "Valuea", 2);
+                                //if (hti == IntPtr.Zero)
+                                //    break;
+                                //var root = TreeViewMacros.TreeView_GetRoot(hWndTreeView);
+
+                                //TVITEMW? item = TreeViewMacros.TreeView_GetFirstVisible(hWndTreeView,root.Value);
+                                //if(item != null)
+                                //{
+                                //    TreeViewMacros.TreeView_Expand(hWndTreeView, item.Value,TreeViewConst.TVE_TOGGLE);
+                                //}
+
+                                IntPtr root = AddTreeItem(hWndTreeView, "Root", TreeViewConst.TVI_ROOT);
+                                IntPtr FirstSub = AddTreeItem(hWndTreeView, "First", root);
+                                IntPtr SecondSub = AddTreeItem(hWndTreeView, "Second", root);
+                                TreeViewMacros.TreeView_ExpandPtr(hWndTreeView, root, TreeViewConst.TVE_EXPAND);
+
+                            }
                             break;
                         case 40001:
                             User32.SendMessage(_hDlg, WindowsMessages.WM_CLOSE);

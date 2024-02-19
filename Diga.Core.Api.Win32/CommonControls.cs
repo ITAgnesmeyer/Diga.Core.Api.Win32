@@ -2,11 +2,108 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 
 namespace Diga.Core.Api.Win32
 {
+
+    public class ImageListConst
+    {
+        public const uint CLR_NONE = unchecked((uint)0xFFFFFFFFL);
+        public const uint CLR_DEFAULT = unchecked((uint)0xFF000000L);
+        
+        public const uint ILC_MASK = 0x00000001;
+        public const uint ILC_COLOR = 0x00000000;
+        public const uint ILC_COLORDDB = 0x000000FE;
+        public const uint ILC_COLOR4 = 0x00000004;
+        public const uint ILC_COLOR8 = 0x00000008;
+        public const uint ILC_COLOR16 = 0x00000010;
+        public const uint ILC_COLOR24 = 0x00000018;
+        public const uint ILC_COLOR32 = 0x00000020;
+        public const uint ILC_PALETTE = 0x00000800;// (not implemented)
+        public const uint ILC_MIRROR = 0x00002000;// Mirror the icons contained, if the process is mirrored
+        public const uint ILC_PERITEMMIRROR = 0x00008000;// Causes the mirroring code to mirror each item when inserting a set of images, verses the whole strip
+        public const uint ILC_ORIGINALSIZE = 0x00010000;// Imagelist should accept smaller than set images and apply OriginalSize based on image added
+        public const uint ILC_HIGHQUALITYSCALE = 0x00020000;// Imagelist should enable use of the high quality scaler.
+        
+        public const uint ILD_NORMAL = 0x00000000;
+        public const uint ILD_TRANSPARENT = 0x00000001;
+        public const uint ILD_MASK = 0x00000010;
+        public const uint ILD_IMAGE = 0x00000020;
+        public const uint ILD_ROP = 0x00000040;
+        public const uint ILD_BLEND25 = 0x00000002;
+        public const uint ILD_BLEND50 = 0x00000004;
+        public const uint ILD_OVERLAYMASK = 0x00000F00;
+        
+public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha channel in dest
+        public const uint ILD_SCALE = 0x00002000;// Causes the image to be scaled to cx, cy instead of clipped
+        public const uint ILD_DPISCALE = 0x00004000;
+        public const uint ILD_ASYNC = 0x00008000;
+        public const uint ILD_SELECTED = ILD_BLEND50;
+        public const uint ILD_FOCUS = ILD_BLEND25;
+        public const uint ILD_BLEND = ILD_BLEND50;
+        public const uint CLR_HILIGHT = CLR_DEFAULT;
+        public const uint ILS_NORMAL = 0x00000000;
+        public const uint ILS_GLOW = 0x00000001;
+        public const uint ILS_SHADOW = 0x00000002;
+        public const uint ILS_SATURATE = 0x00000004;
+        public const uint ILS_ALPHA = 0x00000008;
+        public const uint ILGT_NORMAL = 0x00000000;
+        public const uint ILGT_ASYNC = 0x00000001;
+        //public const uint HBITMAP_CALLBACK = ((HBITMAP) - 1);// only for SparseImageList
+        //public const uint ImageList_LoadImage = ImageList_LoadImageW;
+        //public const uint ImageList_LoadImage = ImageList_LoadImageA;
+        public const uint ILCF_MOVE = (0x00000000);
+        public const uint ILCF_SWAP = (0x00000001);
+        //public const uint ImageList_RemoveAll(himl)=ImageList_Remove(himl, -1);
+        //public const uint ImageList_ExtractIcon(hi,= himl, i) ImageList_GetIcon(himl, i, 0);
+        //public const uint ImageList_LoadBitmap(hi,= lpbmp, cx, cGrow, crMask) ImageList_LoadImage(hi, lpbmp, cx, cGrow, crMask, IMAGE_BITMAP, 0);
+        public const uint ILP_NORMAL = 0;// Writes or reads the stream using new sematics for this version of comctl32
+        public const uint ILP_DOWNLEVEL = 1;// Write or reads the stream using downlevel sematics.
+        //public const uint IImageListToHIMAGELIST(himl)=((HIMAGELIST)(himl));
+    }
+
+
+    //[StructLayout(LayoutKind.Sequential)]
+    //public struct IMAGELISTDRAWPARAMS
+    //{
+    //    public uint cbSize;
+    //    public IntPtr himl;
+    //    public int i;
+    //    public IntPtr hdcDst;
+    //    public int x;
+    //    public int y;
+    //    public int cx;
+    //    public int cy;
+    //    public int xBitmap;
+    //    public int yBitmap;
+    //    public uint rgbBk;
+    //    public uint rgbFg;
+    //    public uint fStyle;
+    //    public uint dwRop;
+    //    public uint fState;
+    //    public uint Frame;
+    //    public uint crEffect;
+    //}
+
+    //[StructLayout(LayoutKind.Sequential)]
+    //public struct IMAGEINFO
+    //{
+    //    public IntPtr hbmImage;
+    //    public IntPtr hbmMask;
+    //    public int Unused1;
+    //    public int Unused2;
+    //    public Rect rcImage;
+    //}
+
     [System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.StdCall)]
     public delegate int PFNTVCOMPARE(IntPtr lParam1, IntPtr lParam2, IntPtr lParamSort);
+
+    //[System.Runtime.InteropServices.UnmanagedFunctionPointer(System.Runtime.InteropServices.CallingConvention.StdCall)]
+    //public delegate int FuncCompare(IntPtr lParam1, IntPtr lParam2, IntPtr lParamSort);
+
+
     [StructLayout(LayoutKind.Sequential)]
     public struct NMCUSTOMDRAW
     {
@@ -26,15 +123,15 @@ namespace Diga.Core.Api.Win32
         public TVITEMEXA itemex;
         public TVITEMA item;
     }
-    
+
     [StructLayout(LayoutKind.Sequential)]
     public struct TVINSERTSTRUCTA
     {
         public IntPtr hParent;
         public IntPtr hInsertAfter;
-        public TVINSERTSTRUCTA_U u;        
+        public TVINSERTSTRUCTA_U u;
     }
-    
+
     [StructLayout(LayoutKind.Sequential)]
     public struct TVINSERTSTRUCTW_U
     {
@@ -47,9 +144,18 @@ namespace Diga.Core.Api.Win32
     {
         public IntPtr hParent;
         public IntPtr hInsertAfter;
-        public TVINSERTSTRUCTW_U u;
+        //public TVINSERTSTRUCTW_U u;
+        public TVITEMW item;
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TVINSERTSTRUCTEXW
+    {
+        public IntPtr hParent;
+        public IntPtr hInsertAfter;
+        //public TVINSERTSTRUCTW_U u;
+        public TVITEMEXW item;
+    }
 
 
     [StructLayout(LayoutKind.Sequential)]
@@ -73,7 +179,7 @@ namespace Diga.Core.Api.Win32
         public uint Frame;
         public uint crEffect;
     }
-    
+
 
     public class TreeViewConst
     {
@@ -129,10 +235,10 @@ namespace Diga.Core.Api.Win32
         public const uint TVIS_EX_FLAT = 0x0001;
         public const uint TVIS_EX_DISABLED = 0x0002;
         public const uint TVIS_EX_ALL = 0x0002;
-        //public const uint TVI_ROOT = ((HTREEITEM)(ULONG_PTR) - 0x10000);
-        //public const uint TVI_FIRST = ((HTREEITEM)(ULONG_PTR) - 0x0FFFF);
-        //public const uint TVI_LAST = ((HTREEITEM)(ULONG_PTR) - 0x0FFFE);
-        //public const uint TVI_SORT = ((HTREEITEM)(ULONG_PTR) - 0x0FFFD);
+        public static IntPtr TVI_ROOT = new IntPtr(0 - 0x10000);
+        public static IntPtr TVI_FIRST = new IntPtr(0 - 0x0FFFF);
+        public static IntPtr TVI_LAST = new IntPtr(0 - 0x0FFFE);
+        public static IntPtr TVI_SORT = new IntPtr(0 - 0x0FFFD);
         public const uint TVM_INSERTITEMA = (TV_FIRST + 0);
         public const uint TVM_INSERTITEMW = (TV_FIRST + 50);
         public const uint TVM_DELETEITEM = (TV_FIRST + 1);
@@ -1669,7 +1775,685 @@ namespace Diga.Core.Api.Win32
         public uint vkDirection;
     }
 
+    public static class TreeViewMacros
+    {
+        public static IntPtr TreeView_InsertItem(IntPtr hWnd, TVINSERTSTRUCTW item)
+        {
+            using (var p = new ApiStructHandleRef<TVINSERTSTRUCTW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_INSERTITEMW,IntPtr.Zero, p);
+                return result;
+            }
+        }
 
+        public static IntPtr TreeView_InsertItem(IntPtr hWnd, TVINSERTSTRUCTEXW item)
+        {
+            using (var p = new ApiStructHandleRef<TVINSERTSTRUCTEXW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_INSERTITEMW, IntPtr.Zero, p);
+                return result;
+            }
+        }
+
+        public static bool TreeView_DeleteItem(IntPtr hWnd, TVITEMW hTreeItem)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(hTreeItem))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_DELETEITEM, IntPtr.Zero, p);
+                return (ApiBool)result.ToInt32();
+            }
+
+        }
+
+        public static bool TreeView_DeleteAllItems(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_DELETEITEM, IntPtr.Zero, TreeViewConst.TVI_ROOT);
+            return (ApiBool)result.ToInt32();
+        }
+
+        public static bool TreeView_ExpandPtr(IntPtr hWnd, IntPtr hItem , uint code)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_EXPAND, (int)code, hItem);
+            return (ApiBool)result.ToInt32();
+        }
+        public static bool TreeView_Expand(IntPtr hWnd, TVITEMW hItem, uint code)
+        {
+            using(var p = new ApiStructHandleRef< TVITEMW>(hItem))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_EXPAND, (int)code, p);
+                return (ApiBool)result.ToInt32();
+
+            }
+        }
+
+        public static bool TreeView_GetItemRect(IntPtr hWnd , TVITEMEXW item, ApiBool onlyText, out Rect rect)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMEXW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETITEMRECT, onlyText, p);
+                ApiBool ok = (ApiBool)result.ToInt32();
+                if(ok)
+                {
+                    rect = Marshal.PtrToStructure<Rect>(p);
+                    return true;
+                }
+                rect = new Rect();
+                return false;
+            }
+        }
+        public static int TreeView_GetCount(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETCOUNT, IntPtr.Zero , IntPtr.Zero);
+            return result.ToInt32();
+        }
+        public static int TreeView_GetIndent(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd , TreeViewConst.TVM_GETINDENT, IntPtr.Zero , IntPtr.Zero);
+            return result.ToInt32();
+        }
+
+        public static bool TreeView_SetIndent(IntPtr hWnd, int indent)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINDENT, indent, 0);
+            return (ApiBool)result.ToInt32();
+        }
+        public static IntPtr TreeView_GetImageList(IntPtr hWnd, int type=(int)TreeViewConst.TVSIL_NORMAL)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETIMAGELIST, type, 0);
+            return result;
+        }
+
+        public static IntPtr TreeView_SetImageList(IntPtr hWnd, IntPtr hIList,int type = (int)TreeViewConst.TVSIL_NORMAL)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETIMAGELIST, type, hIList);
+            return result;
+        }
+
+        public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd, uint flag, TVITEMW? item)
+        {
+            if(item == null)
+            {
+                return TreeView_GetNextItem(hWnd, flag);
+            }
+            else
+            {
+                return TreeView_GetNextItem(hWnd, flag, item);
+            }
+        }
+        public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd , uint flag, TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr nItem = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETNEXTITEM, (int)flag, p);
+                if(nItem != IntPtr.Zero)
+                {
+                    return Marshal.PtrToStructure<TVITEMW>(nItem);
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        }
+
+        public static IntPtr TreeView_GetNextItemPtr(IntPtr hWnd, uint flag, IntPtr item)
+        {
+            return User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETNEXTITEM, (int)flag, item);
+        }
+
+        public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd, uint flag)
+        {
+            IntPtr nItem = User32.SendMessage(hWnd,(int)TreeViewConst.TVM_GETNEXTITEM, (int)flag , IntPtr.Zero);
+            if(nItem != IntPtr.Zero)
+            {
+                return Marshal.PtrToStructure<TVITEMW>(nItem) ;
+            }
+            else 
+            { 
+                return null; 
+            }
+        }
+
+        public static IntPtr TreeView_GetChildPtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_CHILD, item);
+        }
+        public static TVITEMW? TreeView_GetChild(IntPtr hWnd, TVITEMW item) 
+        { 
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_CHILD, item);
+        }
+
+        public static IntPtr TreeView_GetNextSiblingPtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_NEXT, item);
+        }
+        public static TVITEMW? TreeView_GetNextSibling(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_NEXT, item);
+        }
+
+        public static IntPtr TreeView_GetPrevSiblingPtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_PREVIOUS, item);
+        }
+
+        public static TVITEMW? TreeView_GetPrevSibling(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_PREVIOUS, item);
+        }
+        public static IntPtr TreeView_GetParentPtr(IntPtr hWnd, IntPtr intem)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_PARENT, intem);
+        }
+        public static TVITEMW? TreeView_GetParent(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd , TreeViewConst.TVGN_PARENT, item);
+        }
+
+        public static IntPtr TreeView_GetFirstVisiblePtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_FIRSTVISIBLE, item);
+        }
+
+        public static TVITEMW? TreeView_GetFirstVisible(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_FIRSTVISIBLE, item);
+        }
+
+        public static IntPtr TreeView_GetNexVisible(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_NEXTVISIBLE, item);
+        }
+        public static TVITEMW? TreeView_GetNexVisible(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_NEXTVISIBLE, item);
+        }
+
+        public static IntPtr TreeView_GetPrevVisiblePtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_PREVIOUSVISIBLE, item);
+        }
+
+        public static TVITEMW? TreeView_GetPrevVisible(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd , TreeViewConst.TVGN_PREVIOUSVISIBLE, item);
+        }
+
+        public static IntPtr TreeView_GetSelectionPtr(IntPtr hWnd)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_CARET, IntPtr.Zero);
+        }
+
+        public static TVITEMW? TreeView_GetSelection(IntPtr hWnd)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_CARET, null);
+        }
+
+        public static IntPtr TreeView_GetDropHilightPtr(IntPtr hWnd)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_DROPHILITE, IntPtr.Zero);
+        }
+
+        public static TVITEMW? TreeView_GetDropHilight(IntPtr hWnd)
+        {
+            return TreeView_GetNextItem(hWnd , TreeViewConst.TVGN_DROPHILITE , null);
+        }
+
+        public static IntPtr TreeView_GetRootPtr(IntPtr hWnd)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_ROOT, IntPtr.Zero);
+        }
+        public static TVITEMW? TreeView_GetRoot(IntPtr hWnd)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_ROOT , null);
+        }
+
+        public static IntPtr TreeView_GetLastVisiblePtr(IntPtr hWnd)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_LASTVISIBLE, IntPtr.Zero);
+        }
+
+        public static TVITEMW? TreeView_GetLastVisible(IntPtr hWnd)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_LASTVISIBLE , null);
+        }
+
+        public static IntPtr TreeView_GetNextSelectedPtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_NEXTSELECTED, item);
+        }
+
+        public static TVITEMW? TreeView_GetNextSelected(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_NEXTSELECTED , item);
+        }
+
+        public static bool TreeView_SelectPtr(IntPtr hWnd, uint code, IntPtr item)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, item, (int)code);
+            return (ApiBool)result.ToInt32();
+
+        }
+
+        public static bool TreeView_Select(IntPtr hWnd,uint code, TVITEMW? item)
+        {
+            if(item == null)
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, IntPtr.Zero, (int)code );
+                return (ApiBool)result.ToInt32();
+            }
+            else
+            {
+                using (var p = new ApiStructHandleRef<TVITEMW>(item)) 
+                {
+                    IntPtr result =  User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, p, (int)code);
+                    return (ApiBool)result.ToInt32();
+                }
+            }
+        }
+
+        public static bool TreeView_SelectItemPtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_SelectPtr(hWnd, TreeViewConst.TVGN_CARET, item);
+        }
+        public static bool TreeView_SelectItem(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_Select(hWnd, TreeViewConst.TVGN_CARET,item);
+        }
+
+        public static bool TreeView_SelectDropTargetPtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_SelectPtr(hWnd, TreeViewConst.TVGN_DROPHILITE, item);
+        }
+        public static bool TreeView_SelectDropTarget(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_Select(hWnd, TreeViewConst.TVGN_DROPHILITE,item);
+        }
+
+        public static bool TreeView_SelectSetFirstVisiblePtr(IntPtr hWnd, IntPtr item)
+        {
+            return TreeView_SelectPtr(hWnd, TreeViewConst.TVGN_FIRSTVISIBLE, item);
+        }
+
+        public static bool TreeView_SelectSetFirstVisible(IntPtr hWnd, TVITEMW item)
+        {
+            return TreeView_Select(hWnd, TreeViewConst.TVGN_FIRSTVISIBLE,item);
+        }
+
+
+        
+
+        public static bool TreeView_GetItem(IntPtr hWnd, ref TVITEMW item) 
+        { 
+            using(var p =  new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMW, IntPtr.Zero, p);
+                ApiBool ok = (ApiBool)result.ToInt32();
+                if(ok)
+                {
+                    item = p.GetStruct();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static bool TreeView_GetItem(IntPtr hWnd, ref TVITEMEXW item)
+        {
+            using (var p = new ApiStructHandleRef<TVITEMEXW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMW, IntPtr.Zero, p);
+                ApiBool ok = ( ApiBool)result.ToInt32();
+                if(ok)
+                {
+                    item = p.GetStruct();
+                    return true;
+                }
+                return false;
+            }
+        }
+        public static bool TreeView_SetItem(IntPtr hWnd, TVITEMW item)
+        {
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETITEMW, IntPtr.Zero, p); 
+                return (ApiBool)result.ToInt32();
+            }
+        }
+
+        public static bool TreeView_SetItem(IntPtr hWnd, TVITEMEXW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETITEMW, IntPtr.Zero, p);
+                return (ApiBool)result.ToInt32();
+            }
+        }
+
+        public static IntPtr TreeView_EditLabel(IntPtr hWnd, TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                return User32.SendMessage(hWnd, TreeViewConst.TVM_EDITLABELW, IntPtr.Zero, p);
+            }
+        }
+
+        public static IntPtr TreeView_GetEditControl(IntPtr hWnd)
+        {
+            return User32.SendMessage(hWnd, TreeViewConst.TVM_GETEDITCONTROL);
+        }
+
+        public static int TreeView_GetVisibleCount(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETVISIBLECOUNT);
+            return result.ToInt32();
+        }
+
+        public static bool TreeView_HitTest(IntPtr hWnd, TVHITTESTINFO hitTestItem, out TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVHITTESTINFO >(hitTestItem))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_HITTEST, IntPtr.Zero, p);
+                if(result != IntPtr.Zero)
+                {
+                    item = Marshal.PtrToStructure<TVITEMW>(result);
+                    return true;
+                }
+                else
+                {
+                    item = new TVITEMW();
+                    return false;
+                }
+            }
+        }
+
+        public static IntPtr TreeView_CreateDragImage(IntPtr hWnd , TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW >(item))
+            {
+                return User32.SendMessage(hWnd, TreeViewConst.TVM_CREATEDRAGIMAGE, IntPtr.Zero, p);
+
+            }
+        }
+
+        public static bool TreeView_SortChildren(IntPtr hWnd, TVITEMW item, bool recourive)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SORTCHILDREN, (ApiBool)recourive, p);
+                return (ApiBool)result.ToInt32();
+            }
+        }
+        public static bool TreeView_EnsureVisible(IntPtr hWnd, TVITEMW item)
+        {
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_ENSUREVISIBLE, IntPtr.Zero, p);
+                return (ApiBool)result.ToInt32();
+            }
+        }
+
+        public static bool TreeView_SortChildrenCB(IntPtr hWnd, TVSORTCB sortCb)
+        {
+            using(var p = new ApiStructHandleRef<TVSORTCB>(sortCb))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SORTCHILDRENCB, IntPtr.Zero, p);
+                return (ApiBool)result.ToInt32();
+            }
+        }
+
+        public static bool TreeView_EndEditLabelNow(IntPtr hWnd, bool cancel)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_ENDEDITLABELNOW, (ApiBool)cancel, 0);
+            return (ApiBool)result.ToInt32();
+        }
+
+        public static IntPtr TreeView_SetToolTips(IntPtr hWnd, IntPtr toolTip) 
+        { 
+            return User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETTOOLTIPS, toolTip, IntPtr.Zero);
+        }
+
+        public static IntPtr TreeView_GetToolTips(IntPtr hWnd)
+        {
+            return User32.SendMessage(hWnd, TreeViewConst.TVM_GETTOOLTIPS);
+        }
+
+        public static int TreeView_GetISearchString(IntPtr hWnd, out string searchString)
+        {
+            StringBuilder sb = new StringBuilder(1024);
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETISEARCHSTRINGW, 0, sb);
+            searchString = sb.ToString();
+            return result.ToInt32();
+        }
+
+        public static int TreeView_SetInsertMark(IntPtr hWnd, bool placeAfter, TVITEMW? item)
+        {
+            if(item == null)
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARK, (ApiBool)placeAfter,IntPtr.Zero);
+                return result.ToInt32();
+            }
+            else
+            {
+                using (var p = new ApiStructHandleRef<TVITEMW>(item))
+                {
+                    IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARK, (ApiBool)placeAfter, p);
+                    return result.ToInt32();
+                }
+
+            }
+
+        }
+
+        public static bool TreeView_SetUnicodeFormat(IntPtr hWnd, bool unicode)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETUNICODEFORMAT, (ApiBool)unicode, 0);
+            return (ApiBool)result.ToInt32();
+        }
+
+
+        public static bool TreeView_GetUnicodeFormat(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETUNICODEFORMAT);
+            return (ApiBool)result.ToInt32();
+        }
+
+        public static int TreeView_SetItemHeight(IntPtr hWnd, int height)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETITEMHEIGHT, height,0);
+            return result.ToInt32();
+        }
+
+        public static int TreeView_GetItemHeight(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMHEIGHT);
+            return result.ToInt32();
+        }
+
+        public static int TreeView_SetBkColor(IntPtr hWnd, int color)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETBKCOLOR, 0, color);
+            return result.ToInt32();
+        }
+
+        public static int TreeView_SetTextColor(IntPtr hWnd, int color)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETTEXTCOLOR, 0, color);
+            return result.ToInt32();
+        }
+
+        public static int TreeView_GetBkColor(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETBKCOLOR);
+            return result.ToInt32();
+        }
+        public static int TreeView_GetTextColor(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETTEXTCOLOR);
+            return result.ToInt32();
+        }
+
+        public static uint TreeView_SetScrollTime(IntPtr hWnd, uint uTime)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETSCROLLTIME, uTime, 0);
+            return (uint)result.ToInt64();
+        }
+        public static uint TreeView_GetScrollTime(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETSCROLLTIME);
+            return (uint)result.ToInt64();
+        }
+
+        public static int TreeView_SetInsertMarkColor(IntPtr hWnd, int color)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARKCOLOR,0, color);
+            return result.ToInt32();
+        }
+
+        public static int TreeView_GetInsertMarkColor(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETINSERTMARKCOLOR);
+            return result.ToInt32();
+        }
+
+        public static int TreeView_SetBorder(IntPtr hWnd, uint dwFalg, int xBorder, int yBorder)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETBORDER, (int)dwFalg, Win32Api.MakeLParam(xBorder, yBorder));
+            return result.ToInt32();
+        }
+
+        public static bool TreeView_SetItemState(IntPtr hWnd, TVITEMW item,uint data, uint mask)
+        {
+            using(var pItem = new ApiStructHandleRef<TVITEMW>(item)) 
+            { 
+                TVITEMW iItem = new TVITEMW();
+                iItem.mask = TreeViewConst.TVIF_STATE;
+                iItem.hItem = pItem;
+                iItem.stateMask = mask;
+                iItem.state = data;
+                TreeView_SetItem(hWnd, iItem);
+                return TreeView_SetItem(hWnd, iItem);
+
+
+            }
+        }
+
+        //public unsafe static TVITEMEXW ItemToItemEx(TVITEMW* item)
+        //{
+        //    TVITEMEXW* pt = (TVITEMEXW*)item;
+        //    return *pt;
+        //}
+        //public unsafe static TVITEMW ItemExToItem(TVITEMEXW* item)
+        //{
+        //    TVITEMW* pt = (TVITEMW*)item;
+        //    return *pt;
+        //}
+        public static int INDEXTOSTATEIMAGEMASK(int index)
+        {
+            return index << 12;
+        }
+        public static bool TreeView_SetCheckState(IntPtr hWnd, TVITEMW item, bool check)
+        {
+            return TreeView_SetItemState(hWnd, item, (uint)INDEXTOSTATEIMAGEMASK(check?2:1), TreeViewConst.TVIS_STATEIMAGEMASK);
+        }
+
+        public static uint TreeView_GetItemState(IntPtr hWnd, TVITEMW item, uint mask)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETITEMSTATE, p, (int)mask);
+                return (uint)result.ToInt64();
+            }
+        }
+
+        public static int TreeView_GetCheckState(IntPtr hWnd, TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMSTATE, p, (int)TreeViewConst.TVIS_STATEIMAGEMASK);
+                int vla = result.ToInt32();
+                return ((vla >> 12) -1);
+            }
+        }
+
+        public static int TreeView_SetLineColor(IntPtr hWnd, int color)
+        {
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETLINECOLOR, 0, color);
+            return result.ToInt32();
+        }
+        public static int TreeView_GetLineColor(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETLINECOLOR);
+            return result.ToInt32();
+        }
+
+        public static bool TreeView_MapAccIDToHTREEITEM(IntPtr hWnd, uint id, out TVITEMW intem)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_MAPACCIDTOHTREEITEM, id);
+            if(result != IntPtr.Zero)
+            {
+                intem = Marshal.PtrToStructure<TVITEMW>(result);
+                return true;
+            }
+            else 
+            {
+                intem = new TVITEMW();
+                return false; 
+            }
+        }
+
+        public static uint TreeView_MapHTREEITEMToAccID(IntPtr hWnd, TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_MAPHTREEITEMTOACCID, p,0);
+                return (uint)result.ToInt64();
+            }
+        }
+
+        public static int TreeView_SetExtendedStyle(IntPtr hWnd, uint dw, uint maks )
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETEXTENDEDSTYLE,maks, dw); 
+            return result.ToInt32();
+        }
+
+        public static uint TreeView_GetExtendedStyle(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETEXTENDEDSTYLE);
+            return (uint)result.ToInt64();
+        }
+        public static bool TreeView_SetAutoScrollInfo(IntPtr hWnd,uint uPixPerSec, uint uUpdateTime)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETAUTOSCROLLINFO ,uPixPerSec, uUpdateTime);
+            return (ApiBool)result.ToInt32();
+        }
+
+        public static bool TreeView_SetHot(IntPtr hWnd, TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETHOT, 0, p);
+                return (ApiBool)result.ToInt32();
+            }
+        }
+
+        public static uint TreeView_GetSelectedCount(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETSELECTEDCOUNT);
+            return (uint)result.ToInt64();
+        }
+
+        public static uint TreeView_ShowInfoTip(IntPtr hWnd, TVITEMW item)
+        {
+            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SHOWINFOTIP, 0, p);
+                return (uint)result.ToInt64();
+            }
+        }
+    }
     public static class ListViewMacros
     {
 
@@ -1687,7 +2471,7 @@ namespace Diga.Core.Api.Win32
         public static IntPtr ListView_GetEditControl(IntPtr hWnd)
         {
             return User32.SendMessage(hWnd, ListViewMessageConst.LVM_GETEDITCONTROL, IntPtr.Zero, IntPtr.Zero);
-            
+
         }
 
         public static ApiBool ListView_GetItemW(IntPtr hwnd, out tagLVITEMW pItem)
