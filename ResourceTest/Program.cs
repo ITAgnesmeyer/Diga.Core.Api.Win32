@@ -295,6 +295,16 @@ namespace ResourceTest
         {
             switch (msg)
             {
+                case WindowsMessages.WM_PAINT:
+                    using (var p = new ApiStructHandleRef<PaintStruct>())
+                    {
+                        IntPtr hdc = User32.BeginPaint(hwnd, p);
+                        PaintStruct ps = p.GetStruct();
+                        User32.EndPaint(hwnd, p);
+                        User32.ReleaseDC(hwnd, hdc);
+
+                    }
+                    break;
 
                 case WindowsMessages.WM_NOTIFY:
                     NmHdr hdr = null;

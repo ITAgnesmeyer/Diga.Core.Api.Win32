@@ -543,9 +543,16 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32)]
         public static extern IntPtr BeginPaint(IntPtr hwnd, out PaintStruct lpPaint);
 
+        //[DllImport(USER32)]
+        //public static extern IntPtr BeginPaintRef(IntPtr hwnd, ref PaintStruct lpPaint);
+        [DllImport(USER32)]
+        public static extern IntPtr BeginPaint(IntPtr hWnd, IntPtr lpPaintPtr);
+
+
         [DllImport(USER32)]
         public static extern bool EndPaint(IntPtr hWnd, [In] ref PaintStruct lpPaint);
-
+        [DllImport(USER32)]
+        public static extern bool EndPaint(IntPtr hWnd, IntPtr lpPaint);
 
         [DllImport(USER32, EntryPoint = "EnumThreadWindows", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
