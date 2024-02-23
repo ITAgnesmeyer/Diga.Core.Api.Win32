@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -87,6 +88,16 @@ namespace Diga.Core.Api.Win32
         public static extern uint GetSystemDirectory([Out]
             StringBuilder lpBuffer, uint uSize);
 
+        [DllImport(KERNEL32, EntryPoint = "GetCurrentDirectory", CharSet = CHARSET, SetLastError = true)]
+        public static extern uint GetCurrentDirectory(uint nBufffLen, [Out] StringBuilder lpBuffer);
+
+        public static string GetCurrentDirectory()
+        {
+            int maxPath = 32000;
+            StringBuilder lpBuffer = new StringBuilder(maxPath);
+            uint len = GetCurrentDirectory((uint)maxPath, lpBuffer);
+            return lpBuffer.ToString();
+        }
 
         [DllImport(KERNEL32, EntryPoint = "ActivateActCtx")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -100,6 +111,13 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(KERNEL32, EntryPoint = "OpenProcess", SetLastError = true)]
         public static extern IntPtr OpenProcess(uint dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, uint dwProcessId);
+
+        [DllImport(KERNEL32, EntryPoint = "OpenProcess", SetLastError = true)]
+        public static extern IntPtr GetCurrentProcess();
+        public static IntPtr GetCurrentProcessHandle()
+        {
+            return Process.GetCurrentProcess().Handle;
+        }
 
 
         [DllImport(KERNEL32, EntryPoint = "CloseHandle")]

@@ -83,6 +83,7 @@ namespace Diga.Core.Api.Win32.Com
             uint zero = 0;
             if (0 <= Shell32.SHILCreateFromPath(path, out pidl, ref zero))
             {
+#pragma warning disable IL2050 // Correctness of COM interop cannot be guaranteed after trimming. Interfaces and interface members might be removed.
                 if (0 <= Shell32.SHCreateShellItem(
                     IntPtr.Zero, //No parent specified
                     IntPtr.Zero,
@@ -91,6 +92,7 @@ namespace Diga.Core.Api.Win32.Com
                 {
                     return ret;
                 }
+#pragma warning restore IL2050 // Correctness of COM interop cannot be guaranteed after trimming. Interfaces and interface members might be removed.
             }
             throw new System.IO.FileNotFoundException();
         }

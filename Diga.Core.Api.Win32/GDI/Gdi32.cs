@@ -451,6 +451,18 @@ namespace Diga.Core.Api.Win32.GDI
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool MaskBlt(IntPtr hdcDest, int xDest, int yDest, int width, int height, IntPtr hdcSrc, int xSrc, int ySrc, IntPtr hbmMask, int xMask, int yMask, uint rop);
 
+
+
+        /// Return Type: BOOL->int
+        ///hdc: HDC->HDC__*
+        ///x: int
+        ///y: int
+        ///lppt: LPPOINT->tagPOINT*
+        [DllImport("gdi32.dll", EntryPoint = "MoveToEx")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool MoveToEx([In()] IntPtr hdc, int x, int y, IntPtr lppt);
+
+
         [DllImport(GDI32, EntryPoint = "OffsetClipRgn")]
         public static extern int OffsetClipRgn(IntPtr hdc, int x, int y);
 

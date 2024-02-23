@@ -3,7 +3,6 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
 
 namespace Diga.Core.Api.Win32
 {
@@ -12,7 +11,7 @@ namespace Diga.Core.Api.Win32
     {
         public const uint CLR_NONE = unchecked((uint)0xFFFFFFFFL);
         public const uint CLR_DEFAULT = unchecked((uint)0xFF000000L);
-        
+
         public const uint ILC_MASK = 0x00000001;
         public const uint ILC_COLOR = 0x00000000;
         public const uint ILC_COLORDDB = 0x000000FE;
@@ -26,7 +25,7 @@ namespace Diga.Core.Api.Win32
         public const uint ILC_PERITEMMIRROR = 0x00008000;// Causes the mirroring code to mirror each item when inserting a set of images, verses the whole strip
         public const uint ILC_ORIGINALSIZE = 0x00010000;// Imagelist should accept smaller than set images and apply OriginalSize based on image added
         public const uint ILC_HIGHQUALITYSCALE = 0x00020000;// Imagelist should enable use of the high quality scaler.
-        
+
         public const uint ILD_NORMAL = 0x00000000;
         public const uint ILD_TRANSPARENT = 0x00000001;
         public const uint ILD_MASK = 0x00000010;
@@ -35,8 +34,8 @@ namespace Diga.Core.Api.Win32
         public const uint ILD_BLEND25 = 0x00000002;
         public const uint ILD_BLEND50 = 0x00000004;
         public const uint ILD_OVERLAYMASK = 0x00000F00;
-        
-public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha channel in dest
+
+        public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha channel in dest
         public const uint ILD_SCALE = 0x00002000;// Causes the image to be scaled to cx, cy instead of clipped
         public const uint ILD_DPISCALE = 0x00004000;
         public const uint ILD_ASYNC = 0x00008000;
@@ -179,7 +178,406 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         public uint Frame;
         public uint crEffect;
     }
+    public class TabControlConst
+    {
+        public const uint TCM_FIRST = 0x1300;// Tab control messages
+        public const uint TCS_SCROLLOPPOSITE = 0x0001;// assumes multiline tab
+        public const uint TCS_BOTTOM = 0x0002;
+        public const uint TCS_RIGHT = 0x0002;
+        public const uint TCS_MULTISELECT = 0x0004;// allow multi-select in button mode
+        public const uint TCS_FLATBUTTONS = 0x0008;
+        public const uint TCS_FORCEICONLEFT = 0x0010;
+        public const uint TCS_FORCELABELLEFT = 0x0020;
+        public const uint TCS_HOTTRACK = 0x0040;
+        public const uint TCS_VERTICAL = 0x0080;
+        public const uint TCS_TABS = 0x0000;
+        public const uint TCS_BUTTONS = 0x0100;
+        public const uint TCS_SINGLELINE = 0x0000;
+        public const uint TCS_MULTILINE = 0x0200;
+        public const uint TCS_RIGHTJUSTIFY = 0x0000;
+        public const uint TCS_FIXEDWIDTH = 0x0400;
+        public const uint TCS_RAGGEDRIGHT = 0x0800;
+        public const uint TCS_FOCUSONBUTTONDOWN = 0x1000;
+        public const uint TCS_OWNERDRAWFIXED = 0x2000;
+        public const uint TCS_TOOLTIPS = 0x4000;
+        public const uint TCS_FOCUSNEVER = 0x8000;
+        public const uint TCS_EX_FLATSEPARATORS = 0x00000001;
+        public const uint TCS_EX_REGISTERDROP = 0x00000002;
+        public const uint TCM_GETIMAGELIST = (TCM_FIRST + 2);
+        //public const uint TabCtrl_GetImageList(hwnd)=\;
+        public const uint TCM_SETIMAGELIST = (TCM_FIRST + 3);
+        //public const uint TabCtrl_SetImageList(hwnd,= himl) \;
+        public const uint TCM_GETITEMCOUNT = (TCM_FIRST + 4);
+        //public const uint TabCtrl_GetItemCount(hwnd)=\;
+        public const uint TCIF_TEXT = 0x0001;
+        public const uint TCIF_IMAGE = 0x0002;
+        public const uint TCIF_RTLREADING = 0x0004;
+        public const uint TCIF_PARAM = 0x0008;
+        public const uint TCIF_STATE = 0x0010;
+        public const uint TCIS_BUTTONPRESSED = 0x0001;
+        public const uint TCIS_HIGHLIGHTED = 0x0002;
+        //public const uint TC_ITEMHEADERA = TCITEMHEADERA;
+        //public const uint TC_ITEMHEADERW = TCITEMHEADERW;
+        //public const uint TC_ITEMHEADER = TCITEMHEADER;
+        //public const uint TCITEMHEADER = TCITEMHEADERW;
+        //public const uint LPTCITEMHEADER = LPTCITEMHEADERW;
+        //public const uint TCITEMHEADER = TCITEMHEADERA;
+        //public const uint LPTCITEMHEADER = LPTCITEMHEADERA;
+        //public const uint TC_ITEMA = TCITEMA;
+        //public const uint TC_ITEMW = TCITEMW;
+        //public const uint TC_ITEM = TCITEM;
+        //public const uint TCITEM = TCITEMW;
+        //public const uint LPTCITEM = LPTCITEMW;
+        //public const uint TCITEM = TCITEMA;
+        //public const uint LPTCITEM = LPTCITEMA;
+        public const uint TCM_GETITEMA = (TCM_FIRST + 5);
+        public const uint TCM_GETITEMW = (TCM_FIRST + 60);
+        //public const uint TCM_GETITEM = TCM_GETITEMW;
+        //public const uint TCM_GETITEM = TCM_GETITEMA;
+        //public const uint TabCtrl_GetItem(hwnd,= iItem, pitem) \;
+        public const uint TCM_SETITEMA = (TCM_FIRST + 6);
+        public const uint TCM_SETITEMW = (TCM_FIRST + 61);
+        //public const uint TCM_SETITEM = TCM_SETITEMW;
+        //public const uint TCM_SETITEM = TCM_SETITEMA;
+        //public const uint TabCtrl_SetItem(hwnd,= iItem, pitem) \;
+        public const uint TCM_INSERTITEMA = (TCM_FIRST + 7);
+        public const uint TCM_INSERTITEMW = (TCM_FIRST + 62);
+        //public const uint TCM_INSERTITEM = TCM_INSERTITEMW;
+        //public const uint TCM_INSERTITEM = TCM_INSERTITEMA;
+        //public const uint TabCtrl_InsertItem(hwnd,= iItem, pitem)   \;
+        public const uint TCM_DELETEITEM = (TCM_FIRST + 8);
+        //public const uint TabCtrl_DeleteItem(hwnd,= i) \;
+        public const uint TCM_DELETEALLITEMS = (TCM_FIRST + 9);
+        //public const uint TabCtrl_DeleteAllItems(hwnd)=\;
+        public const uint TCM_GETITEMRECT = (TCM_FIRST + 10);
+        //public const uint TabCtrl_GetItemRect(hwnd,= i, prc) \;
+        public const uint TCM_GETCURSEL = (TCM_FIRST + 11);
+        //public const uint TabCtrl_GetCurSel(hwnd)=\;
+        public const uint TCM_SETCURSEL = (TCM_FIRST + 12);
+        //public const uint TabCtrl_SetCurSel(hwnd,= i) \;
+        public const uint TCHT_NOWHERE = 0x0001;
+        public const uint TCHT_ONITEMICON = 0x0002;
+        public const uint TCHT_ONITEMLABEL = 0x0004;
+        public const uint TCHT_ONITEM = (TCHT_ONITEMICON | TCHT_ONITEMLABEL);
+        //public const uint LPTC_HITTESTINFO = LPTCHITTESTINFO;
+        //public const uint TC_HITTESTINFO = TCHITTESTINFO;
+        public const uint TCM_HITTEST = (TCM_FIRST + 13);
+        //public const uint TabCtrl_HitTest(hwndTC,= pinfo) \;
+        public const uint TCM_SETITEMEXTRA = (TCM_FIRST + 14);
+        //public const uint TabCtrl_SetItemExtra(hwndTC,= cb) \;
+        public const uint TCM_ADJUSTRECT = (TCM_FIRST + 40);
+        //public const uint TabCtrl_AdjustRect(hwnd,= bLarger, prc) \;
+        public const uint TCM_SETITEMSIZE = (TCM_FIRST + 41);
+        //public const uint TabCtrl_SetItemSize(hwnd,= x, y) \;
+        public const uint TCM_REMOVEIMAGE = (TCM_FIRST + 42);
+        //public const uint TabCtrl_RemoveImage(hwnd,= i) \;
+        public const uint TCM_SETPADDING = (TCM_FIRST + 43);
+        //public const uint TabCtrl_SetPadding(hwnd,= cx, cy) \;
+        public const uint TCM_GETROWCOUNT = (TCM_FIRST + 44);
+        //public const uint TabCtrl_GetRowCount(hwnd)=\;
+        public const uint TCM_GETTOOLTIPS = (TCM_FIRST + 45);
+        //public const uint TabCtrl_GetToolTips(hwnd)=\;
+        public const uint TCM_SETTOOLTIPS = (TCM_FIRST + 46);
+        //public const uint TabCtrl_SetToolTips(hwnd,= hwndTT) \;
+        public const uint TCM_GETCURFOCUS = (TCM_FIRST + 47);
+        //public const uint TabCtrl_GetCurFocus(hwnd)=\;
+        public const uint TCM_SETCURFOCUS = (TCM_FIRST + 48);
+        //public const uint TabCtrl_SetCurFocus(hwnd,= i) \;
+        public const uint TCM_SETMINTABWIDTH = (TCM_FIRST + 49);
+        //public const uint TabCtrl_SetMinTabWidth(hwnd,= x) \;
+        public const uint TCM_DESELECTALL = (TCM_FIRST + 50);
+        //public const uint TabCtrl_DeselectAll(hwnd,= fExcludeFocus)\;
+        public const uint TCM_HIGHLIGHTITEM = (TCM_FIRST + 51);
+        //public const uint TabCtrl_HighlightItem(hwnd,= i, fHighlight) \;
+        public const uint TCM_SETEXTENDEDSTYLE = (TCM_FIRST + 52);// optional wParam == mask
+        //public const uint TabCtrl_SetExtendedStyle(hwnd,= dw)\;
+        public const uint TCM_GETEXTENDEDSTYLE = (TCM_FIRST + 53);
+        public const uint TCM_SETUNICODEFORMAT = CommonControlsMessageConst.CCM_SETUNICODEFORMAT;
+        //public const uint TabCtrl_SetUnicodeFormat(hwnd,= fUnicode)  \;
+        public const uint TCM_GETUNICODEFORMAT = CommonControlsMessageConst.CCM_SETUNICODEFORMAT;
+        //public const uint TabCtrl_GetUnicodeFormat(hwnd)= \;
+        public const uint TCN_FIRST = 0xfffffdda;
+        public const uint TCN_KEYDOWN = (TCN_FIRST - 0);
+        //public const uint TC_KEYDOWN = NMTCKEYDOWN;
+        public const uint TCN_SELCHANGE = (TCN_FIRST - 1);
+        public const uint TCN_SELCHANGING = (TCN_FIRST - 2);
+        public const uint TCN_GETOBJECT = (TCN_FIRST - 3);
+        public const uint TCN_FOCUSCHANGE = (TCN_FIRST - 4);
+    }
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TCITEMHEADERA
+    {
+        public uint mask;
+        public uint lpReserved1;
+        public uint lpReserved2;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TCITEMHEADERW
+    {
+        public uint mask;
+        public uint lpReserved1;
+        public uint lpReserved2;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TCITEMA
+    {
+        public uint mask;
+        public uint dwState;
+        public uint dwStateMask;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TCITEMW
+    {
+        public uint mask;
+        public uint dwState;
+        public uint dwStateMask;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string pszText;
+        public int cchTextMax;
+        public int iImage;
+        public IntPtr lParam;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TCHITTESTINFO
+    {
+        public Point pt;
+        public uint flags;
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct NMTCKEYDOWN
+    {
+        public NmHdr hdr;
+        public ushort wVKey;
+        public uint flags;
+    }
+
+    public static class TabControlMacros
+    {
+        public static IntPtr TabCtrl_GetImageList(IntPtr hWnd)
+        {
+            return User32.SendMessage(hWnd, TabControlConst.TCM_GETIMAGELIST);
+
+        }
+        public static IntPtr TabCtrl_SetImageList(IntPtr hWnd, IntPtr hIml)
+        {
+            return User32.SendMessage(hWnd, TabControlConst.TCM_SETIMAGELIST, IntPtr.Zero, hIml);
+
+
+        }
+        public static int TabCtrl_GetItemCount(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, TabControlConst.TCM_GETITEMCOUNT);
+            return result.ToInt32();
+        }
+
+
+        public static bool  TabCtrl_GetItem(IntPtr hWnd,int iItem, out TCITEMW pItem)
+        {
+            using(var p = new ApiStructHandleRef<TCITEMW>())
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TabControlConst.TCM_GETITEMW, iItem, p);
+                ApiBool ok = result.ToInt32();
+                if(ok)
+                {
+                    pItem = p.GetStruct();
+                }
+                else
+                {
+                    pItem = new TCITEMW();
+                }
+                return ok;
+            }
+        }
+
+        public static bool TabCtrl_SetItem(IntPtr hWnd, int iItem, TCITEMW pitem)
+        {
+            using(var p = new ApiStructHandleRef<TCITEMW>(pitem))
+            {
+                IntPtr result = User32.SendMessage(hWnd, (int)TabControlConst.TCM_SETITEMW, iItem, p);
+                return (ApiBool)result.ToInt32();
+            }
+        }
+
+        public static int TabCtrl_InsertItem(IntPtr hwnd,int iItem, TCITEMW pitem)
+        {
+            using(var p = new ApiStructHandleRef<TCITEMW>(pitem))
+            {
+                IntPtr result = User32.SendMessage(hwnd, (int)TabControlConst.TCM_INSERTITEMW, iItem, p);
+                return result.ToInt32();
+            }
+        }
+        public static bool TabCtrl_DeleteItem(IntPtr hwnd,int i)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_DELETEITEM, (uint)i);
+            return (ApiBool)result.ToInt32();
+        }
+
+        
+        public static bool TabCtrl_DeleteAllItems(IntPtr hwnd)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_DELETEALLITEMS);
+            return (ApiBool)result.ToInt32();
+        }
+        public static bool TabCtrl_GetItemRect(IntPtr hwnd,int i,out Rect prc)
+        {
+            using(var p = new ApiStructHandleRef<Rect>())
+            {
+                IntPtr result = User32.SendMessage(hwnd, (int)TabControlConst.TCM_GETITEMRECT, i, p);
+                ApiBool ok = result.ToInt32();
+                if(ok)
+                {
+                    prc = p.GetStruct();
+                }
+                else
+                {
+                    prc = new Rect();
+                }
+                return ok;
+            }
+        }
+        public static int TabCtrl_GetCurSel(IntPtr hwnd)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_GETCURSEL);
+            return result.ToInt32();
+        }
+        public static int TabCtrl_SetCurSel(IntPtr hwnd,int i)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_SETCURSEL, (uint)i);
+            return result.ToInt32();
+        }
+        public static int TabCtrl_HitTest(IntPtr hWnd, TCHITTESTINFO pinfo)
+        { 
+            using(var p = new ApiStructHandleRef<TCHITTESTINFO>(pinfo))
+            {
+                IntPtr result = User32.SendMessage(hWnd , TabControlConst.TCM_HITTEST, IntPtr.Zero, p);
+                return result.ToInt32();    
+            }
+        }
+
+        public static bool TabCtrl_SetItemExtra(IntPtr hwndTC,int cb)
+        {
+            IntPtr result = User32.SendMessage(hwndTC, TabControlConst.TCM_SETITEMEXTRA, (uint)cb, 0);
+            return (ApiBool)result.ToInt32();
+        }
+
+        public static void TabCtrl_AdjustRect(IntPtr hwnd,bool bLarger, ref Rect prc)
+        {
+            using(var p = new ApiStructHandleRef<Rect>(prc))
+            {
+                User32.SendMessage(hwnd, (int)TabControlConst.TCM_ADJUSTRECT, (ApiBool)bLarger, p);
+                prc = p.GetStruct();
+            }
+        }
+
+        public static HighLow TabCtrl_SetItemSize(IntPtr hwnd,int width,int  height)
+        {
+            HighLow hl = new HighLow();
+            hl.iLow = width;
+            hl.iHigh = height;
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_SETITEMSIZE, IntPtr.Zero, Win32Api.HiLoToLParam(hl));
+            HighLow hlResult = Win32Api.MakeHiLo(result);
+            return hlResult;
+
+        }
+        public static void TabCtrl_RemoveImage(IntPtr hwnd,int i)
+        {
+            User32.SendMessage(hwnd, TabControlConst.TCM_REMOVEIMAGE, (uint)i);
+
+        }
+
+        public static void TabCtrl_SetPadding(IntPtr hwnd,int cx, int cy)
+        {
+            HighLow hl = new HighLow();
+            hl.iLow = cx;
+            hl.iHigh = cy;
+            User32.SendMessage(hwnd, TabControlConst.TCM_SETPADDING, IntPtr.Zero , Win32Api.HiLoToLParam(hl));
+        }
+
+        public static int TabCtrl_GetRowCount(IntPtr hwnd)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_GETROWCOUNT);
+            return result.ToInt32();
+        }
+        public static IntPtr TabCtrl_GetToolTips(IntPtr hwnd)
+        {
+            return User32.SendMessage(hwnd , TabControlConst.TCM_GETTOOLTIPS);
+        }
+        public static void TabCtrl_SetToolTips(IntPtr hwnd,IntPtr hwndTT)
+        {
+            User32.SendMessage(hwnd , TabControlConst.TCM_SETTOOLTIPS, hwndTT, IntPtr.Zero); 
+        }
+        public static int TabCtrl_GetCurFocus(IntPtr hwnd)
+        {
+            IntPtr result = User32.SendMessage(hwnd , TabControlConst.TCM_GETCURFOCUS);
+            return result.ToInt32();
+        }
+        public static void TabCtrl_SetCurFocus(IntPtr hwnd,int i)
+        {
+            User32.SendMessage(hwnd, TabControlConst.TCM_SETCURFOCUS, (uint)i);
+        }
+        public static int TabCtrl_SetMinTabWidth(IntPtr hwnd,int x)
+        {
+            IntPtr result = User32.SendMessage(hwnd , (int)TabControlConst.TCM_SETMINTABWIDTH,0, x);
+            return result.ToInt32();
+        }
+
+
+        public static void TabCtrl_DeselectAll(IntPtr hwnd,bool fExcludeFocus)
+        {
+            User32.SendMessage(hwnd , TabControlConst.TCM_DESELECTALL , (uint)((int)(ApiBool)fExcludeFocus));
+
+        }
+        public static bool TabCtrl_HighlightItem(IntPtr hwnd,int i, bool fHighlight)
+        {
+            HighLow hl = new HighLow();
+            hl.iLow = (ApiBool)fHighlight;
+            hl.iLow = 0;
+            IntPtr result = User32.SendMessage(hwnd, (int)TabControlConst.TCM_HIGHLIGHTITEM, i, Win32Api.HiLoToLParam(hl));
+            if (result.ToInt32() != 0)
+                return true;
+            return false;
+        }
+        public static void TabCtrl_SetExtendedStyle(IntPtr hwnd,uint dw)
+        {
+            User32.SendMessage(hwnd, TabControlConst.TCM_SETEXTENDEDSTYLE, 0, dw);
+        }
+
+        public static uint TabCtrl_GetExtendedStyle(IntPtr hWnd )
+        {
+            IntPtr result = User32.SendMessage(hWnd, TabControlConst.TCM_GETEXTENDEDSTYLE);
+            return (uint)result.ToInt64();
+        }
+        public static bool TabCtrl_SetUnicodeFormat(IntPtr hwnd,bool fUnicode)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_SETUNICODEFORMAT, (uint)(int)(ApiBool)fUnicode);
+            return (ApiBool )result.ToInt32();
+        }
+        public static bool TabCtrl_GetUnicodeFormat(IntPtr hwnd)
+        {
+            IntPtr result = User32.SendMessage(hwnd, TabControlConst.TCM_GETUNICODEFORMAT);
+            return (ApiBool )result.ToInt32();
+        }
+
+    }
 
     public class TreeViewConst
     {
@@ -1781,7 +2179,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         {
             using (var p = new ApiStructHandleRef<TVINSERTSTRUCTW>(item))
             {
-                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_INSERTITEMW,IntPtr.Zero, p);
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_INSERTITEMW, IntPtr.Zero, p);
                 return result;
             }
         }
@@ -1797,7 +2195,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static bool TreeView_DeleteItem(IntPtr hWnd, TVITEMW hTreeItem)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(hTreeItem))
+            using (var p = new ApiStructHandleRef<TVITEMW>(hTreeItem))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_DELETEITEM, IntPtr.Zero, p);
                 return (ApiBool)result.ToInt32();
@@ -1811,14 +2209,14 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             return (ApiBool)result.ToInt32();
         }
 
-        public static bool TreeView_ExpandPtr(IntPtr hWnd, IntPtr hItem , uint code)
+        public static bool TreeView_ExpandPtr(IntPtr hWnd, IntPtr hItem, uint code)
         {
             IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_EXPAND, (int)code, hItem);
             return (ApiBool)result.ToInt32();
         }
         public static bool TreeView_Expand(IntPtr hWnd, TVITEMW hItem, uint code)
         {
-            using(var p = new ApiStructHandleRef< TVITEMW>(hItem))
+            using (var p = new ApiStructHandleRef<TVITEMW>(hItem))
             {
                 IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_EXPAND, (int)code, p);
                 return (ApiBool)result.ToInt32();
@@ -1826,13 +2224,13 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             }
         }
 
-        public static bool TreeView_GetItemRect(IntPtr hWnd , TVITEMEXW item, ApiBool onlyText, out Rect rect)
+        public static bool TreeView_GetItemRect(IntPtr hWnd, TVITEMEXW item, ApiBool onlyText, out Rect rect)
         {
-            using(var p = new ApiStructHandleRef<TVITEMEXW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMEXW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETITEMRECT, onlyText, p);
                 ApiBool ok = (ApiBool)result.ToInt32();
-                if(ok)
+                if (ok)
                 {
                     rect = Marshal.PtrToStructure<Rect>(p);
                     return true;
@@ -1843,12 +2241,12 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         }
         public static int TreeView_GetCount(IntPtr hWnd)
         {
-            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETCOUNT, IntPtr.Zero , IntPtr.Zero);
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETCOUNT, IntPtr.Zero, IntPtr.Zero);
             return result.ToInt32();
         }
         public static int TreeView_GetIndent(IntPtr hWnd)
         {
-            IntPtr result = User32.SendMessage(hWnd , TreeViewConst.TVM_GETINDENT, IntPtr.Zero , IntPtr.Zero);
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETINDENT, IntPtr.Zero, IntPtr.Zero);
             return result.ToInt32();
         }
 
@@ -1857,13 +2255,13 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINDENT, indent, 0);
             return (ApiBool)result.ToInt32();
         }
-        public static IntPtr TreeView_GetImageList(IntPtr hWnd, int type=(int)TreeViewConst.TVSIL_NORMAL)
+        public static IntPtr TreeView_GetImageList(IntPtr hWnd, int type = (int)TreeViewConst.TVSIL_NORMAL)
         {
             IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETIMAGELIST, type, 0);
             return result;
         }
 
-        public static IntPtr TreeView_SetImageList(IntPtr hWnd, IntPtr hIList,int type = (int)TreeViewConst.TVSIL_NORMAL)
+        public static IntPtr TreeView_SetImageList(IntPtr hWnd, IntPtr hIList, int type = (int)TreeViewConst.TVSIL_NORMAL)
         {
             IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETIMAGELIST, type, hIList);
             return result;
@@ -1871,7 +2269,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd, uint flag, TVITEMW? item)
         {
-            if(item == null)
+            if (item == null)
             {
                 return TreeView_GetNextItem(hWnd, flag);
             }
@@ -1880,12 +2278,12 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
                 return TreeView_GetNextItem(hWnd, flag, item);
             }
         }
-        public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd , uint flag, TVITEMW item)
+        public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd, uint flag, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr nItem = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETNEXTITEM, (int)flag, p);
-                if(nItem != IntPtr.Zero)
+                if (nItem != IntPtr.Zero)
                 {
                     return Marshal.PtrToStructure<TVITEMW>(nItem);
                 }
@@ -1904,14 +2302,14 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static TVITEMW? TreeView_GetNextItem(IntPtr hWnd, uint flag)
         {
-            IntPtr nItem = User32.SendMessage(hWnd,(int)TreeViewConst.TVM_GETNEXTITEM, (int)flag , IntPtr.Zero);
-            if(nItem != IntPtr.Zero)
+            IntPtr nItem = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETNEXTITEM, (int)flag, IntPtr.Zero);
+            if (nItem != IntPtr.Zero)
             {
-                return Marshal.PtrToStructure<TVITEMW>(nItem) ;
+                return Marshal.PtrToStructure<TVITEMW>(nItem);
             }
-            else 
-            { 
-                return null; 
+            else
+            {
+                return null;
             }
         }
 
@@ -1919,8 +2317,8 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         {
             return TreeView_GetNextItemPtr(hWnd, TreeViewConst.TVGN_CHILD, item);
         }
-        public static TVITEMW? TreeView_GetChild(IntPtr hWnd, TVITEMW item) 
-        { 
+        public static TVITEMW? TreeView_GetChild(IntPtr hWnd, TVITEMW item)
+        {
             return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_CHILD, item);
         }
 
@@ -1948,7 +2346,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         }
         public static TVITEMW? TreeView_GetParent(IntPtr hWnd, TVITEMW item)
         {
-            return TreeView_GetNextItem(hWnd , TreeViewConst.TVGN_PARENT, item);
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_PARENT, item);
         }
 
         public static IntPtr TreeView_GetFirstVisiblePtr(IntPtr hWnd, IntPtr item)
@@ -1977,7 +2375,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static TVITEMW? TreeView_GetPrevVisible(IntPtr hWnd, TVITEMW item)
         {
-            return TreeView_GetNextItem(hWnd , TreeViewConst.TVGN_PREVIOUSVISIBLE, item);
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_PREVIOUSVISIBLE, item);
         }
 
         public static IntPtr TreeView_GetSelectionPtr(IntPtr hWnd)
@@ -1997,7 +2395,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static TVITEMW? TreeView_GetDropHilight(IntPtr hWnd)
         {
-            return TreeView_GetNextItem(hWnd , TreeViewConst.TVGN_DROPHILITE , null);
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_DROPHILITE, null);
         }
 
         public static IntPtr TreeView_GetRootPtr(IntPtr hWnd)
@@ -2006,7 +2404,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         }
         public static TVITEMW? TreeView_GetRoot(IntPtr hWnd)
         {
-            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_ROOT , null);
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_ROOT, null);
         }
 
         public static IntPtr TreeView_GetLastVisiblePtr(IntPtr hWnd)
@@ -2016,7 +2414,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static TVITEMW? TreeView_GetLastVisible(IntPtr hWnd)
         {
-            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_LASTVISIBLE , null);
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_LASTVISIBLE, null);
         }
 
         public static IntPtr TreeView_GetNextSelectedPtr(IntPtr hWnd, IntPtr item)
@@ -2026,7 +2424,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static TVITEMW? TreeView_GetNextSelected(IntPtr hWnd, TVITEMW item)
         {
-            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_NEXTSELECTED , item);
+            return TreeView_GetNextItem(hWnd, TreeViewConst.TVGN_NEXTSELECTED, item);
         }
 
         public static bool TreeView_SelectPtr(IntPtr hWnd, uint code, IntPtr item)
@@ -2036,18 +2434,18 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         }
 
-        public static bool TreeView_Select(IntPtr hWnd,uint code, TVITEMW? item)
+        public static bool TreeView_Select(IntPtr hWnd, uint code, TVITEMW? item)
         {
-            if(item == null)
+            if (item == null)
             {
-                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, IntPtr.Zero, (int)code );
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, IntPtr.Zero, (int)code);
                 return (ApiBool)result.ToInt32();
             }
             else
             {
-                using (var p = new ApiStructHandleRef<TVITEMW>(item)) 
+                using (var p = new ApiStructHandleRef<TVITEMW>(item))
                 {
-                    IntPtr result =  User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, p, (int)code);
+                    IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SELECTITEM, p, (int)code);
                     return (ApiBool)result.ToInt32();
                 }
             }
@@ -2059,7 +2457,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         }
         public static bool TreeView_SelectItem(IntPtr hWnd, TVITEMW item)
         {
-            return TreeView_Select(hWnd, TreeViewConst.TVGN_CARET,item);
+            return TreeView_Select(hWnd, TreeViewConst.TVGN_CARET, item);
         }
 
         public static bool TreeView_SelectDropTargetPtr(IntPtr hWnd, IntPtr item)
@@ -2068,7 +2466,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         }
         public static bool TreeView_SelectDropTarget(IntPtr hWnd, TVITEMW item)
         {
-            return TreeView_Select(hWnd, TreeViewConst.TVGN_DROPHILITE,item);
+            return TreeView_Select(hWnd, TreeViewConst.TVGN_DROPHILITE, item);
         }
 
         public static bool TreeView_SelectSetFirstVisiblePtr(IntPtr hWnd, IntPtr item)
@@ -2078,19 +2476,19 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static bool TreeView_SelectSetFirstVisible(IntPtr hWnd, TVITEMW item)
         {
-            return TreeView_Select(hWnd, TreeViewConst.TVGN_FIRSTVISIBLE,item);
+            return TreeView_Select(hWnd, TreeViewConst.TVGN_FIRSTVISIBLE, item);
         }
 
 
-        
 
-        public static bool TreeView_GetItem(IntPtr hWnd, ref TVITEMW item) 
-        { 
-            using(var p =  new ApiStructHandleRef<TVITEMW>(item))
+
+        public static bool TreeView_GetItem(IntPtr hWnd, ref TVITEMW item)
+        {
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMW, IntPtr.Zero, p);
                 ApiBool ok = (ApiBool)result.ToInt32();
-                if(ok)
+                if (ok)
                 {
                     item = p.GetStruct();
                     return true;
@@ -2104,8 +2502,8 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             using (var p = new ApiStructHandleRef<TVITEMEXW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMW, IntPtr.Zero, p);
-                ApiBool ok = ( ApiBool)result.ToInt32();
-                if(ok)
+                ApiBool ok = (ApiBool)result.ToInt32();
+                if (ok)
                 {
                     item = p.GetStruct();
                     return true;
@@ -2117,14 +2515,14 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         {
             using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
-                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETITEMW, IntPtr.Zero, p); 
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETITEMW, IntPtr.Zero, p);
                 return (ApiBool)result.ToInt32();
             }
         }
 
         public static bool TreeView_SetItem(IntPtr hWnd, TVITEMEXW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETITEMW, IntPtr.Zero, p);
                 return (ApiBool)result.ToInt32();
@@ -2133,7 +2531,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static IntPtr TreeView_EditLabel(IntPtr hWnd, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 return User32.SendMessage(hWnd, TreeViewConst.TVM_EDITLABELW, IntPtr.Zero, p);
             }
@@ -2152,10 +2550,10 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static bool TreeView_HitTest(IntPtr hWnd, TVHITTESTINFO hitTestItem, out TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVHITTESTINFO >(hitTestItem))
+            using (var p = new ApiStructHandleRef<TVHITTESTINFO>(hitTestItem))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_HITTEST, IntPtr.Zero, p);
-                if(result != IntPtr.Zero)
+                if (result != IntPtr.Zero)
                 {
                     item = Marshal.PtrToStructure<TVITEMW>(result);
                     return true;
@@ -2168,9 +2566,9 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             }
         }
 
-        public static IntPtr TreeView_CreateDragImage(IntPtr hWnd , TVITEMW item)
+        public static IntPtr TreeView_CreateDragImage(IntPtr hWnd, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW >(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 return User32.SendMessage(hWnd, TreeViewConst.TVM_CREATEDRAGIMAGE, IntPtr.Zero, p);
 
@@ -2179,9 +2577,9 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static bool TreeView_SortChildren(IntPtr hWnd, TVITEMW item, bool recourive)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
-                
+
                 IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SORTCHILDREN, (ApiBool)recourive, p);
                 return (ApiBool)result.ToInt32();
             }
@@ -2197,7 +2595,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static bool TreeView_SortChildrenCB(IntPtr hWnd, TVSORTCB sortCb)
         {
-            using(var p = new ApiStructHandleRef<TVSORTCB>(sortCb))
+            using (var p = new ApiStructHandleRef<TVSORTCB>(sortCb))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SORTCHILDRENCB, IntPtr.Zero, p);
                 return (ApiBool)result.ToInt32();
@@ -2210,8 +2608,8 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             return (ApiBool)result.ToInt32();
         }
 
-        public static IntPtr TreeView_SetToolTips(IntPtr hWnd, IntPtr toolTip) 
-        { 
+        public static IntPtr TreeView_SetToolTips(IntPtr hWnd, IntPtr toolTip)
+        {
             return User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETTOOLTIPS, toolTip, IntPtr.Zero);
         }
 
@@ -2230,9 +2628,9 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static int TreeView_SetInsertMark(IntPtr hWnd, bool placeAfter, TVITEMW? item)
         {
-            if(item == null)
+            if (item == null)
             {
-                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARK, (ApiBool)placeAfter,IntPtr.Zero);
+                IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARK, (ApiBool)placeAfter, IntPtr.Zero);
                 return result.ToInt32();
             }
             else
@@ -2262,7 +2660,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static int TreeView_SetItemHeight(IntPtr hWnd, int height)
         {
-            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETITEMHEIGHT, height,0);
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETITEMHEIGHT, height, 0);
             return result.ToInt32();
         }
 
@@ -2308,7 +2706,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static int TreeView_SetInsertMarkColor(IntPtr hWnd, int color)
         {
-            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARKCOLOR,0, color);
+            IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETINSERTMARKCOLOR, 0, color);
             return result.ToInt32();
         }
 
@@ -2324,10 +2722,10 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             return result.ToInt32();
         }
 
-        public static bool TreeView_SetItemState(IntPtr hWnd, TVITEMW item,uint data, uint mask)
+        public static bool TreeView_SetItemState(IntPtr hWnd, TVITEMW item, uint data, uint mask)
         {
-            using(var pItem = new ApiStructHandleRef<TVITEMW>(item)) 
-            { 
+            using (var pItem = new ApiStructHandleRef<TVITEMW>(item))
+            {
                 TVITEMW iItem = new TVITEMW();
                 iItem.mask = TreeViewConst.TVIF_STATE;
                 iItem.hItem = pItem;
@@ -2356,12 +2754,12 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         }
         public static bool TreeView_SetCheckState(IntPtr hWnd, TVITEMW item, bool check)
         {
-            return TreeView_SetItemState(hWnd, item, (uint)INDEXTOSTATEIMAGEMASK(check?2:1), TreeViewConst.TVIS_STATEIMAGEMASK);
+            return TreeView_SetItemState(hWnd, item, (uint)INDEXTOSTATEIMAGEMASK(check ? 2 : 1), TreeViewConst.TVIS_STATEIMAGEMASK);
         }
 
         public static uint TreeView_GetItemState(IntPtr hWnd, TVITEMW item, uint mask)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_GETITEMSTATE, p, (int)mask);
                 return (uint)result.ToInt64();
@@ -2370,11 +2768,11 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static int TreeView_GetCheckState(IntPtr hWnd, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETITEMSTATE, p, (int)TreeViewConst.TVIS_STATEIMAGEMASK);
                 int vla = result.ToInt32();
-                return ((vla >> 12) -1);
+                return ((vla >> 12) - 1);
             }
         }
 
@@ -2392,30 +2790,30 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
         public static bool TreeView_MapAccIDToHTREEITEM(IntPtr hWnd, uint id, out TVITEMW intem)
         {
             IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_MAPACCIDTOHTREEITEM, id);
-            if(result != IntPtr.Zero)
+            if (result != IntPtr.Zero)
             {
                 intem = Marshal.PtrToStructure<TVITEMW>(result);
                 return true;
             }
-            else 
+            else
             {
                 intem = new TVITEMW();
-                return false; 
+                return false;
             }
         }
 
         public static uint TreeView_MapHTREEITEMToAccID(IntPtr hWnd, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
-                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_MAPHTREEITEMTOACCID, p,0);
+                IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_MAPHTREEITEMTOACCID, p, 0);
                 return (uint)result.ToInt64();
             }
         }
 
-        public static int TreeView_SetExtendedStyle(IntPtr hWnd, uint dw, uint maks )
+        public static int TreeView_SetExtendedStyle(IntPtr hWnd, uint dw, uint maks)
         {
-            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETEXTENDEDSTYLE,maks, dw); 
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETEXTENDEDSTYLE, maks, dw);
             return result.ToInt32();
         }
 
@@ -2424,15 +2822,15 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
             IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_GETEXTENDEDSTYLE);
             return (uint)result.ToInt64();
         }
-        public static bool TreeView_SetAutoScrollInfo(IntPtr hWnd,uint uPixPerSec, uint uUpdateTime)
+        public static bool TreeView_SetAutoScrollInfo(IntPtr hWnd, uint uPixPerSec, uint uUpdateTime)
         {
-            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETAUTOSCROLLINFO ,uPixPerSec, uUpdateTime);
+            IntPtr result = User32.SendMessage(hWnd, TreeViewConst.TVM_SETAUTOSCROLLINFO, uPixPerSec, uUpdateTime);
             return (ApiBool)result.ToInt32();
         }
 
         public static bool TreeView_SetHot(IntPtr hWnd, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SETHOT, 0, p);
                 return (ApiBool)result.ToInt32();
@@ -2447,7 +2845,7 @@ public const uint ILD_PRESERVEALPHA = 0x00001000;// This preserves the alpha cha
 
         public static uint TreeView_ShowInfoTip(IntPtr hWnd, TVITEMW item)
         {
-            using(var p = new ApiStructHandleRef<TVITEMW>(item))
+            using (var p = new ApiStructHandleRef<TVITEMW>(item))
             {
                 IntPtr result = User32.SendMessage(hWnd, (int)TreeViewConst.TVM_SHOWINFOTIP, 0, p);
                 return (uint)result.ToInt64();

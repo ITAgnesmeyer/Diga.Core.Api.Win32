@@ -11,9 +11,12 @@ namespace Diga.Core.Api.Win32.Com
         public NativeFileOpenDialogClass()
         {
             Guid iid = typeof(IFileOpenDialog).GUID;
+
+#pragma warning disable IL2050 // Correctness of COM interop cannot be guaranteed after trimming. Interfaces and interface members might be removed.
             Ole32.CoCreateInstance(ref CLSID.FileOpenDialog, IntPtr.Zero,
                 (int)(CLSCTX.CLSCTX_INPROC_SERVER | CLSCTX.CLSCTX_LOCAL_SERVER | CLSCTX.CLSCTX_REMOTE_SERVER),
                 ref iid, out object o);
+#pragma warning restore IL2050 // Correctness of COM interop cannot be guaranteed after trimming. Interfaces and interface members might be removed.
             this._FileDialog = (IFileOpenDialog)o ?? throw new COMException("FileOpenDialog could not be created!");
 
         }

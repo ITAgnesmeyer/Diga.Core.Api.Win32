@@ -16,7 +16,9 @@ namespace Diga.Core.Api.Win32.Com
     {
         public static IBindCtx GetBindContext()
         {
+#pragma warning disable IL2050 // Correctness of COM interop cannot be guaranteed after trimming. Interfaces and interface members might be removed.
             Ole32.CreateBindCtx(0, out var bindContext);
+#pragma warning restore IL2050 // Correctness of COM interop cannot be guaranteed after trimming. Interfaces and interface members might be removed.
             return bindContext;
 
         }

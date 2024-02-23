@@ -759,16 +759,17 @@ namespace Diga.Core.Api.Win32
                 if (btnStructState != IntPtr.Zero) Marshal.FreeHGlobal(btnStructState);
             }
         }
-
+        
         public static uint EnableVisualStyles()
         {
-            string dir = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string dir = Kernel32.GetCurrentDirectory();
 
             ActCtx actCtx = new ActCtx()
             {
                 cbSize = Marshal.SizeOf(typeof(ActCtx)),
                 dwFlags = ActCtxFlags.ACTCTX_FLAG_RESOURCE_NAME_VALID,
                 lpSource = dir,
+                
                 wLangId = 0,
                 lpResourceName = new IntPtr(101)
             };

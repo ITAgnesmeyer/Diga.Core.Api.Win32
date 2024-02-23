@@ -23,8 +23,9 @@ namespace Diga.Core.Api.Win32.Com.ActiveScript
             var clsId = this._EngineType == ScriptEngineType.VBScript ? ActiveScriptIIDs.IID_VBScript : ActiveScriptIIDs.IID_JScript;
 
             Guid iid = typeof(IActiveScript).GUID;
-
+#pragma warning disable IL2050
             Ole32.CoCreateInstance(ref clsId, IntPtr.Zero, (int)CLSCTX.CLSCTX_INPROC_SERVER, ref iid, out object scriptObject);
+#pragma warning restore IL2050
             this._ScriptObject = scriptObject ?? throw new COMException("Cannot create IActiveScript object", HRESULT.E_FAIL);
 
             this._ActiveScript = (IActiveScript)this._ScriptObject;

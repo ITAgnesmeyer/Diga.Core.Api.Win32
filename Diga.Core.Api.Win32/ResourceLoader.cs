@@ -80,7 +80,29 @@ namespace Diga.Core.Api.Win32
 
             return hRes;
         }
+        public uint GetResourceSize(int resId, int type)
+        {
+            IntPtr hRes = FindResource(resId, type);
+            return Kernel32.SizeofResource(this._hInstance, hRes);
 
+        }
+
+        public uint GetResourceSize(IntPtr hRes)
+        {
+            return Kernel32.SizeofResource(this._hInstance, hRes);
+        }
+        public byte[] LoadRTData(int resId)
+        {
+            IntPtr hRes = FindResource(Win32Api.MakeInterSourceString(resId), "RT_DATA");
+            uint size = GetResourceSize(hRes);
+            byte[] arr = new byte[size];
+            IntPtr hGlobal = LoadResource(hRes);
+            //IntPtr loced = LoadResource(hGlobal);
+            Marshal.Copy(hGlobal, arr, 0, (int)size);
+            
+            return arr;
+
+        }
         public IntPtr LoadResource(IntPtr hRes)
         {
             IntPtr res = Kernel32.LoadResource(this._hInstance, hRes);

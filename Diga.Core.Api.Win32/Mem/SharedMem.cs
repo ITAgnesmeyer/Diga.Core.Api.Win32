@@ -13,7 +13,9 @@ namespace Diga.Core.Api.Win32.Mem
 
         public T ToStruct<T>() where T:struct
         {
+#pragma warning disable IL2091 // Target generic argument does not satisfy 'DynamicallyAccessedMembersAttribute' in target method or type. The generic parameter of the source method or type does not have matching annotations.
             T t = Marshal.PtrToStructure<T>(this.RootHandle);
+#pragma warning restore IL2091 // Target generic argument does not satisfy 'DynamicallyAccessedMembersAttribute' in target method or type. The generic parameter of the source method or type does not have matching annotations.
             return t;
         }
         public SharedMem(string name, bool existing, uint sizeInBytes)

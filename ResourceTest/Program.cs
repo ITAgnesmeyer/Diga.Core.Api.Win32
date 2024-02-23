@@ -30,6 +30,7 @@ namespace ResourceTest
         {
 
             _hInsance = Kernel32.GetModuleHandle(null);
+            IntPtr hp = Kernel32.GetCurrentProcess();
             InitCommonControlsEx cex = new InitCommonControlsEx(CommonControls.ICC_WIN95_CLASSES);
             ComCtl32.InitCommonControlsEx(ref cex);
 
@@ -38,7 +39,8 @@ namespace ResourceTest
             
 
             ResourceLoader resLoader = new ResourceLoader(_hInsance);
-
+            byte[] arr = resLoader.LoadRTData(101);
+            string val = Encoding.UTF8.GetString(arr);
             _IimageList = ComCtl32.ImageList_Create(16, 16, ImageListConst.ILC_COLOR32, 3, 3);
             IntPtr ico0 = resLoader.LoadIcon(103);
             ComCtl32.ImageList_AddIcon(_IimageList, ico0);
@@ -84,6 +86,19 @@ namespace ResourceTest
             _oldLvProc = User32.SetWindowLongPtr(cLv, GWL.GWL_WNDPROC,
                 Marshal.GetFunctionPointerForDelegate((WndProc)LVProc));
             IsUnicode = User32.IsWindowUnicode(_hDlg);
+
+            IntPtr cTab = User32.GetDlgItem(_hDlg, 1016);
+            TCITEMW tcit = new TCITEMW();
+            tcit.pszText = "Test";
+            tcit.cchTextMax = tcit.pszText.Length;
+            tcit.mask = TabControlConst.TCIF_TEXT;
+
+            TabControlMacros.TabCtrl_InsertItem(cTab, 0,tcit);
+            tcit.pszText = "Test2";
+            tcit.cchTextMax = tcit.pszText.Length;
+            
+            TabControlMacros.TabCtrl_InsertItem(cTab, 0, tcit);
+            var itm = TabControlMacros.TabCtrl_GetItem(cTab, 0, out TCITEMW tcci);
 
             IntPtr htv = User32.GetDlgItem(_hDlg, 1014);
             TreeViewMacros.TreeView_SetImageList(htv, _IimageList);

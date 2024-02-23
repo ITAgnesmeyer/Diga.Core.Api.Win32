@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32
@@ -36,7 +37,9 @@ namespace Diga.Core.Api.Win32
         }
         public T GetClass()
         {
-            return Marshal.PtrToStructure<T>(this.Handle);
+#pragma warning disable IL2091
+            return Marshal.PtrToStructure< T >(this.Handle);
+#pragma warning restore IL2091
         }
         protected override void Dispose(bool disposing)
         {
@@ -80,7 +83,9 @@ namespace Diga.Core.Api.Win32
         }
         public T GetStruct()
         {
+#pragma warning disable IL2091
             return Marshal.PtrToStructure<T>(this.Handle);
+#pragma warning restore IL2091
         }
         protected override void Dispose(bool disposing)
         {
