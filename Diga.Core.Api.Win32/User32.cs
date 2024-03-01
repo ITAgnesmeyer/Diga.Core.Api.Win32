@@ -639,6 +639,9 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, SystemTime lParam);
 
         [DllImport(USER32, CharSet = CHARSET)]
+        public static unsafe extern IntPtr SendMessage(IntPtr hWnd, uint msg, uint wParam, void* lParam);
+
+        [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, out SystemTime lParam);
 
         [DllImport(USER32, CharSet = CHARSET)]

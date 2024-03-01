@@ -22,12 +22,15 @@ namespace ResourceTest
         private static IntPtr _oldEditProc = IntPtr.Zero;
         private static IntPtr _EditControl = IntPtr.Zero;
         private static IntPtr _IimageList = IntPtr.Zero;
+       
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
         static void Main()
         {
+           
+
 
             _hInsance = Kernel32.GetModuleHandle(null);
             IntPtr hp = Kernel32.GetCurrentProcess();
