@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text;
 using Diga.Core.Api.Win32.GDI;
 
@@ -539,6 +540,9 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32)]
         public static extern int GetSystemMetrics(int smIndex);
+
+        [DllImport(USER32, ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern int GetSystemMetricsForDpi(int nIndex, uint dpi);
 
         [DllImport(USER32)]
         public static extern IntPtr BeginPaint(IntPtr hwnd, out PaintStruct lpPaint);
