@@ -681,6 +681,27 @@ namespace Diga.Core.Api.Win32
         public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam,
             out HighLow lParam);
 
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        ///lpPoint: LPPOINT->tagPOINT*
+        [DllImport(USER32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ScreenToClient([In] IntPtr hWnd, ref Point lpPoint);
+
+        [DllImport(USER32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ClientToScreen([In] IntPtr hWnd, ref Point lpPoint);
+
+        [DllImport(USER32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool OffsetRect(ref Rect rect, int dx, int dy);
+
+        [DllImport(USER32)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool PtInRect(Rect rect, Point pt);
+
+
         [DllImport(USER32, CharSet = CHARSET)]
         public static extern IntPtr SendDlgItemMessage(IntPtr hDlg, int dlgItemId, int msg, int wParam, HighLow lParam);
 
