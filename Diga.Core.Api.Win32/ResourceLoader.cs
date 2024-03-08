@@ -177,6 +177,11 @@ namespace Diga.Core.Api.Win32
             return hIcon;
         }
 
+        public IntPtr LoadStdIcon(StdIcons stdIcons)
+        {
+            IntPtr hIcon = User32.LoadIcon(IntPtr.Zero, Win32Api.MakeInterSource((int)stdIcons));
+            return hIcon;
+        }
         public IntPtr LoadCursor(int id)
         {
             IntPtr hCursor = User32.LoadCursor(this._hInstance, Win32Api.MakeInterSource(id));
