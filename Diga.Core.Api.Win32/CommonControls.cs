@@ -1675,6 +1675,24 @@ namespace Diga.Core.Api.Win32
         public uint uKeyFlags;
     }
 
+    public class ListViewItemState
+    {
+        public const uint LVIS_FOCUSED = 0x0001;
+        public const uint LVIS_SELECTED = 0x0002;
+        public const uint LVIS_CUT = 0x0004;
+        public const uint LVIS_DROPHILITED = 0x0008;
+        public const uint LVIS_GLOW = 0x0010;
+        public const uint LVIS_ACTIVATING = 0x0020;
+        public const uint LVIS_OVERLAYMASK = 0x0F00;
+        public const uint LVIS_STATEIMAGEMASK = 0xF000;
+
+        public static bool IsListViewState(uint state, uint stateToFind)
+        {
+            return (state & stateToFind) == stateToFind;
+        }
+
+    }
+
     [Flags]
     public enum CommonControlsMessage : uint
     {
@@ -3080,7 +3098,15 @@ namespace Diga.Core.Api.Win32
             //Marshal.FreeHGlobal(p);
             //return r;
         }
+        public static uint ListView_GetItemState(IntPtr hWnd, int i)
+        {
+            IntPtr p = Marshal.AllocHGlobal(sizeof(uint));
+            IntPtr intPtr = User32.SendMessage(hWnd, ListViewMessageConst.LVM_GETITEMSTATE, (IntPtr)i, p);
+            uint v = (uint)intPtr.ToInt64();
+            Marshal.FreeHGlobal(p);
+            return v;
 
+        }
         public static void ListView_GetItemTextW(IntPtr hWnd, int indexIndex, int SubItemIndex, out string text)
         {
             tagLVITEMW item = new tagLVITEMW

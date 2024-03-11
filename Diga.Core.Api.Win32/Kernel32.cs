@@ -29,6 +29,11 @@ namespace Diga.Core.Api.Win32
         [DllImport(KERNEL32, EntryPoint = "GetProcAddress", SetLastError = true)]
         public static extern IntPtr GetProcAddress(IntPtr moduleHandle, [MarshalAs(UnmanagedType.LPStr)] string procName);
 
+        [DllImport(KERNEL32, EntryPoint = "GetProcAddress", SetLastError = true)]
+        public static extern IntPtr GetProcAddress(IntPtr moduleHandle, IntPtr procName);
+
+
+
         [DllImport(KERNEL32, EntryPoint = "FreeLibrary", SetLastError = true)]
         public static extern bool FreeLibrary(IntPtr hModule);
 
