@@ -77,7 +77,7 @@ namespace ResourceTest
                 Win32Exception ex = new Win32Exception(Marshal.GetLastWin32Error());
                 Debug.Print(ex.Message);
             }
-
+            
             //foreach (DlgItemTemplateAll dlgItemTemplateAll in items)
             //{
             //    IntPtr hCtrl = User32.GetDlgItem(_hDlg, (int)dlgItemTemplateAll.Id);
@@ -419,24 +419,26 @@ namespace ResourceTest
                         User32.SendMessage(hwnd, WindowsMessages.WM_SETICON, new IntPtr(0), hIcon);
                     }
 
-
-                    //NativeFileOpenDialogClass dlg = new NativeFileOpenDialogClass();
-                    //dlg.SetOptions(FOS.FOS_PICKFOLDERS);
-                    //dlg.SetOkButtonLabel("Annehmen");
-                    //HRESULT hr = dlg.Show(hwnd);
-                    //if (hr.Succeeded)
-                    //{
-                    //    dlg.GetResult(out IShellItem ppsi);
-                    //    if (ppsi != null)
-                    //    {
-                    //        ppsi.GetDisplayName(SIGDN.SIGDN_FILESYSPATH, out string pName);
-                    //        if (pName != null)
-                    //        {
-                    //            User32.MessageBox(hwnd, pName, "File Path", MessageBoxOptionsConst.OkOnly);
-                    //        }
-                    //    }
-                    //}
-
+                    //Do not Use default COM in AOT!!!
+                    //--------------------------------
+/*
+                    NativeFileOpenDialogClass dlg = new NativeFileOpenDialogClass();
+                    dlg.SetOptions(FOS.FOS_PICKFOLDERS);
+                    dlg.SetOkButtonLabel("Annehmen");
+                    HRESULT hr = dlg.Show(hwnd);
+                    if (hr.Succeeded)
+                    {
+                        dlg.GetResult(out IShellItem ppsi);
+                        if (ppsi != null)
+                        {
+                            ppsi.GetDisplayName(SIGDN.SIGDN_FILESYSPATH, out string pName);
+                            if (pName != null)
+                            {
+                                User32.MessageBox(hwnd, pName, "File Path", MessageBoxOptionsConst.OkOnly);
+                            }
+                        }
+                    }
+*/
                     break;
                 case WindowsMessages.WM_COMMAND:
                     int id = Win32Api.LoWord(wparam.ToInt32());
