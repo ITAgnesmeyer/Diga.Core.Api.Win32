@@ -4,6 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace Diga.Core.Api.Win32.Com
 {
+//#if NET8_0_OR_GREATER
+//#else
+
+
     public class UnknownWrapper : IUnkCaller, IClassFactory
     {
         private ApiHandleRef ThisPtr;
@@ -54,4 +58,5 @@ namespace Diga.Core.Api.Win32.Com
 
 
     }
+//#endif
 }

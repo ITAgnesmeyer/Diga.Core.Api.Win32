@@ -219,11 +219,11 @@ namespace ResourceTest
                         ListViewMacros.ListView_GetItemTextW(hwnd, itemClicked.iItem, itemClicked.iSubItem, out string txt);
 
                         _EditControl = User32.CreateWindowEx(0, "Edit", "", (uint)WindowStyles.WS_CHILD | (uint)WindowStyles.WS_VISIBLE | (uint)EditBoxStyles.ES_WANTRETURN, sutItemRect.Left, sutItemRect.Top, width, height, hwnd, IntPtr.Zero, _hInsance, IntPtr.Zero);
-                        if (_EditControl == null)
-                        {
-                            User32.MessageBox(hwnd, "Could not create edit box.", "Error", MessageBoxOptionsConst.OkOnly | MessageBoxOptionsConst.IconError);
+                        //if (_EditControl == null)
+                        //{
+                        //    User32.MessageBox(hwnd, "Could not create edit box.", "Error", MessageBoxOptionsConst.OkOnly | MessageBoxOptionsConst.IconError);
 
-                        }
+                        //}
                         User32.SetWindowText(_EditControl, txt);
                         User32.SetFocus(_EditControl);
                         User32.SendMessage(_EditControl, EditBoxMessages.EM_SETSEL, 0, -1);
@@ -232,7 +232,7 @@ namespace ResourceTest
                         Last_iSubItem = itemClicked.iSubItem;
                     }
                     return new IntPtr(0);
-                    break;
+                    //break;
             }
             return User32.CallWindowProc(_oldLvProc, hwnd, (int)msg, wparam, lparam);
         }
@@ -420,22 +420,22 @@ namespace ResourceTest
                     }
 
 
-                    NativeFileOpenDialogClass dlg = new NativeFileOpenDialogClass();
-                    dlg.SetOptions(FOS.FOS_PICKFOLDERS);
-                    dlg.SetOkButtonLabel("Annehmen");
-                    HRESULT hr = dlg.Show(hwnd);
-                    if (hr.Succeeded)
-                    {
-                        dlg.GetResult(out IShellItem ppsi);
-                        if (ppsi != null)
-                        {
-                            ppsi.GetDisplayName(SIGDN.SIGDN_FILESYSPATH, out string pName);
-                            if (pName != null)
-                            {
-                                User32.MessageBox(hwnd, pName, "File Path", MessageBoxOptionsConst.OkOnly);
-                            }
-                        }
-                    }
+                    //NativeFileOpenDialogClass dlg = new NativeFileOpenDialogClass();
+                    //dlg.SetOptions(FOS.FOS_PICKFOLDERS);
+                    //dlg.SetOkButtonLabel("Annehmen");
+                    //HRESULT hr = dlg.Show(hwnd);
+                    //if (hr.Succeeded)
+                    //{
+                    //    dlg.GetResult(out IShellItem ppsi);
+                    //    if (ppsi != null)
+                    //    {
+                    //        ppsi.GetDisplayName(SIGDN.SIGDN_FILESYSPATH, out string pName);
+                    //        if (pName != null)
+                    //        {
+                    //            User32.MessageBox(hwnd, pName, "File Path", MessageBoxOptionsConst.OkOnly);
+                    //        }
+                    //    }
+                    //}
 
                     break;
                 case WindowsMessages.WM_COMMAND:
