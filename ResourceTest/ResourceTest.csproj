@@ -10,6 +10,8 @@
 
 	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
 
+	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Diga.Core.Api.Win32\Diga.Core.Api.Win32.csproj" />

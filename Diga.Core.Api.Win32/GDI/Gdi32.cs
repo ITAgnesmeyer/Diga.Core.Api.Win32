@@ -244,11 +244,11 @@ namespace Diga.Core.Api.Win32.GDI
 
 
         [DllImport(GDI32, CharSet = CHARSET, SetLastError = true)]
-        public static extern int GetObject(IntPtr hObject, int nSize, [In, Out] LogFont lf);
+        public static extern int GetObject(IntPtr hObject, int nSize, [In, Out] ref LogFont lf);
 
-        public static int GetObject(IntPtr hObject, LogFont lp)
+        public static int GetObject(IntPtr hObject, ref LogFont lp)
         {
-            return GetObject(hObject, Marshal.SizeOf(typeof(LogFont)), lp);
+            return GetObject(hObject, Marshal.SizeOf(typeof(LogFont)), ref lp);
         }
 
         [DllImport(GDI32, EntryPoint = "GetDCBrushColor")]

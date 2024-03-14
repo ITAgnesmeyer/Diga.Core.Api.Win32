@@ -4,6 +4,25 @@ using System.Runtime.InteropServices;
 namespace Diga.Core.Api.Win32
 {
     [StructLayout(LayoutKind.Sequential)]
+    public struct RectUnsafe
+    {
+        /// LONG->int
+        public int left;
+
+        /// LONG->int
+        public int top;
+
+        /// LONG->int
+        public int right;
+
+        /// LONG->int
+        public int bottom;
+
+    }
+
+
+
+    [StructLayout(LayoutKind.Sequential)]
     public struct Rect
     {
         public int Left;

@@ -926,12 +926,18 @@ namespace Diga.Core.Api.Win32
         public TVITEMA item;
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct LPHDLAYOUT
+    {
+        public IntPtr prc;
+        public IntPtr pwpos;
+    }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct HDLAYOUT
     {
         public Rect prc;
-        [MarshalAs(UnmanagedType.LPStruct)]
+        //[MarshalAs(UnmanagedType.LPStruct)]
         public WINDOWPOS pwpos;
 
     }
@@ -3217,6 +3223,12 @@ namespace Diga.Core.Api.Win32
                 var r = User32.SendMessage(hWnd, (int)ListViewMessageConst.LVM_SUBITEMHITTEST, -1, p);
                 return r.ToInt32();
             }
+        }
+
+        public static IntPtr ListView_GetHeader(IntPtr hWnd)
+        {
+            IntPtr result = User32.SendMessage(hWnd, ListViewMessageConst.LVM_GETHEADER);
+            return result;
         }
 
         public static bool ListView_GetSubItemRect(IntPtr hWnd, int iItem, int iSubItem, int code, out Rect rect)

@@ -2,12 +2,79 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 using System.Text;
 using Diga.Core.Api.Win32.GDI;
 
 namespace Diga.Core.Api.Win32
 {
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MENUITEMINFOW
+    {
+
+        /// UINT->unsigned int
+        public uint cbSize;
+
+        /// UINT->unsigned int
+        public uint fMask;
+
+        /// UINT->unsigned int
+        public uint fType;
+
+        /// UINT->unsigned int
+        public uint fState;
+
+        /// UINT->unsigned int
+        public uint wID;
+
+        /// HMENU->HMENU__*
+        public IntPtr hSubMenu;
+
+        /// HBITMAP->HBITMAP__*
+        public IntPtr hbmpChecked;
+
+        /// HBITMAP->HBITMAP__*
+        public IntPtr hbmpUnchecked;
+
+        /// ULONG_PTR->unsigned int
+        public uint dwItemData;
+
+        /// LPWSTR->WCHAR*
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string dwTypeData;
+
+        /// UINT->unsigned int
+        public uint cch;
+
+        /// HBITMAP->HBITMAP__*
+        public IntPtr hbmpItem;
+    }
+
+
+    public class TrackPopupMenuConst
+    {
+
+        public const uint TPM_LEFTBUTTON = 0x0000U;
+        public const uint TPM_RIGHTBUTTON = 0x0002U;
+        public const uint TPM_LEFTALIGN = 0x0000U;
+        public const uint TPM_CENTERALIGN = 0x0004U;
+        public const uint TPM_RIGHTALIGN = 0x0008U;
+        public const uint TPM_TOPALIGN = 0x0000U;
+        public const uint TPM_VCENTERALIGN = 0x0010U;
+        public const uint TPM_BOTTOMALIGN = 0x0020U;
+        public const uint TPM_HORIZONTAL = 0x0000U     /* Horz alignment matters more */;
+        public const uint TPM_VERTICAL = 0x0040U     /* Vert alignment matters more */;
+        public const uint TPM_NONOTIFY = 0x0080U     /* Don't send any notification msgs */;
+        public const uint TPM_RETURNCMD = 0x0100U;
+        public const uint TPM_RECURSE = 0x0001U;
+        public const uint TPM_HORPOSANIMATION = 0x0400U;
+        public const uint TPM_HORNEGANIMATION = 0x0800U;
+        public const uint TPM_VERPOSANIMATION = 0x1000U;
+        public const uint TPM_VERNEGANIMATION = 0x2000U;
+        public const uint TPM_NOANIMATION = 0x4000U;
+        public const uint TPM_LAYOUTRTL = 0x8000U;
+        public const uint TPM_WORKAREA = 0x10000U;
+    }
+
     public static partial class User32
     {
         private const string USER32 = "user32.dll";
@@ -39,6 +106,15 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "DestroyMenu")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DestroyMenu([In] IntPtr hMenu);
+
+        /// Return Type: BOOL->int
+        ///hMenu: HMENU->HMENU__*
+        ///uPosition: UINT->unsigned int
+        ///uFlags: UINT->unsigned int
+        [DllImport("user32.dll", EntryPoint = "DeleteMenu")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteMenu([In] IntPtr hMenu, uint uPosition, uint uFlags);
+
 
         [DllImport(USER32, EntryPoint = "AppendMenu", CharSet = CHARSET)]
         private static extern bool AppendMenu(IntPtr hMenu, MenuFlags uFlags, uint uIdNewItem, string lpNewItem);
@@ -301,14 +377,62 @@ namespace Diga.Core.Api.Win32
         public static extern int TranslateAccelerator([In] IntPtr hWnd, [In] IntPtr hAccTable, [In] ref MSG lpMsg);
 
 
+
+        /// Return Type: BOOL->int
+        ///hMenu: HMENU->HMENU__*
+        ///uFlags: UINT->unsigned int
+        ///x: int
+        ///y: int
+        ///nReserved: int
+        ///hWnd: HWND->HWND__*
+        ///prcRect: RECT*
+        [DllImport(USER32, EntryPoint = "TrackPopupMenu")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TrackPopupMenu([In] IntPtr hMenu, uint uFlags, int x, int y, int nReserved, [In] IntPtr hWnd, [In] IntPtr prcRect);
+
+        [DllImport(USER32, EntryPoint = "TrackPopupMenu")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TrackPopupMenu([In] IntPtr hMenu, uint uFlags, int x, int y, int nReserved, [In] IntPtr hWnd, [In] Rect prcRect);
+
+        /// Return Type: BOOL->int
+        ///param0: HMENU->HMENU__*
+        ///param1: UINT->unsigned int
+        ///param2: int
+        ///param3: int
+        ///param4: HWND->HWND__*
+        ///param5: LPTPMPARAMS->TPMPARAMS*
+        [DllImport(USER32, EntryPoint = "TrackPopupMenuEx")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TrackPopupMenuEx([In] IntPtr hMenu, uint uFlags, int x, int y, [In] IntPtr hWnd, [In] IntPtr lptpm);
+
+        /// Return Type: BOOL->int
+        ///param0: HMENU->HMENU__*
+        ///param1: UINT->unsigned int
+        ///param2: int
+        ///param3: int
+        ///param4: HWND->HWND__*
+        ///param5: LPTPMPARAMS->TPMPARAMS*
+        [DllImport(USER32, EntryPoint = "TrackPopupMenuEx")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool TrackPopupMenuEx([In] IntPtr hMenu, uint uFlags, int x, int y, [In] IntPtr hWnd, [In] TPMPARAMS lptpm);
+
+
         [DllImport(USER32, EntryPoint = "DispatchMessage", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr DispatchMessage([In] ref MSG lpmsg);
+
+
+        /// Return Type: BOOL->int
+        ///hWnd: HWND->HWND__*
+        [DllImport(USER32, EntryPoint = "DrawMenuBar")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DrawMenuBar([In] IntPtr hWnd);
+
 
         [DllImport(USER32, EntryPoint = "CallWindowProc", CharSet = CHARSET)]
         public static extern IntPtr CallWindowProc(IntPtr wndProc, IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport(USER32, SetLastError = true, CharSet = CHARSET)]
-        public static extern bool SetWindowTextO(IntPtr hwnd, String lpString);
+        public static extern bool SetWindowTextO(IntPtr hwnd, string lpString);
 
         [DllImport(USER32, EntryPoint = "SetWindowText", CharSet = CHARSET)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -337,6 +461,16 @@ namespace Diga.Core.Api.Win32
         public static extern bool InsertMenu([In] IntPtr hMenu, uint uPosition, uint uFlags, uint uIdNewItem,
             [In] string lpNewItem);
 
+        /// Return Type: BOOL->int
+        ///hmenu: HMENU->HMENU__*
+        ///item: UINT->unsigned int
+        ///fByPosition: BOOL->int
+        ///lpmi: LPCMENUITEMINFOW->MENUITEMINFOW*
+        [DllImport(USER32, EntryPoint = "InsertMenuItemW")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool InsertMenuItemW([In()] IntPtr hmenu, uint item, [MarshalAs(UnmanagedType.Bool)] bool fByPosition, [In()] ref MENUITEMINFOW lpmi);
+
+
         [DllImport(USER32, EntryPoint = "LoadMenuIndirect", CharSet = CHARSET)]
         public static extern IntPtr LoadMenuIndirect([In] IntPtr lpMenuTemplate);
 
@@ -348,10 +482,10 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, EntryPoint = "GetMenuItemID")]
         public static extern uint GetMenuItemID([In] IntPtr hMenu, int nPos);
-      
-        [DllImport(USER32, EntryPoint="GetWindowInfo")]
+
+        [DllImport(USER32, EntryPoint = "GetWindowInfo")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern  bool GetWindowInfo([In] IntPtr hWnd, ref WindowInfo pwi) ;
+        public static extern bool GetWindowInfo([In] IntPtr hWnd, ref WindowInfo pwi);
 
 
         [DllImport(USER32, EntryPoint = "CreatePopupMenu")]
@@ -380,6 +514,14 @@ namespace Diga.Core.Api.Win32
 
         [DllImport(USER32, EntryPoint = "GetDC", SetLastError = true)]
         public static extern IntPtr GetDC(IntPtr hWnd);
+
+        /// Return Type: HDC->HDC__*
+        ///hWnd: HWND->HWND__*
+        ///hrgnClip: HRGN->HRGN__*
+        ///flags: DWORD->unsigned int
+        [DllImport(USER32, EntryPoint = "GetDCEx")]
+        public static extern IntPtr GetDCEx([In()] IntPtr hWnd, [In()] IntPtr hrgnClip, uint flags);
+
 
         [DllImport(USER32, EntryPoint = "ReleaseDC", SetLastError = true)]
         public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDc);
@@ -601,6 +743,13 @@ namespace Diga.Core.Api.Win32
         [DllImport(USER32, EntryPoint = "FindWindowEx", CharSet = CHARSET, SetLastError = true)]
         public static extern IntPtr FindWindowEx([In] IntPtr hWndParent, [In] IntPtr hWndChildAfter, [In] string lpszClass, [In] string lpszWindow);
 
+        /// Return Type: int
+        ///hDC: HDC->HDC__*
+        ///lprc: RECT*
+        ///hbr: HBRUSH->HBRUSH__*
+        [DllImport(USER32, EntryPoint = "FillRect")]
+        public static extern int FillRect([In] IntPtr hDC, [In] ref Rect lprc, [In] IntPtr hbr);
+
 
 
         [DllImport(USER32, CharSet = CHARSET)]
@@ -787,7 +936,7 @@ namespace Diga.Core.Api.Win32
                 if (btnStructState != IntPtr.Zero) Marshal.FreeHGlobal(btnStructState);
             }
         }
-        
+
         public static uint EnableVisualStyles()
         {
             string dir = Kernel32.GetCurrentDirectory();
@@ -797,7 +946,7 @@ namespace Diga.Core.Api.Win32
                 cbSize = Marshal.SizeOf(typeof(ActCtx)),
                 dwFlags = ActCtxFlags.ACTCTX_FLAG_RESOURCE_NAME_VALID,
                 lpSource = dir,
-                
+
                 wLangId = 0,
                 lpResourceName = new IntPtr(101)
             };

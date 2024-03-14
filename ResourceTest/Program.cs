@@ -9,6 +9,7 @@ using System.Text;
 using Diga.Core.Api.Win32.Com;
 using Diga.Core.Api.Win32.GDI;
 using System.Runtime.CompilerServices;
+using System.Reflection.PortableExecutable;
 
 namespace ResourceTest
 {
@@ -20,6 +21,7 @@ namespace ResourceTest
         private static bool IsUnicode = false;
         private static IntPtr _oldLvProc = IntPtr.Zero;
         private static IntPtr _oldEditProc = IntPtr.Zero;
+        private static IntPtr _oldHeaderProc = IntPtr.Zero;
         private static IntPtr _EditControl = IntPtr.Zero;
         private static IntPtr _IimageList = IntPtr.Zero;
        
@@ -52,23 +54,23 @@ namespace ResourceTest
             IntPtr ico2 = resLoader.LoadIcon(108);
             ComCtl32.ImageList_AddIcon(_IimageList, ico2 );
 
-            var loader = new DlgTemplateLoader(resLoader);
+            //var loader = new DlgTemplateLoader(resLoader);
 
-            loader.LoadTemplates(101);
-            DlgTemplateAll t = loader.Head;
-            List<DlgItemTemplateAll> items = loader.Items;
-            foreach (DlgItemTemplateAll itemTemplateAll in items)
-            {
-                Debug.Print("ClassID:0x" + itemTemplateAll.ClassID.ToString("x4"));
-                Debug.Print("ClassName:" + itemTemplateAll.ClassName);
+            //loader.LoadTemplates(101);
+            //DlgTemplateAll t = loader.Head;
+            //List<DlgItemTemplateAll> items = loader.Items;
+            //foreach (DlgItemTemplateAll itemTemplateAll in items)
+            //{
+            //    Debug.Print("ClassID:0x" + itemTemplateAll.ClassID.ToString("x4"));
+            //    Debug.Print("ClassName:" + itemTemplateAll.ClassName);
 
-            }
+            //}
 
 
 
             //User32.LoadString(_hInsance, 101, buff,5000);
 
-            string v = resLoader.LoadString(101);
+            //string v = resLoader.LoadString(101);
             IntPtr hAccel = resLoader.LoadAccelerator(101);
             //bool isRes = Win32Api.IsIntResource(Win32Api.MakeInterSource(1023));
             _hDlg = User32.CreateDialog(_hInsance, 101, IntPtr.Zero, DProc);
@@ -107,7 +109,8 @@ namespace ResourceTest
             TreeViewMacros.TreeView_SetImageList(htv, _IimageList);
 
             User32.ShowWindow(_hDlg, (int)ShowWindowCommands.ShowDefault);
-
+            User32.UpdateWindow(_hDlg);
+            
             int ret;
             while ((ret = User32.GetMessage(out MSG msg, IntPtr.Zero, 0, 0)) > 0)
             {
@@ -146,7 +149,42 @@ namespace ResourceTest
         }
 
 
+        private unsafe  static IntPtr HeaderProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
+        {
+            if(msg == HeaderMessageConst.HDM_LAYOUT)
+            {
+                LPHDLAYOUT* hdl = (LPHDLAYOUT*)lparam;
+                Rect* pRect = (Rect*)hdl->prc;
+                WINDOWPOS* pWPos = (WINDOWPOS*)hdl->pwpos;
+                pWPos->cy = 50;
+                pRect->Top = 50;
+            }
+            if(msg == WindowsMessages.WM_ERASEBKGND )
+            {
+                IntPtr hDc = wparam;
+                int bgColor = Gdi32.RGB(0, 255, 250);
+                Gdi32.SetBkColor(hDc, bgColor);
+                
+                return Gdi32.CreateSolidBrush(bgColor);
+            }
+            if(msg == WindowsMessages.WM_NCPAINT)
+            {
 
+            }
+            if(msg == WindowsMessages.WM_PAINT)
+            {
+                IntPtr hdc = User32.BeginPaint(hwnd, out PaintStruct lpPaint);
+                IntPtr br = Gdi32.CreateSolidBrush(Gdi32.RGB(0, 255, 255));
+                Rect r = new Rect(lpPaint.rcPaint_left, lpPaint.rcPaint_top, lpPaint.rcPaint_right, lpPaint.rcPaint_bottom);
+                User32.FillRect(hdc, ref r, br);
+                Gdi32.DeleteObject(br);
+
+
+                User32.EndPaint(hwnd,ref  lpPaint);
+                return 0;
+            }
+            return User32.CallWindowProc(_oldHeaderProc, hwnd, (int)msg, wparam, lparam);
+        }
         private static int Last_iItem = 0;
         private static int Last_iSubItem = 0;
         private static IntPtr EditProc(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam)
@@ -405,9 +443,9 @@ namespace ResourceTest
                         }
                     }
                     break;
-                case WindowsMessages.WM_CREATE:
+                //case WindowsMessages.WM_CREATE:
 
-                    break;
+                //    break;
                 case WindowsMessages.WM_INITDIALOG:
                     //IntPtr hIcon = User32.LoadIcon(_hInsance, Win32Api.MakeInterSource(102));
                     IntPtr hIcon = User32.LoadImage(_hInsance, Win32Api.MakeInterSource(102), ImageTypeConst.IMAGE_ICON,
@@ -500,6 +538,28 @@ namespace ResourceTest
                                     }
 
                                     LVWasCreated = true;
+
+                                    IntPtr hHeader = ListViewMacros.ListView_GetHeader(lv);
+                                    LogFont logFont = new LogFont();
+                                    IntPtr hFont = User32.SendMessage(hHeader, WindowsMessages.WM_GETFONT);
+                                    Gdi32.GetObject(hFont, ref logFont);
+                                    logFont.lfWeight = FontWeight.FW_BOLD;
+                                    hFont = Gdi32.CreateFontIndirect(ref logFont);
+                                    User32.SendMessage(hHeader, WindowsMessages.WM_SETFONT, hFont, 0);
+                                    _oldHeaderProc = User32.SetWindowLongPtr(hHeader, GWL.GWL_WNDPROC, Marshal.GetFunctionPointerForDelegate((WndProc)HeaderProc));
+                                }
+                                else 
+                                {
+                                    //IntPtr hHeader = ListViewMacros.ListView_GetHeader(lv);
+                                    //HDLAYOUT hdLo;
+                                    //using (var hdl = new ApiStructHandleRef<HDLAYOUT>())
+                                    //{
+                                    //    IntPtr result = User32.SendMessage(hHeader, HeaderMessageConst.HDM_LAYOUT, 0, hdl);
+                                    //    hdLo = hdl.GetStruct();
+                                    //}
+
+                                    //User32.SetWindowPos(hHeader, 0, hdLo.pwpos.x, hdLo.pwpos.y, hdLo.pwpos.cx, hdLo.pwpos.cy + 20, SetWindowPosFlags.DoNotChangeOwnerZOrder);
+
                                 }
 
                                 int anz = ListViewMacros.ListView_GeItemCount(lv);

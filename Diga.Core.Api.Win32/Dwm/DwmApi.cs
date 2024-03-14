@@ -145,7 +145,7 @@ namespace Diga.Core.Api.Win32.Dwm
         public static IntPtr HitTestNCA(IntPtr hWnd, IntPtr wParam, IntPtr lParam, Margins frameMargins)
         {
             HighLow lParamHighLow = Win32Api.MakeHiLo(lParam);
-            Point mousePoint = new Point(lParamHighLow.iLow, lParamHighLow.iHigh);
+            Point mousePoint = new Point(lParamHighLow.X(), lParamHighLow.Y());
 
             User32.GetWindowRect(hWnd, out Rect windowRect);
             Rect frameRect = new Rect(0, 0, 0, 0);
